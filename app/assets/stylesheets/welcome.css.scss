@@ -601,6 +601,10 @@ $rsvp-color: #ff7373;
     top: 0;
     height: 100%;
     width: 95%;
+    .object {
+      border: none;
+      background-color: transparent;
+    }
   }
 
   .object {
@@ -609,7 +613,7 @@ $rsvp-color: #ff7373;
       bottom: 10%;
       left: 115px;
       &.falling {
-        margin-left: -70px;
+        margin-left: -90px;
         &.home {
           @include sprite-background($anna, falling-home);
         }
@@ -623,7 +627,7 @@ $rsvp-color: #ff7373;
           @include sprite-background($anna, falling-wedding);
         }
         &.cooking {
-          margin-left: 0;
+          margin-left: 10px;
           @include sprite-background($anna, falling-cooking);
         }
       }
@@ -633,12 +637,15 @@ $rsvp-color: #ff7373;
           @include sprite-background($anna, jumping-home);
         }
         &.exercise {
+          margin-left: -30px;
           @include sprite-background($anna, jumping-exercise);
         }
         &.travel {
+          margin-bottom: -20px;
           @include sprite-background($anna, jumping-travel);
         }
         &.wedding {
+          margin-left: 0;
           @include sprite-background($anna, jumping-wedding);
         }
         &.cooking {
@@ -670,6 +677,12 @@ $rsvp-color: #ff7373;
       height: 100px;
       width: 100px;
       bottom: 9%;
+      &.falling {
+        @include sprite-background($backup, falling);
+      }
+      &.jumping {
+        @include sprite-background($backup, jumping);
+      }
       &.standing {
         margin-right: -5px;
         &.home {
@@ -687,9 +700,6 @@ $rsvp-color: #ff7373;
         &.cooking {
           @include sprite-background($backup, standing-cooking);
         }
-      }
-      &.jumping {
-        margin-right: 5px;
       }
     }
     $jeffrey: sprite-map("objects/jeffrey/*.png", $layout: horizontal);
@@ -709,6 +719,9 @@ $rsvp-color: #ff7373;
         &.wedding {
           @include sprite-background($jeffrey, falling-wedding);
         }
+        &.cooking {
+          @include sprite-background($jeffrey, falling-cooking);
+        }
       }
       &.jumping {
         margin-left: -5px;
@@ -725,6 +738,7 @@ $rsvp-color: #ff7373;
           @include sprite-background($jeffrey, jumping-wedding);
         }
         &.cooking {
+          margin-left: 10px;
           @include sprite-background($jeffrey, jumping-cooking);
         }
       }
@@ -747,13 +761,9 @@ $rsvp-color: #ff7373;
         }
       }
     }
-    &.jeffrey, &.anna, &.backup.standing {
-      border: none;
-      background-color: transparent;
-    }
     &.poof {
-      background-color: white;
-      width: 150px;
+      //background-color: white;
+      //width: 150px;
     }
   }
 
