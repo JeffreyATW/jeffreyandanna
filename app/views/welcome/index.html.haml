@@ -1,0 +1,176 @@
+!!!
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+%head
+  %meta{:charset => "utf-8"}
+  %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+  %title Jeffrey and Anna
+  %meta{:content => "Jeffrey and Anna's Wedding Website!", :name => "description"}
+  %meta{:content => "width=device-width", :name => "viewport"}
+  = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Fjord+One|Carter+One"
+  = stylesheet_link_tag "application"
+  = javascript_include_tag "libs/modernizr-2.5.3.min"
+%body
+  %header.page_header
+    .container
+      %h1
+        %a#welcome_link{:href => "#welcome"}
+          %span.jeffrey
+            J
+            %span.not_first_letter> effrey
+          %span.and and
+          %span.ampersand &
+          %span.anna
+            A
+            %span.not_first_letter> nna
+      %nav
+        %ul
+          %li
+            %a#about_us_link{:href => "#about_us"}
+              %i.icon-user
+              %span.link_text About Us
+          %li
+            %a#updates_link{:href => "#updates"}
+              %i.icon-rss
+              %span.link_text Updates
+          %li
+            %a#events_link{:href => "#events"}
+              %i.icon-calendar
+              %span.link_text Events
+          %li
+            %a#rsvp_link{:href => "#rsvp"}
+              %i.icon-envelope-alt
+              %span.link_text RSVP
+  .main{:role => "main"}
+    %section#welcome.main_section
+      %header
+        %h1
+          %span.jeffrey Jeffrey
+          %span.and and
+          %span.anna Anna
+      .object_container
+        .window.object
+        .projectorscreen.object
+        .couch.object
+        .roomba.object
+        .xbox.object
+        .wii.object
+        .macbookpro.object
+        .macbookair.object
+        .projector.object
+        .ddrpads.object
+    %section#about_us.main_section.regular_section
+      %header.clearfix
+        .container
+          %h1 About Us
+          %nav
+            %ul
+              %li
+                %a{:href => "#our_story"} Our Story
+              %li
+                %a{:href => "#about_anna"} Anna
+              %li
+                %a{:href => "#about_jeffrey"} Jeffrey
+              %li
+                %a{:href => "#our_home"} Our Home
+      .content.carousel.slide
+        .carousel-inner
+          %section#our_story.active.item
+            .container
+              %h1 Our Story
+              %p
+                Hello World Hello World
+                Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World
+          %section#about_anna.item
+            .container
+              %h1 Anna
+              %p
+                Hello World Hello World
+                Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World
+          %section#about_jeffrey.item
+            .container
+              %h1 Jeffrey
+              %p
+                Hello World Hello World
+                Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World
+          %section#our_home.item
+            .container
+              %h1 Our Home
+              %p
+                Hello World Hello World
+                Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World
+      .object_container
+        .path.object
+        .tree1.object
+        .tree2.object
+        .weights.object
+        .goggles.object
+    %section#updates.main_section.regular_section
+      %header
+        .container
+          %h1 Updates
+          %nav
+            %ul
+              %li
+                %a{:href => "#archive"} Archive
+      .object_container
+        .plane.object
+        .eiffel.object
+        .wtc.object
+        .colosseum.object
+        .zipline.object
+        .bike1.object
+        .bike2.object
+        .binoculars.object
+    %section#events.main_section.regular_section
+      %header
+        .container
+          %h1 Events
+          %nav
+            %ul
+              %li
+                %a{:href => "#wedding"} Wedding
+              %li
+                %a{:href => "#reception"} Reception
+              %li
+                %a{:href => "#accomodations"} Accomodations
+      .content
+        %section.content_section
+      .object_container
+        .djbooth.object
+        .chuppah.object
+        .cake.object
+        .mirrorball.object
+    %section#rsvp.main_section.regular_section
+      %header
+        .container
+          %h1 RSVP
+      .content
+      .object_container
+        .backcounter.object
+        .sodastream.object
+        .mitts.object
+        .knives.object
+        .microwave.object
+        .refrigerator.object
+        .counter.object
+        .mixer.object
+        .scale.object
+        .grill.object
+    .character_container
+      .anna.object.standing
+      .jeffrey.object.standing
+      .backup.object.standing
+  = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+  :javascript
+    window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')
+  = javascript_include_tag "libs/greensock/TweenMax.min"
+  = javascript_include_tag "plugins"
+  = javascript_include_tag "script"
+  :javascript
+    var _gaq=[['_setAccount','UA-32988072-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
