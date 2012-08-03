@@ -388,6 +388,8 @@ $rsvp-color: #ff7373;
     bottom: 12%;
   }
 
+  $exercise: sprite-map("objects/exercise/*.png");
+
   .path {
     width: 1800px;
     height: 300px;
@@ -397,8 +399,7 @@ $rsvp-color: #ff7373;
   }
 
   .tree1 {
-    width: 400px;
-    height: 500px;
+    @include sprite-background($exercise, tree1);
     bottom: 15%;
     left: 40%;
   }
@@ -411,15 +412,13 @@ $rsvp-color: #ff7373;
   }
 
   .weights {
-    width: 100px;
-    height: 50px;
+    @include sprite-background($exercise, weights);
     bottom: 5%;
     left: 15%;
   }
 
   .goggles {
-    width: 75px;
-    height: 50px;
+    @include sprite-background($exercise, goggles);
     bottom: 4%;
     left: 22%;
   }
@@ -767,9 +766,11 @@ $rsvp-color: #ff7373;
     }
   }
 
-  #welcome .object {
-    border: none;
-    background-color: transparent;
+  #welcome, #about_us {
+    .object {
+      border: none;
+      background-color: transparent;
+    }
   }
 }
 
