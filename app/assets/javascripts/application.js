@@ -10,6 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require_tree .
+//= require libs/jquery-1.7.2.min
+//= require libs/greensock/TweenMax.min
+//= require libs/jquery.superscrollorama
+//= require libs/jquery.scrollTo.min
+//= require libs/bootstrap-transition.js
+//= require libs/bootstrap-scrollspy.js
+//= require libs/bootstrap-carousel.js
+//= require script

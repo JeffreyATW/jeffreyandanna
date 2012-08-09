@@ -1,7 +1,7 @@
 !function () {
   "use strict";
   
-  var controller;
+  var controller
   
   var parseDecimal = function (x) {
     return parseInt(x, 10)
@@ -119,20 +119,5 @@
         return false
       })
     })
-    
-    $('.content').on('swipeleft', function() {
-      $(this).carousel('next')
-    })
-    $('.content').on('swiperight', function() {
-      $(this).carousel('prev')
-    })
-    $('.content').on('movestart', function(e) {
-      // If the movestart is heading off in an upwards or downwards
-      // direction, prevent it so that the browser scrolls normally.
-      if ((e.distX > e.distY && e.distX < -e.distY) ||
-          (e.distX < e.distY && e.distX > -e.distY)) {
-        e.preventDefault();
-      }
-    });
   })
 }(window.jQuery);

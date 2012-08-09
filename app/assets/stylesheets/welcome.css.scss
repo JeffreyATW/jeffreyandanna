@@ -185,6 +185,7 @@ header h1 {
 }
 
 .regular_section {
+  @include transform(translateZ(0));
   header h1 {
     float: left;
     margin: 0;
@@ -390,9 +391,8 @@ $rsvp-color: #ff7373;
 
   $exercise: sprite-map("objects/exercise/*.png");
 
-  .path {
-    width: 1800px;
-    height: 300px;
+  .track {
+    @include sprite-background($exercise, track);
     bottom: 10%;
     left: 50%;
     margin-left: -900px;
@@ -400,15 +400,14 @@ $rsvp-color: #ff7373;
 
   .tree1 {
     @include sprite-background($exercise, tree1);
-    bottom: 15%;
-    left: 40%;
+    bottom: 30%;
+    right: 3%;
   }
 
   .tree2 {
-    width: 300px;
-    height: 400px;
-    bottom: 25%;
-    right: 10%;
+    @include sprite-background($exercise, tree2);
+    bottom: 12%;
+    left: 24%;
   }
 
   .weights {
@@ -423,32 +422,30 @@ $rsvp-color: #ff7373;
     left: 22%;
   }
 
+  $travel: sprite-map("objects/travel/*.png");
+
   .plane {
-    width: 125px;
-    height: 100px;
+    @include sprite-background($travel, plane);
     bottom: 75%;
     left: 10%;
   }
 
   .colosseum {
-    width: 400px;
-    height: 300px;
+    @include sprite-background($travel, colosseum);
     bottom: 15%;
     left: 0%;
   }
 
   .eiffel {
-    height: 500px;
-    width: 300px;
-    bottom: 15%;
-    right: 40%;
+    @include sprite-background($travel, eiffel);
+    bottom: 17%;
+    left: 40%;
   }
 
   .wtc {
-    height: 600px;
-    width: 200px;
-    bottom: 15%;
-    right: 20%;
+    @include sprite-background($travel, wtc);
+    bottom: 17%;
+    left: 60%;
   }
 
   .zipline {
@@ -766,7 +763,7 @@ $rsvp-color: #ff7373;
     }
   }
 
-  #welcome, #about_us {
+  #welcome, #about_us, #updates {
     .object {
       border: none;
       background-color: transparent;
