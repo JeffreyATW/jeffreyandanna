@@ -318,13 +318,7 @@ $rsvp-color: #ff7373;
   background-position: nth(sprite-position($map, $name), 1) nth(sprite-position($map, $name), 2);
 }
 
-@media only screen and (min-width: 1000px) {
-  .object {
-    position: absolute;
-    background: rgba(255,0,0,.5) no-repeat;
-    border: 1px solid black;
-  }
-
+@media only screen and (min-width: 1000px) and (min-height: 601px) {
   $home: sprite-map("objects/home/*.png");
 
   .couch {
@@ -445,140 +439,152 @@ $rsvp-color: #ff7373;
   .wtc {
     @include sprite-background($travel, wtc);
     bottom: 17%;
-    left: 60%;
+    right: 5%;
   }
 
   .zipline {
-    width: 1800px;
-    height: 300px;
+    @include sprite-background($travel, zipline);
     bottom: 45%;
     left: 50%;
-    margin-left: -900px;
-  }
-
-  .bike1, .bike2 {
-    width: 300px;
-    height: 200px;
+    margin-left: -922px;
   }
 
   .bike1 {
+    @include sprite-background($travel, bike1);
     right: 15%;
     bottom: 10%;
   }
 
   .bike2 {
+    @include sprite-background($travel, bike2);
     right: 18%;
     bottom: 9%;
   }
 
+  .helmet1 {
+    @include sprite-background($travel, helmet1);
+    right: 28%;
+    bottom: 4%;
+  }
+
+  .helmet2 {
+    @include sprite-background($travel, helmet2);
+    right: 24%;
+    bottom: 5%;
+  }
+
   .binoculars {
-    width: 75px;
-    height: 50px;
+    @include sprite-background($travel, binoculars);
     bottom: 4%;
     left: 20%;
   }
 
+  $wedding: sprite-map("objects/wedding/*.png");
+
   .chuppah {
-    height: 500px;
-    width: 500px;
+    @include sprite-background($wedding, chuppah);
     bottom: 13%;
-    left: -5%;
+    left: -10%;
   }
 
   .cake {
-    height: 300px;
-    width: 300px;
+    @include sprite-background($wedding, cake);
     right: 7%;
     bottom: 10%;
   }
 
   .djbooth {
-    width: 400px;
-    height: 200px;
+    @include sprite-background($wedding, djbooth);
     right: 50%;
-    margin-right: -200px;
+    margin-right: -215px;
     bottom: 15%;
   }
 
   .mirrorball {
-    width: 100px;
-    height: 400px;
-    bottom: 70%;
+    @include sprite-background($wedding, mirrorball);
+    bottom: -5%;
     right: 50%;
-    margin-right: -50px;
+    margin-right: -875px;
   }
 
+  $cooking: sprite-map("objects/cooking/*.png");
+
+  $backcounter-bottom: 18%;
+  $backcounter-right: 12%;
   .backcounter {
-	width: 1800px;
-	height: 150px;
-	bottom: 18%;
-	right: 12%;
+    @include sprite-background($cooking, backcounter);
+	bottom: $backcounter-bottom;
+	right: $backcounter-right;
   }
 
   .sodastream {
-	height: 100px;
-	width: 50px;
-	bottom: 37%;
-	right: 27%;
+    @include sprite-background($cooking, sodastream);
+	bottom: $backcounter-bottom;
+    right: $backcounter-right;
+    margin-bottom: 126px;
+    margin-right: 440px;
   }
 
   .mitts {
-	height: 50px;
-	width: 50px;
-	bottom: 30%;
-	right: 35%;
+    @include sprite-background($cooking, mitts);
+	bottom: $backcounter-bottom;
+    right: $backcounter-right;
+    margin-bottom: 47px;
+    margin-right: 293px;
   }
 
   .knives {
-	height: 75px;
-	width: 50px;
-	bottom: 37%;
-	right: 32%;
+    @include sprite-background($cooking, knives);
+	bottom: $backcounter-bottom;
+    right: $backcounter-right;
+    margin-bottom: 134px;
+    margin-right: 162px;
   }
 
   .microwave {
-	width: 150px;
-	height: 100px;
-	bottom: 37%;
-	left: 40%;
+    @include sprite-background($cooking, microwave);
+	bottom: $backcounter-bottom;
+    right: $backcounter-right;
+    margin-bottom: 130px;
+    margin-right: 545px;
+  }
+
+  .scale {
+    @include sprite-background($cooking, scale);
+    bottom: $backcounter-bottom;
+    right: $backcounter-right;
+    margin-bottom: 130px;
+    margin-right: 941px;
   }
 
   .refrigerator {
-	height: 300px;
-	width: 200px;
+    @include sprite-background($cooking, refrigerator);
 	right: 10%;
 	bottom: 13%;
   }
 
+  $counter-bottom: 13%;
+  $counter-right: 70%;
   .counter {
-	width: 600px;
-	height: 150px;
-	left: -5%;
-	bottom: 13%;
+    @include sprite-background($cooking, counter);
+	right: $counter-right;
+	bottom: $counter-bottom;
   }
 
   .mixer {
-	width: 100px;
-	height: 100px;
-	left: 25%;
-	bottom: 31%;
-  }
-
-  .scale {
-	width: 50px;
-	height: 25px;
-	left: 35%;
-	bottom: 31%;
+    @include sprite-background($cooking, mixer);
+    right: $counter-right;
+	bottom: $counter-bottom;
+    margin-bottom: 134px;
+    margin-right: 50px;
   }
 
   .grill {
-	width: 150px;
-	height: 100px;
+    @include sprite-background($cooking, grill);
 	left: 25%;
 	bottom: 10%;
   }
 }
-
 
 @media only screen and (min-width: 35em) and (min-height: 600px) {
   .content {
@@ -604,6 +610,7 @@ $rsvp-color: #ff7373;
   }
 
   .object {
+    position: absolute;
     $anna: sprite-map("objects/anna/*.png", $layout: horizontal);
     &.anna {
       bottom: 10%;
@@ -760,13 +767,6 @@ $rsvp-color: #ff7373;
     &.poof {
       //background-color: white;
       //width: 150px;
-    }
-  }
-
-  #welcome, #about_us, #updates {
-    .object {
-      border: none;
-      background-color: transparent;
     }
   }
 }

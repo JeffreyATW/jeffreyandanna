@@ -114,7 +114,15 @@
           %nav
             %ul
               %li
+                %a{:href => "#latest_entry"} Latest Entry
+              %li
                 %a{:href => "#archive"} Archive
+      .content.carousel.slide
+        .carousel-inner
+          %section#latest_entry.active.item
+            .container
+              %h1= @feed.entries.first.title
+              = @feed.entries.first.content.html_safe
       .object_container
         .plane.object
         .eiffel.object
@@ -123,6 +131,8 @@
         .zipline.object
         .bike1.object
         .bike2.object
+        .helmet1.object
+        .helmet2.object
         .binoculars.object
     %section#events.main_section.regular_section
       %header
@@ -139,10 +149,10 @@
       .content
         %section.content_section
       .object_container
+        .mirrorball.object
         .djbooth.object
         .chuppah.object
         .cake.object
-        .mirrorball.object
     %section#rsvp.main_section.regular_section
       %header
         .container
@@ -154,10 +164,10 @@
         .mitts.object
         .knives.object
         .microwave.object
+        .scale.object
         .refrigerator.object
         .counter.object
         .mixer.object
-        .scale.object
         .grill.object
     .character_container
       .anna.object.standing
