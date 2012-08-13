@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "compass/css3/box-sizing";
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 @import "compass/css3/images";
@@ -185,7 +187,6 @@ header h1 {
 }
 
 .regular_section {
-  @include transform(translateZ(0));
   header h1 {
     float: left;
     margin: 0;
@@ -202,7 +203,7 @@ header h1 {
         font-size: 18px;
         line-height: 25px;
         padding: 10px;
-        border-radius: 10px;
+        @include border-radius(10px);
         text-decoration: none;
         display: block;
       }
@@ -219,8 +220,11 @@ header h1 {
 }
 
 @mixin regular-section-styles($color-1, $color-2, $color-3, $color-4, $color-5) {
-  nav a, .item .container {
-    background: transparentize($color-1, .25);
+  nav a {
+    background: transparentize($color-1, .15);
+  }
+  .item .container {
+    background: transparentize(lighten($color-1, 20%), .15);
   }
   header, header a {
     color: $color-2;
@@ -301,8 +305,9 @@ $rsvp-color: #ff7373;
   .link_text {
     display: inline;
   }
-  .main_section header, .content {
+  .main_section header, .carousel {
     width: 100%;
+    @include transform(translateZ(0));
     z-index: 1;
     position: absolute;
   }
@@ -587,10 +592,19 @@ $rsvp-color: #ff7373;
 }
 
 @media only screen and (min-width: 35em) and (min-height: 600px) {
-  .content {
+  .carousel {
     height: 70%;
     bottom: 10%;
-    overflow: auto;
+
+    .carousel-inner, .item, .container {
+      height: 100%;
+    }
+
+    .container {
+      overflow: auto;
+      @include box-shadow(0 0 30px rgba(0,0,0,.25));
+      @include border-radius(10px);
+    }
   }
 
   .object_container {
@@ -789,10 +803,9 @@ $rsvp-color: #ff7373;
 
 
 .carousel-inner {
-  overflow: hidden;
-  width: 100%;
   position: relative;
 }
+
 .carousel {
   .item {
     display: none;

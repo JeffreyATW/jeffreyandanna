@@ -8,7 +8,7 @@
   }
 
   var resizeSections = function () {
-    $('.main_section').css('min-height', $(window).height())    
+    $('.main_section').css('height', $(window).height())
   }
   
   var randomOffset = function (px) {
@@ -112,10 +112,10 @@
     
     $(window).scrollspy({target: '.page_header a', offset: $(window).height() / 2})
     
-    $('.content').carousel({interval: false})
+    $('.carousel').carousel({interval: false})
     $('.regular_section nav a').each(function(i, el) {
       $(el).click(function() {
-        $(this).closest('.regular_section').children('.content').carousel(i)
+        $(this).closest('.regular_section').children('.carousel').carousel(i)
         return false
       })
     })

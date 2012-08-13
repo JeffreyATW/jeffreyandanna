@@ -75,7 +75,7 @@
                 %a{:href => "#about_jeffrey"} Jeffrey
               %li
                 %a{:href => "#our_home"} Our Home
-      .content.carousel.slide
+      .carousel.slide
         .carousel-inner
           %section#our_story.active.item
             .container
@@ -117,12 +117,20 @@
                 %a{:href => "#latest_entry"} Latest Entry
               %li
                 %a{:href => "#archive"} Archive
-      .content.carousel.slide
+      .carousel.slide
         .carousel-inner
           %section#latest_entry.active.item
             .container
               %h1= @feed.entries.first.title
               = @feed.entries.first.content.html_safe
+          %section#archive.item
+            .container
+              %h1 Archive
+              %ul
+                - @feed.entries[1..-1].each do |entry|
+                  %li= link_to entry.title, entry.url
+
+
       .object_container
         .plane.object
         .eiffel.object
@@ -146,8 +154,7 @@
                 %a{:href => "#reception"} Reception
               %li
                 %a{:href => "#accomodations"} Accomodations
-      .content
-        %section.content_section
+      %section.content_section
       .object_container
         .mirrorball.object
         .djbooth.object
@@ -157,7 +164,6 @@
       %header
         .container
           %h1 RSVP
-      .content
       .object_container
         .backcounter.object
         .sodastream.object
