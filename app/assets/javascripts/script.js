@@ -105,19 +105,32 @@
                       .toggleClass('cooking', id === "rsvp_link")
           setTimeout(function() {
             $(character).removeClass('poof');
-          }, 200);
+          }, 100);
         })
       })
     })
     
     $(window).scrollspy({target: '.page_header a', offset: $(window).height() / 2})
     
-    $('.carousel').carousel({interval: false})
-    $('.regular_section nav a').each(function(i, el) {
-      $(el).click(function() {
-        $(this).closest('.regular_section').children('.carousel').carousel(i)
-        return false
+    $('.carousel').each(function(i, el) {
+        $(el).carousel({interval: false})
+    })
+    $('.regular_section').each(function(i, section) {
+      $('nav a', section).each(function(j, el) {
+        $(el).click(function() {
+          $(this).closest('.regular_section').children('.carousel').carousel(j)
+          return false
+        })
       })
     })
+
+    $('.carousel').on('mousewheel', '.container', function(e, d)
+        {
+        if (d > 0 && $(this).scrollTop() == 0)
+            e.preventDefault()
+        else
+            if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())
+                    e.preventDefault()
+        })
   })
 }(window.jQuery);

@@ -77,7 +77,13 @@ td { vertical-align: top; }
 }
 
 body {
-  font-family: "Fjord One", sans-serif;
+  font-family: "Imprima", sans-serif;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  color: #0080ff;
 }
 
 nav a {
@@ -99,7 +105,6 @@ nav a {
   width: 100%;
   @include background(linear-gradient(top, rgba(255,255,255,.75), rgba(255,255,255,.25)));
   a {
-    text-decoration: none;
     color: #333;
   }
   h1 {
@@ -128,7 +133,6 @@ nav a {
       display: block;
       text-align: center;
       line-height: 76px;
-      font-size: 18px;
       font-weight: bold;
     }
   }
@@ -138,8 +142,8 @@ nav a {
   display: none;
 }
 
-header h1 {
-  font-family: 'Carter One', cursive;
+h1 {
+  font-family: 'Carter One', sans-serif;
   font-weight: normal;
   .jeffrey, .anna, .and {
     display: block;
@@ -164,8 +168,41 @@ header h1 {
   }
 }
 
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
 .main .container {
   padding: 0 20px;
+}
+
+.carousel .container {
+  img.size-large.alignnone {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+  }
+  table {
+    width: 100%;
+    tr:nth-child(odd) {
+      background: rgba(218,218,255,.25);
+    }
+    td:last-child {
+      text-align: right;
+    }
+  }
+  h1 {
+    font-size: 2em;
+    margin: .5em 0;
+    a {
+      color: inherit;
+    }
+  }
+  section h1 {
+    margin: 1em 0;
+    font-size: 1.5em;
+  }
 }
 
 .main_section {
@@ -181,9 +218,8 @@ header h1 {
   }
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 1000px;
+.blog_link {
+  text-align: right;
 }
 
 .regular_section {
@@ -200,11 +236,9 @@ header h1 {
       margin-left: 20px;
       a {
         font-weight: bold;
-        font-size: 18px;
         line-height: 25px;
         padding: 10px;
         @include border-radius(10px);
-        text-decoration: none;
         display: block;
       }
     }
@@ -604,6 +638,9 @@ $rsvp-color: #ff7373;
       overflow: auto;
       @include box-shadow(0 0 30px rgba(0,0,0,.25));
       @include border-radius(10px);
+      img.size-large.alignnone {
+        width: auto
+      }
     }
   }
 
@@ -685,6 +722,12 @@ $rsvp-color: #ff7373;
         }
         &.cooking {
           @include sprite-background($anna, standing-cooking);
+        }
+      }
+      &.falling, &.jumping, &.standing {
+        &.poof {
+          margin-left: -75px;
+          @include sprite-background($anna, poof);
         }
       }
     }
@@ -777,10 +820,12 @@ $rsvp-color: #ff7373;
           @include sprite-background($jeffrey, standing-cooking);
         }
       }
-    }
-    &.poof {
-      //background-color: white;
-      //width: 150px;
+      &.falling, &.jumping, &.standing {
+        &.poof {
+          margin-left: -75px;
+          @include sprite-background($jeffrey, poof);
+        }
+      }
     }
   }
 }

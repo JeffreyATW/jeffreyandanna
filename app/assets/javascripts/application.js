@@ -14,6 +14,7 @@
 //= require libs/greensock/TweenMax.min
 //= require libs/jquery.superscrollorama
 //= require libs/jquery.scrollTo.min
+//= require libs/jquery.mousewheel
 //= require libs/bootstrap-transition.js
 //= require libs/bootstrap-scrollspy.js
 //= require libs/bootstrap-carousel.js
