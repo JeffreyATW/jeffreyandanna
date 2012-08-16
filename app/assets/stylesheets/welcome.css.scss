@@ -177,31 +177,34 @@ h1 {
   padding: 0 20px;
 }
 
-.carousel .container {
-  img.size-large.alignnone {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-  }
-  table {
-    width: 100%;
-    tr:nth-child(odd) {
-      background: rgba(218,218,255,.25);
+.carousel {
+  clear: both;
+  .container {
+    img.size-large.alignnone {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
     }
-    td:last-child {
-      text-align: right;
+    table {
+      width: 100%;
+      tr:nth-child(odd) {
+        background: rgba(218,218,255,.25);
+      }
+      td:last-child {
+        text-align: right;
+      }
     }
-  }
-  h1 {
-    font-size: 2em;
-    margin: .5em 0;
-    a {
-      color: inherit;
+    h1 {
+      font-size: 2em;
+      margin: .5em 0;
+      a {
+        color: inherit;
+      }
     }
-  }
-  section h1 {
-    margin: 1em 0;
-    font-size: 1.5em;
+    section h1 {
+      margin: 1em 0;
+      font-size: 1.5em;
+    }
   }
 }
 
@@ -308,7 +311,7 @@ $rsvp-color: #ff7373;
   @include regular-section-styles($rsvp-color, #67e667, #008500, #ff4040, #ff0000);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 619px) {
   .page_header {
     h1 {
       margin: 0;
@@ -332,7 +335,7 @@ $rsvp-color: #ff7373;
   }
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 620px) {
   .page_header li [class^="icon-"]:before, .page_header li [class*=" icon-"]:before {
     padding-right: .5em;
   }
@@ -472,12 +475,12 @@ $rsvp-color: #ff7373;
   .eiffel {
     @include sprite-background($travel, eiffel);
     bottom: 17%;
-    left: 40%;
+    right: 12%;
   }
 
   .wtc {
     @include sprite-background($travel, wtc);
-    bottom: 17%;
+    bottom: 16%;
     right: 5%;
   }
 
@@ -541,7 +544,7 @@ $rsvp-color: #ff7373;
 
   .mirrorball {
     @include sprite-background($wedding, mirrorball);
-    bottom: -5%;
+    bottom: 5%;
     right: 50%;
     margin-right: -875px;
   }
@@ -549,7 +552,7 @@ $rsvp-color: #ff7373;
   $cooking: sprite-map("objects/cooking/*.png");
 
   $backcounter-bottom: 18%;
-  $backcounter-right: 12%;
+  $backcounter-right: 4%;
   .backcounter {
     @include sprite-background($cooking, backcounter);
 	bottom: $backcounter-bottom;
@@ -598,12 +601,12 @@ $rsvp-color: #ff7373;
 
   .refrigerator {
     @include sprite-background($cooking, refrigerator);
-	right: 10%;
+	right: 2%;
 	bottom: 13%;
   }
 
   $counter-bottom: 13%;
-  $counter-right: 70%;
+  $counter-right: 65%;
   .counter {
     @include sprite-background($cooking, counter);
 	right: $counter-right;
@@ -625,7 +628,7 @@ $rsvp-color: #ff7373;
   }
 }
 
-@media only screen and (min-width: 35em) and (min-height: 600px) {
+@media only screen and (min-width: 620px) and (min-height: 600px) {
   .carousel {
     height: 70%;
     bottom: 10%;

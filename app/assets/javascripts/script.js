@@ -8,7 +8,7 @@
   }
 
   var resizeSections = function () {
-    $('.main_section').css('height', $(window).height())
+    $('.main_section').css('min-height', /Firefox/.test(navigator.userAgent) ? $(window).height() - parseDecimal($('.main_section').css('padding-top')) : $(window).height())
   }
   
   var randomOffset = function (px) {
@@ -124,13 +124,9 @@
       })
     })
 
-    $('.carousel').on('mousewheel', '.container', function(e, d)
-        {
-        if (d > 0 && $(this).scrollTop() == 0)
-            e.preventDefault()
-        else
-            if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())
-                    e.preventDefault()
-        })
+    $('.carousel').on('mousewheel', '.container', function(e, d) {
+        if ($(window).width >= 620 && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
+          e.preventDefault()
+    })
   })
 }(window.jQuery);
