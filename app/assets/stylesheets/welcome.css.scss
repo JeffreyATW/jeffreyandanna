@@ -333,6 +333,9 @@ $rsvp-color: #ff7373;
   .main_section {
     padding-top: 45px;
   }
+  .carousel .container img.size-large.alignnone {
+    height: auto
+  }
 }
 
 @media only screen and (min-width: 620px) {

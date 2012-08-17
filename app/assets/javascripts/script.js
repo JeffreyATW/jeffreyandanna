@@ -125,7 +125,7 @@
     })
 
     $('.carousel').on('mousewheel', '.container', function(e, d) {
-        if ($(window).width >= 620 && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
+        if ($(window).width() >= 620 && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
           e.preventDefault()
     })
   })
