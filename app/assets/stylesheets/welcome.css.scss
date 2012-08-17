@@ -139,7 +139,7 @@ td { vertical-align: top; }
 }
 
 
-* {
+.main .container, .carousel .container, .main_section, .regular_section nav li a {
   @include box-sizing(border-box)
 }
 
@@ -252,6 +252,7 @@ h1 {
       display: block;
       margin: 0 auto;
       width: 100%;
+      height: auto;
     }
     table {
       width: 100%;
@@ -399,6 +400,7 @@ $rsvp-color: #ff7373;
     }
   }
   .main_section {
+    @include box-sizing(border-box);
     padding-top: 45px;
   }
   .carousel {
@@ -406,14 +408,12 @@ $rsvp-color: #ff7373;
       display: block;
       position: static;
     }
-    .container img.size-large.alignnone {
-      height: auto
-    }
   }
 }
 
 @media only screen and (min-width: 620px) {
   .page_header li [class^="icon-"]:before, .page_header li [class*=" icon-"]:before {
+    @include box-sizing(border-box);
     padding-right: .5em;
   }
   .link_text {
@@ -421,7 +421,6 @@ $rsvp-color: #ff7373;
   }
   .main_section header, .carousel {
     width: 100%;
-    @include transform(translateZ(0));
     z-index: 1;
     position: absolute;
   }
@@ -439,7 +438,6 @@ $rsvp-color: #ff7373;
 }
 
 @mixin sprite-background($map, $name) {
-  background-image: sprite-url($map);
   height: image-height(sprite-file($map, $name));
   width: image-width(sprite-file($map, $name));
   background-position: nth(sprite-position($map, $name), 1) nth(sprite-position($map, $name), 2);
@@ -447,6 +445,9 @@ $rsvp-color: #ff7373;
 
 @media only screen and (min-width: 1000px) and (min-height: 601px) {
   $home: sprite-map("objects/home/*.png");
+  .couch, .window, .projectorscreen, .roomba, .xbox, .wii, .macbookair, .macbookpro, .ddrpads, .projector {
+    background-image: sprite-url($home);
+  }
 
   .couch {
     @include sprite-background($home, couch);
@@ -511,6 +512,9 @@ $rsvp-color: #ff7373;
   }
 
   $exercise: sprite-map("objects/exercise/*.png");
+  .track, .tree1, .tree2, .weights, .goggles {
+    background-image: sprite-url($exercise);
+  }
 
   .track {
     @include sprite-background($exercise, track);
@@ -544,6 +548,9 @@ $rsvp-color: #ff7373;
   }
 
   $travel: sprite-map("objects/travel/*.png");
+  .plane, .colosseum, .eiffel, .wtc, .zipline, .bike1, .bike2, .helmet1, .helmet2, .binoculars {
+    background-image: sprite-url($travel);
+  }
 
   .plane {
     @include sprite-background($travel, plane);
@@ -607,6 +614,9 @@ $rsvp-color: #ff7373;
   }
 
   $wedding: sprite-map("objects/wedding/*.png");
+  .chuppah, .cake, .djbooth, .mirrorball {
+    background-image: sprite-url($wedding);
+  }
 
   .chuppah {
     @include sprite-background($wedding, chuppah);
@@ -635,6 +645,9 @@ $rsvp-color: #ff7373;
   }
 
   $cooking: sprite-map("objects/cooking/*.png");
+  .backcounter, .sodastream, .mitts, .knives, .microwave, .scale, .refrigerator, .counter, .mixer, .grill {
+    background-image: sprite-url($cooking);
+  }
 
   $backcounter-bottom: 18%;
   $backcounter-right: 4%;
@@ -726,9 +739,6 @@ $rsvp-color: #ff7373;
       overflow: auto;
       @include box-shadow(0 0 30px rgba(0,0,0,.25));
       @include border-radius(10px);
-      img.size-large.alignnone {
-        width: auto
-      }
     }
   }
 
@@ -754,6 +764,7 @@ $rsvp-color: #ff7373;
     &.anna {
       bottom: 10%;
       left: 115px;
+      background-image: sprite-url($anna);
       &.falling {
         margin-left: -90px;
         &.home {
@@ -825,6 +836,7 @@ $rsvp-color: #ff7373;
       height: 100px;
       width: 100px;
       bottom: 9%;
+      background-image: sprite-url($backup);
       &.falling {
         @include sprite-background($backup, falling);
       }
@@ -853,6 +865,7 @@ $rsvp-color: #ff7373;
     $jeffrey: sprite-map("objects/jeffrey/*.png", $layout: horizontal);
     &.jeffrey {
       bottom: 10%;
+      background-image: sprite-url($jeffrey);
       &.falling {
         margin-left: -35px;
         &.home {
