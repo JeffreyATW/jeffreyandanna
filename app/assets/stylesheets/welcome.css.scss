@@ -72,6 +72,73 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
+
+@include font-face("FontAwesome", font-files('fontawesome-webfont.woff', 'fontawesome-webfont.ttf', 'fontawesome-webfont.svg#FontAwesome'), 'fontawesome-webfont.eot');
+
+/*  Font Awesome styles
+    ------------------------------------------------------- */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+.icon-user:before                 { content: "\f007"; }
+.icon-rss:before                  { content: "\f09e"; }
+.icon-calendar:before             { content: "\f073"; }
+.icon-envelope-alt:before         { content: "\f0e0"; }
+
+
+.carousel-inner {
+  position: relative;
+}
+
+.carousel {
+  .item {
+    display: none;
+    position: relative;
+    -webkit-transition: 0.6s ease-in-out left;
+    -moz-transition: 0.6s ease-in-out left;
+    -ms-transition: 0.6s ease-in-out left;
+    -o-transition: 0.6s ease-in-out left;
+    transition: 0.6s ease-in-out left;
+    > img {
+      display: block;
+      line-height: 1;
+    }
+  }
+  .active, .next, .prev {
+    display: block;
+  }
+  .active {
+    left: 0;
+  }
+  .next, .prev {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .next {
+    left: 100%;
+  }
+  .prev {
+    left: -100%;
+  }
+  .next.left, .prev.right {
+    left: 0;
+  }
+  .active {
+    &.left {
+      left: -100%;
+    }
+    &.right {
+      left: 100%;
+    }
+  }
+}
+
+
 * {
   @include box-sizing(border-box)
 }
@@ -180,6 +247,7 @@ h1 {
 .carousel {
   clear: both;
   .container {
+    padding: 10px 20px;
     img.size-large.alignnone {
       display: block;
       margin: 0 auto;
@@ -227,11 +295,11 @@ h1 {
 
 .regular_section {
   header h1 {
-    float: left;
     margin: 0;
   }
 
   nav {
+    display: none;
     float: right;
     margin-top: 29px;
     li {
@@ -333,8 +401,14 @@ $rsvp-color: #ff7373;
   .main_section {
     padding-top: 45px;
   }
-  .carousel .container img.size-large.alignnone {
-    height: auto
+  .carousel {
+    .item {
+      display: block;
+      position: static;
+    }
+    .container img.size-large.alignnone {
+      height: auto
+    }
   }
 }
 
@@ -353,6 +427,14 @@ $rsvp-color: #ff7373;
   }
   .main_section header h1 {
     font-size: 60px;
+  }
+  .regular_section {
+    header h1 {
+      float: left;
+    }
+    nav {
+      display: block;
+    }
   }
 }
 
@@ -832,71 +914,6 @@ $rsvp-color: #ff7373;
           @include sprite-background($jeffrey, poof);
         }
       }
-    }
-  }
-}
-
-@include font-face("FontAwesome", font-files('fontawesome-webfont.woff', 'fontawesome-webfont.ttf', 'fontawesome-webfont.svg#FontAwesome'), 'fontawesome-webfont.eot');
-
-/*  Font Awesome styles
-    ------------------------------------------------------- */
-[class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: FontAwesome;
-  font-weight: normal;
-  font-style: normal;
-  display: inline-block;
-  text-decoration: inherit;
-}
-.icon-user:before                 { content: "\f007"; }
-.icon-rss:before                  { content: "\f09e"; }
-.icon-calendar:before             { content: "\f073"; }
-.icon-envelope-alt:before         { content: "\f0e0"; }
-
-
-.carousel-inner {
-  position: relative;
-}
-
-.carousel {
-  .item {
-    display: none;
-    position: relative;
-    -webkit-transition: 0.6s ease-in-out left;
-    -moz-transition: 0.6s ease-in-out left;
-    -ms-transition: 0.6s ease-in-out left;
-    -o-transition: 0.6s ease-in-out left;
-    transition: 0.6s ease-in-out left;
-    > img {
-      display: block;
-      line-height: 1;
-    }
-  }
-  .active, .next, .prev {
-    display: block;
-  }
-  .active {
-    left: 0;
-  }
-  .next, .prev {
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-  .next {
-    left: 100%;
-  }
-  .prev {
-    left: -100%;
-  }
-  .next.left, .prev.right {
-    left: 0;
-  }
-  .active {
-    &.left {
-      left: -100%;
-    }
-    &.right {
-      left: 100%;
     }
   }
 }
