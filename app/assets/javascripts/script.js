@@ -65,10 +65,25 @@
   
   $(function () {
     controller = $.superscrollorama()
-  
+
     resizeSections()
     $(window).resize(resizeSections)
-    
+
+    var imgUrls = [];
+    $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
+      $.each(['standing', 'jumping', 'falling'], function(j, b) {
+        $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
+          if (!(a === "backup" && b !== "standing")) {
+            imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+          }
+        })
+        if (a === "backup" && b !== "standing") {
+          imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
+        }
+      })
+    })
+    $.preloadCssImages({imgUrls: imgUrls});
+
     $('.character_container .object').each(function (i, e) {
       addCharacterTween(e, '#welcome', 0, false, 0)
       addCharacterTween(e, '#about_us', -100, true)
@@ -85,7 +100,7 @@
         }), 400, randomOffset(100))
         if (!$(section).is('#welcome')) {
           controller.addTween($(section), TweenMax.from(e, 1, {
-            css: {"bottom": "100%"}, 
+            css: {"bottom": "100%"},
             immediateRender: true
           }), 400, randomOffset(100))
         }
@@ -104,15 +119,15 @@
       $(link).bind('activate', function() {
         var id = $(link).attr('id')
         $('.character_container .object').each(function(i, character) {
-          //$(character).addClass('poof');
+          $(character).addClass('poof')
           $(character).toggleClass('home', id === "welcome_link")
                       .toggleClass('exercise', id === "about_us_link")
                       .toggleClass('travel', id === "updates_link")
                       .toggleClass('wedding', id === "events_link")
                       .toggleClass('cooking', id === "rsvp_link")
-          //setTimeout(function() {
-          //  $(character).removeClass('poof');
-          //}, 100);
+          setTimeout(function() {
+            $(character).removeClass('poof')
+          }, 100)
         })
       })
     })

@@ -15,7 +15,8 @@
 //= require libs/jquery.superscrollorama
 //= require libs/jquery.scrollTo.min
 //= require libs/jquery.mousewheel
-//= require libs/bootstrap-transition.js
-//= require libs/bootstrap-scrollspy.js
-//= require libs/bootstrap-carousel.js
+//= require libs/jquery.preloadCssImages
+//= require libs/bootstrap-transition
+//= require libs/bootstrap-scrollspy
+//= require libs/bootstrap-carousel
 //= require script
