@@ -69,20 +69,22 @@
     resizeSections()
     $(window).resize(resizeSections)
 
-    var imgUrls = [];
-    $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
-      $.each(['standing', 'jumping', 'falling'], function(j, b) {
-        $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
-          if (!(a === "backup" && b !== "standing")) {
-            imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+    if (!mobileWidth()) {
+      var imgUrls = [];
+      $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
+        $.each(['standing', 'jumping', 'falling'], function(j, b) {
+          $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
+            if (!(a === "backup" && b !== "standing")) {
+              imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+            }
+          })
+          if (a === "backup" && b !== "standing") {
+            imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
           }
         })
-        if (a === "backup" && b !== "standing") {
-          imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
-        }
       })
-    })
-    $.preloadCssImages({imgUrls: imgUrls});
+      $.preloadCssImages({imgUrls: imgUrls});
+    }
 
     $('.character_container .object').each(function (i, e) {
       addCharacterTween(e, '#welcome', 0, false, 0)

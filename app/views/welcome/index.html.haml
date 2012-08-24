@@ -170,6 +170,15 @@
       %header
         .container
           %h1 RSVP
+      .carousel.slide
+        .carousel-inner
+          %section.active.item
+            .container
+              Respond to our letter by mail or phone, or enter your RSVP code
+              here:
+              = form_for @guest, :url => { :controller => "guests", :action => "edit" } do |f|
+                = f.text_field :rsvp
+                = f.submit "RSVP"
       .object_container
         .backcounter.object
         .sodastream.object
