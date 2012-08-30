@@ -3,8 +3,9 @@ Jeffreyandanna::Application.routes.draw do
 
   devise_for :users
 
-  post 'rsvp' => "guests#edit"
-  resources :guests, :only => [:update]
+  put 'rsvp' => "invitations#update"
+  get 'rsvp' => "invitations#edit", :as => "invitation"
+  resources :invitations, :only => [:update]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

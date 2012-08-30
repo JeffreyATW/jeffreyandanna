@@ -93,12 +93,46 @@ RailsAdmin.config do |config|
   #     configure :updated_at, :datetime   #   # Sections:
      list do
        field :name
+       field :special_needs
+     end
+  #   export do; end
+  #   show do; end
+    edit do
+      field :name
+      field :special_needs
+      field :invitation do
+        nested_form false
+      end
+    end
+  #   create do; end
+  #   update do; end
+  end
+
+  config.model Invitation do
+  #   # Found associations:
+  #   # Found columns:
+  #     configure :id, :integer
+  #     configure :name, :string
+  #     configure :address, :text
+  #     configure :responded, :boolean
+  #     configure :going, :boolean
+  #     configure :plus_one, :boolean
+  #     configure :rsvp, :string
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime   #   # Sections:
+     list do
+       field :guests
        field :address
        field :responded
        field :going
-       field :plus_one
        field :rsvp
      end
+    edit do
+      field :guests
+      field :address
+      field :responded
+      field :going
+    end
   #   export do; end
   #   show do; end
   #   edit do; end

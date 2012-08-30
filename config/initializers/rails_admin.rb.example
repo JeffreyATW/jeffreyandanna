@@ -1,4 +1,4 @@
-# RailsAdmin config file. Generated on August 22, 2012 22:17
+# RailsAdmin config file. Generated on August 25, 2012 16:27
 # See github.com/sferik/rails_admin for more informations
 
 RailsAdmin.config do |config|
@@ -31,10 +31,10 @@ RailsAdmin.config do |config|
 
   #  ==> Included models
   # Add all excluded models here:
-  # config.excluded_models = [Guest]
+  # config.excluded_models = [Guest, Invitation, User]
 
   # Add models here if you want to go 'whitelist mode':
-  # config.included_models = [Guest]
+  # config.included_models = [Guest, Invitation, User]
 
   # Application wide tried label methods for models' instances
   # config.label_methods << :description # Default is [:name, :title]
@@ -81,14 +81,52 @@ RailsAdmin.config do |config|
 
   # config.model Guest do
   #   # Found associations:
-  #   # Found columns:
+  #     configure :invitation, :belongs_to_association   #   # Found columns:
   #     configure :id, :integer 
   #     configure :name, :string 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime 
+  #     configure :invitation_id, :integer         # Hidden 
+  #     configure :special_needs, :text   #   # Sections:
+  #   list do; end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  # end
+  # config.model Invitation do
+  #   # Found associations:
+  #     configure :guests, :has_many_association   #   # Found columns:
+  #     configure :id, :integer 
   #     configure :address, :text 
   #     configure :responded, :boolean 
   #     configure :going, :boolean 
-  #     configure :plus_one, :boolean 
   #     configure :rsvp, :string 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime   #   # Sections:
+  #   list do; end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  # end
+  # config.model User do
+  #   # Found associations:
+  #   # Found columns:
+  #     configure :id, :integer 
+  #     configure :email, :string 
+  #     configure :password, :password         # Hidden 
+  #     configure :password_confirmation, :password         # Hidden 
+  #     configure :reset_password_token, :string         # Hidden 
+  #     configure :reset_password_sent_at, :datetime 
+  #     configure :remember_created_at, :datetime 
+  #     configure :sign_in_count, :integer 
+  #     configure :current_sign_in_at, :datetime 
+  #     configure :last_sign_in_at, :datetime 
+  #     configure :current_sign_in_ip, :string 
+  #     configure :last_sign_in_ip, :string 
   #     configure :created_at, :datetime 
   #     configure :updated_at, :datetime   #   # Sections:
   #   list do; end
