@@ -176,7 +176,7 @@
             .container
               Respond to our letter by mail or phone, or enter your RSVP code
               here:
-              = form_for @invitation, :url => { :controller => "invitations", :action => "update" } do |f|
+              = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
                 = f.text_field :rsvp
                 = f.submit "RSVP"
       .object_container

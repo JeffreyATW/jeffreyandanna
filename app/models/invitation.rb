@@ -1,5 +1,5 @@
 class Invitation < ActiveRecord::Base
-  has_many :guests#, :inverse_of => :invitation
+  has_many :guests
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
   attr_accessible :address, :going, :plus_one, :responded, :guests_attributes

@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   before_filter :find_rsvp
+  layout false
 
   def edit
     @invitation = Invitation.find_by_rsvp(find_rsvp)
@@ -14,8 +15,11 @@ class InvitationsController < ApplicationController
 
     @invitation = Invitation.find_by_rsvp(session[:rsvp])
 
-    if params[:invitation][:rsvp]
-      @invitation.going = true
+    if params[:invitation] && params[:invitation][:rsvp]
+      unless @invitation.responded
+        @invitation.going = true
+      end
+      @invitation.responded = true
       @invitation.save
     else
       if @invitation.update_attributes(params[:invitation])
@@ -29,7 +33,7 @@ class InvitationsController < ApplicationController
 
   private
   def find_rsvp
-    if params[:invitation][:rsvp]
+    if params[:invitation] && params[:invitation][:rsvp]
       session[:rsvp] = params[:invitation][:rsvp]
     elsif session[:rsvp]
       session[:rsvp]

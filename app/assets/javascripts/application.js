@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require libs/jquery-1.8.0.min
+//= require resize
 //= require libs/greensock/TweenMax.min
 //= require libs/jquery.superscrollorama
 //= require libs/jquery.scrollTo.min
@@ -19,4 +20,5 @@
 //= require libs/bootstrap-transition
 //= require libs/bootstrap-scrollspy
 //= require libs/bootstrap-carousel
+//= require jquery_nested_form
 //= require script

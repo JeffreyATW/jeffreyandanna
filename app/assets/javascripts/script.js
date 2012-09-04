@@ -10,10 +10,6 @@
   var parseDecimal = function (x) {
     return parseInt(x, 10)
   }
-
-  var resizeSections = function () {
-    $('.main_section').css('min-height', /Firefox/.test(navigator.userAgent) ? $(window).height() - parseDecimal($('.main_section').css('padding-top')) : $(window).height())
-  }
   
   var randomOffset = function (px) {
     return parseDecimal(Math.random() * px) - px
@@ -62,11 +58,18 @@
                   .toggleClass("falling", state === "falling")
                   .toggleClass("jumping", state === "jumping")
   }
+
+  var countGuests = function () {
+    var $this = $(this)
+      $this.find('fieldset').each(function(i, e) {
+      $(e).find('legend').text("Guest #" + (i + 1))
+    })
+    return $this
+  }
   
   $(function () {
     controller = $.superscrollorama()
 
-    resizeSections()
     $(window).resize(resizeSections)
 
     if (!mobileWidth()) {
@@ -149,8 +152,23 @@
     })
 
     $('.carousel').on('mousewheel', '.container', function(e, d) {
-        if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
-          e.preventDefault()
+      if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
+        e.preventDefault()
     })
+
+    $('#rsvp').on('submit', 'form', function() {
+      var $this = $(this)
+      $.ajax($this.attr('action'), {
+        type: $this.attr('method'),
+        data: $this.serialize(),
+        dataType: 'html',
+        success: function(data) {
+          $this.closest('.container').empty().html(countGuests.call(data))
+        }
+      })
+      return false;
+    })
+
+    $('#rsvp').on('nested:fieldAdded', 'form', countGuests)
   })
 }(window.jQuery);

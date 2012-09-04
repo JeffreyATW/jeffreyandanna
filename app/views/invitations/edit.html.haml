@@ -1,7 +1,21 @@
-%p Thank you for sending your RSVP! We are delighted that you can come.
+%p
+  - if @invitation.going
+    Thank you for sending your RSVP! We are delighted that you can come.
+  - else
+    Thank you for updating your information!
 %p
   %strong You're all set,
   but if you would like to update us with your latest information, you can do so
-  below.
-= form_for @invitation do |f|
-  = f.submit
+  below, then press "Update Invitation".
+= nested_form_for @invitation, :method => "put", :url => rsvp_path do |f|
+  .form_row
+    = f.label :going
+    = f.check_box :going
+  .form_row
+    = f.label :address
+    = f.text_area :address, :rows => 4
+  = f.fields_for :guests
+  = f.link_to_add "Add a guest", :guests
+  .form_row
+    = f.submit
+    = flash[:notice]

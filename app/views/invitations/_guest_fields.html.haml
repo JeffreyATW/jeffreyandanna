@@ -1,0 +1,9 @@
+%fieldset
+  %legend Guest
+  .form_row
+    = f.label :name
+    = f.text_field :name
+  .form_row
+    = f.label :special_needs
+    = f.text_field :special_needs
+  = f.link_to_remove "Remove this guest"
