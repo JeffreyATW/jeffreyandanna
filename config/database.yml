@@ -1,4 +1,8 @@
+<% if Rails.env == "production" %>
+<% APP_CONFIG = YAML.load_file("#{Rails.root}/../../shared/config/app_config.yml") %>
+<% else %>
 <% APP_CONFIG = YAML.load_file("#{Rails.root}/config/app_config.yml") %>
+<% end %>
 # SQLite version 3.x
 #   gem install sqlite3
 #
