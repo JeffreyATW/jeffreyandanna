@@ -32,6 +32,7 @@ end
 
 group :production do
   gem 'mysql2'
+  gem 'therubyracer', :platforms => :ruby
 end
 
 gem 'jquery-rails'
