@@ -98,11 +98,7 @@ td { vertical-align: top; }
   .item {
     display: none;
     position: relative;
-    -webkit-transition: 0.6s ease-in-out left;
-    -moz-transition: 0.6s ease-in-out left;
-    -ms-transition: 0.6s ease-in-out left;
-    -o-transition: 0.6s ease-in-out left;
-    transition: 0.6s ease-in-out left;
+    @include transition(0.6s ease-in-out left);
     > img {
       display: block;
       line-height: 1;
@@ -154,7 +150,7 @@ a {
 }
 
 nav a {
-  @include transition(background-color 1s, -webkit-transform .2s);
+  @include transition(background-color 1s, transform .2s);
   &:hover {
     @include transform(scale(1.1));
   }
