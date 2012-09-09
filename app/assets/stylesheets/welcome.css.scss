@@ -140,12 +140,12 @@ td { vertical-align: top; }
 
 
 .main .container, .carousel .container, .main_section, .regular_section nav li a {
-  @include box-sizing(border-box)
+  @include box-sizing(border-box);
 }
 
 body {
   font-family: "Imprima", sans-serif;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 a {
@@ -202,6 +202,9 @@ nav a {
       line-height: 76px;
       font-weight: bold;
     }
+    i {
+      font-size: 18px;
+    }
   }
 }
 
@@ -235,9 +238,10 @@ h1 {
   }
 }
 
+$container-max-width: 800px;
 .container {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: $container-max-width;
 }
 
 .main .container {
@@ -245,9 +249,17 @@ h1 {
 }
 
 .carousel {
+  height: 70%;
+  bottom: 10%;
   clear: both;
+  .carousel-inner, .item, .container {
+    height: 100%;
+  }
   .container {
     padding: 10px 20px;
+    overflow: auto;
+    //@include box-shadow(0 0 30px rgba(0,0,0,.25));
+    @include border-radius(10px);
     img.size-large.alignnone {
       display: block;
       margin: 0 auto;
@@ -459,7 +471,11 @@ label {
   width: image-width($image-path);
 }
 
-@media only screen and (min-width: 1000px) and (min-height: 601px) {
+@media only screen and (min-width: $container-max-width) and (min-height: 601px) {
+  body {
+    font-size: 18px;
+  }
+
   .couch {
     @include sprite-background("home", "couch");
     bottom: 14%;
@@ -718,21 +734,6 @@ label {
 }
 
 @media only screen and (min-width: 620px) and (min-height: 600px) {
-  .carousel {
-    height: 70%;
-    bottom: 10%;
-
-    .carousel-inner, .item, .container {
-      height: 100%;
-    }
-
-    .container {
-      overflow: auto;
-      //@include box-shadow(0 0 30px rgba(0,0,0,.25));
-      @include border-radius(10px);
-    }
-  }
-
   .object_container {
     opacity: .5;
     perspective: 200;
