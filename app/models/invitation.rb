@@ -34,7 +34,6 @@ class Invitation < ActiveRecord::Base
     end
 
   def ensure_has_one_guest
-    debugger
     if self.guests.length < 1 || (self.guests.length == 1 && self.guests.first._destroy == true)
       errors.add(:base, "An invitation must have at least one guest.")
       return false

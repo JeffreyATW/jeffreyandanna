@@ -132,11 +132,10 @@
                 %tbody
                   - @feed.entries[1..-1].each do |entry|
                     %tr
-                      %td= link_to entry.title, entry.url
+                      %td= link_to entry.title, entry.url, :target => "_blank"
                       %td= entry.author
                       %td= entry.published.strftime("%B %-d, %Y")
               %p.blog_link= link_to "All updates on the full blog...", "/blog"
-
       .object_container
         .plane.object
         .eiffel.object
@@ -155,12 +154,11 @@
           %nav
             %ul
               %li
-                %a{:href => "#wedding"} Wedding
-              %li
-                %a{:href => "#reception"} Reception
+                %a{:href => "#ceremony"} Ceremony
               %li
                 %a{:href => "#accomodations"} Accomodations
       %section.content_section
+        %p.coming_soon Information Coming Soon!
       .object_container
         .mirrorball.object
         .djbooth.object
@@ -174,11 +172,11 @@
         .carousel-inner
           %section.active.item
             .container
-              Respond to our letter by mail or phone, or enter your RSVP code
-              here:
-              = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
-                = f.text_field :rsvp
-                = f.submit "RSVP"
+              %p.respond Respond to our letter by mail or phone, or enter your RSVP code here:
+              .centerer
+                = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
+                  = f.text_field :rsvp
+                  = f.submit "RSVP"
       .object_container
         .backcounter.object
         .sodastream.object
