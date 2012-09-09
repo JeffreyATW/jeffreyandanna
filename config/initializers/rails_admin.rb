@@ -135,6 +135,7 @@ RailsAdmin.config do |config|
       field :email
       field :responded
       field :going
+      field :notes
     end
   #   export do; end
   #   show do; end
