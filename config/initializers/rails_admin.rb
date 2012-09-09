@@ -94,6 +94,7 @@ RailsAdmin.config do |config|
      list do
        field :name
        field :special_needs
+       field :invitation
      end
   #   export do; end
   #   show do; end
@@ -123,6 +124,7 @@ RailsAdmin.config do |config|
      list do
        field :guests
        field :address
+       field :email
        field :responded
        field :going
        field :rsvp
@@ -130,6 +132,7 @@ RailsAdmin.config do |config|
     edit do
       field :guests
       field :address
+      field :email
       field :responded
       field :going
     end

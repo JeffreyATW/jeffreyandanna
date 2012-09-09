@@ -38,3 +38,13 @@ namespace :deploy do
     run "#{deploy_to}/bin/restart"
   end
 end
+
+namespace :db do
+
+  desc "Populates the Production Database"
+  task :seed do
+    puts "\n\n=== Populating the Production Database! ===\n\n"
+    run "cd #{current_path}; rake db:seed RAILS_ENV=production"
+  end
+
+end

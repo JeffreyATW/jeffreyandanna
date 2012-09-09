@@ -1,16 +1,19 @@
 class Invitation < ActiveRecord::Base
-  has_many :guests
+  has_many :guests, :dependent => :destroy, :inverse_of => :invitation
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
-  attr_accessible :address, :going, :plus_one, :responded, :guests_attributes
+  attr_accessible :address, :going, :plus_one, :responded, :guests_attributes, :email
 
   before_create :generate_rsvp
+  validates_associated :guests
   validates_presence_of :guests
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true
 
   HUMANIZED_ATTRIBUTES = {
     :plus_one => "+1",
     :id => "ID",
     :rsvp => "RSVP",
+    :email => "Email address",
     :guests => "Guest(s)"
   }
 
