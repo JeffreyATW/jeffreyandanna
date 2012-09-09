@@ -23,9 +23,9 @@ class InvitationsController < ApplicationController
       @invitation.save
     else
       if @invitation.update_attributes(params[:invitation])
-        flash[:notice] = "Your information has been updated!"
+        flash.now[:notice] = "Your information has been updated!"
       else
-        flash[:alert] = "There was an error saving your information."
+        flash.now[:alert] = "There was an error saving your information."
       end
     end
     render :edit

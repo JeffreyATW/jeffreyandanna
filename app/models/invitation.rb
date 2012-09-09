@@ -3,10 +3,9 @@ class Invitation < ActiveRecord::Base
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
   attr_accessible :address, :going, :plus_one, :responded, :guests_attributes, :email, :notes
-
+  before_save :ensure_has_one_guest
   before_create :generate_rsvp
   validates_associated :guests
-  validates_presence_of :guests
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true
 
   HUMANIZED_ATTRIBUTES = {
@@ -32,5 +31,15 @@ class Invitation < ActiveRecord::Base
   private
   def generate_rsvp
     self.rsvp = ('A'..'Z').to_a.shuffle[0,8].join
+    end
+
+  def ensure_has_one_guest
+    debugger
+    if self.guests.length < 1 || (self.guests.length == 1 && self.guests.first._destroy == true)
+      errors.add(:base, "An invitation must have at least one guest.")
+      return false
+    else
+      return true
+    end
   end
 end
