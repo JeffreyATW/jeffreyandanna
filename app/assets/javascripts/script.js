@@ -116,10 +116,13 @@
     
     $('[id$="_link"]').each(function(i, link) {
       $(link).click(function (e) {
-
         if (!mobileWidth()) {
-          $.scrollTo($('#' + $(this).attr('id').replace(/_link/, '')), 2000)
-          return false
+          var target = $('#' + $(this).attr('id').replace(/_link/, ''))
+          if (target.length) {
+            var top = target.offset().top;
+            $('html,body').animate({scrollTop: top}, 2000);
+            return false;
+          }
         }
       })
       
