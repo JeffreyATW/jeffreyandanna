@@ -128,6 +128,7 @@
       
       $(link).bind('activate', function() {
         var id = $(link).attr('id')
+        $("#container_opacity").toggle(Modernizr.inputtypes.range && id !== "welcome_link")
         $('.character_container .object').each(function(i, character) {
           $(character).addClass('poof')
           $(character).toggleClass('home', id === "welcome_link")
@@ -185,8 +186,6 @@
           $('.content_section, .carousel').show().css('opacity', (val / 100))
         }
       })
-    } else {
-      $('#container_opacity').hide()
     }
   })
 }(window.jQuery);
