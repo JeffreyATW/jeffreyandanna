@@ -186,11 +186,14 @@
         .carousel-inner
           %section.active.item
             .container
-              %p.respond Respond to our letter by mail or phone, or enter your RSVP code here:
-              .centerer
-                = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
-                  = f.text_field :rsvp
-                  = f.submit "RSVP"
+              - if @invitation.persisted?
+                = render :file => "invitations/edit"
+              - else
+                .centerer
+                  %p.respond Respond to our letter by mail or phone, or enter your RSVP code here:
+                  = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
+                    = f.text_field :rsvp
+                    = f.submit "RSVP"
       .object_container
         .backcounter.object
         .sodastream.object
@@ -202,6 +205,7 @@
         .counter.object
         .mixer.object
         .grill.object
+    %input{:type => "range", :id => "container_opacity", :class => "container_opacity", :value => 100}
   = javascript_include_tag "application", :async => Rails.env == "production"
   :javascript
     var _gaq=[['_setAccount','UA-32988072-1'],['_trackPageview']];

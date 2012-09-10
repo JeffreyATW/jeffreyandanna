@@ -175,5 +175,18 @@
     })
 
     $('#rsvp').on('nested:fieldAdded', 'form', countGuests)
+
+    if (Modernizr.inputtypes.range) {
+      $('#container_opacity').change(function() {
+        var val = $(this).val()
+        if (val < 20) {
+          $('.content_section, .carousel').hide()
+        } else {
+          $('.content_section, .carousel').show().css('opacity', (val / 100))
+        }
+      })
+    } else {
+      $('#container_opacity').hide()
+    }
   })
 }(window.jQuery);

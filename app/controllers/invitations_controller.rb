@@ -34,7 +34,7 @@ class InvitationsController < ApplicationController
   private
   def find_rsvp
     if params[:invitation] && params[:invitation][:rsvp]
-      session[:rsvp] = params[:invitation][:rsvp]
+      session[:rsvp] = params[:invitation][:rsvp].upcase
     elsif session[:rsvp]
       session[:rsvp]
     end

@@ -431,8 +431,9 @@ label {
 
 form.new_invitation {
   font-size: 2em;
-  input[type=text] {
+  input[type="text"] {
     width: 260px;
+    margin-bottom: .5em;
   }
 }
 
@@ -760,6 +761,14 @@ form.new_invitation {
 	left: 25%;
 	bottom: 10%;
   }
+
+  .container_opacity {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    opacity: .5;
+    z-index: 2;
+  }
 }
 
 @media only screen and (min-width: 620px) and (min-height: 600px) {
@@ -955,18 +964,16 @@ form.new_invitation {
   .centerer {
     position: absolute;
     left: 50%;
-    top: 40%;
-  }
-
-  .respond {
-    text-align: center;
-    position: relative;
     top: 25%;
   }
 
-  form.new_invitation {
+  form.new_invitation, .respond {
     position: relative;
     left: -50%;
+    text-align: center;
+  }
+
+  .respond {
   }
 }
 
