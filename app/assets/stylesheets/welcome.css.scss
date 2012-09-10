@@ -96,40 +96,12 @@ td { vertical-align: top; }
 
 .carousel {
   .item {
-    display: none;
-    position: relative;
+    display: block;
+    position: static;
     @include transition(0.6s ease-in-out left);
     > img {
       display: block;
       line-height: 1;
-    }
-  }
-  .active, .next, .prev {
-    display: block;
-  }
-  .active {
-    left: 0;
-  }
-  .next, .prev {
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-  .next {
-    left: 100%;
-  }
-  .prev {
-    left: -100%;
-  }
-  .next.left, .prev.right {
-    left: 0;
-  }
-  .active {
-    &.left {
-      left: -100%;
-    }
-    &.right {
-      left: 100%;
     }
   }
 }
@@ -141,7 +113,7 @@ td { vertical-align: top; }
 
 body {
   font-family: "Imprima", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 a {
@@ -167,6 +139,7 @@ nav a {
   z-index: 2;
   width: 100%;
   @include background(linear-gradient(top, rgba(255,255,255,.75), rgba(255,255,255,.25)));
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#{ie_hex_str(rgba(255,255,255,.5))}, endColorStr=#{ie_hex_str(rgba(255,255,255,.5))});
   a {
     color: #333;
   }
@@ -437,6 +410,10 @@ form.new_invitation {
   }
 }
 
+.container_opacity {
+  display: none;
+}
+
 @media only screen and (max-width: 619px) {
   .page_header {
     h1 {
@@ -459,12 +436,6 @@ form.new_invitation {
   .main_section {
     @include box-sizing(border-box);
     padding-top: 45px;
-  }
-  .carousel {
-    .item {
-      display: block;
-      position: static;
-    }
   }
 }
 
@@ -490,6 +461,40 @@ form.new_invitation {
     }
     nav {
       display: block;
+    }
+  }
+  .carousel {
+    .item {
+      display: none;
+      position: relative;
+    }
+    .active, .next, .prev {
+      display: block;
+    }
+    .active {
+      left: 0;
+    }
+    .next, .prev {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .next {
+      left: 100%;
+    }
+    .prev {
+      left: -100%;
+    }
+    .next.left, .prev.right {
+      left: 0;
+    }
+    .active {
+      &.left {
+        left: -100%;
+      }
+      &.right {
+        left: 100%;
+      }
     }
   }
 }

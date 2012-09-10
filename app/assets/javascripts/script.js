@@ -1,7 +1,7 @@
 !function () {
   "use strict";
 
-  var controller
+  var controller, mq
 
   var mobileWidth = function() {
       return $(window).width() < 620
@@ -68,51 +68,53 @@
   }
   
   $(function () {
-    controller = $.superscrollorama()
+    controller = $.superscrollorama(), mq = Modernizr.mq('only all')
 
     $(window).resize(resizeSections)
 
-    if (!mobileWidth()) {
-      var imgUrls = [];
-      $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
-        $.each(['standing', 'jumping', 'falling'], function(j, b) {
-          $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
-            if (!(a === "backup" && b !== "standing")) {
-              imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+    if (mq) {
+      if (!mobileWidth()) {
+        var imgUrls = [];
+        $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
+          $.each(['standing', 'jumping', 'falling'], function(j, b) {
+            $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
+              if (!(a === "backup" && b !== "standing")) {
+                imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+              }
+            })
+            if (a === "backup" && b !== "standing") {
+              imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
             }
           })
-          if (a === "backup" && b !== "standing") {
-            imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
+        })
+        $.preloadCssImages({imgUrls: imgUrls});
+      }
+
+      $('.character_container .object').each(function (i, e) {
+        addCharacterTween(e, '#welcome', 0, false, 0)
+        addCharacterTween(e, '#about_us', -100, true)
+        addCharacterTween(e, '#updates', -200, true)
+        addCharacterTween(e, '#events', -300, true)
+        addCharacterTween(e, '#rsvp', -400, true)
+      })
+
+      $('.main_section').each(function (i, section) {
+        $('.object', section).each(function (j, e) {
+          if (!$(section).is('#rsvp')) {
+            controller.addTween($(section).next(), new TweenMax(e, 1, {
+              css: {"bottom": "-100%"},
+              immediateRender: true
+            }), 400, randomOffset(100))
+          }
+          if (!$(section).is('#welcome')) {
+            controller.addTween($(section), TweenMax.from(e, 1, {
+              css: {"bottom": "100%"},
+              immediateRender: true
+            }), 400, randomOffset(100))
           }
         })
       })
-      $.preloadCssImages({imgUrls: imgUrls});
     }
-
-    $('.character_container .object').each(function (i, e) {
-      addCharacterTween(e, '#welcome', 0, false, 0)
-      addCharacterTween(e, '#about_us', -100, true)
-      addCharacterTween(e, '#updates', -200, true)
-      addCharacterTween(e, '#events', -300, true)
-      addCharacterTween(e, '#rsvp', -400, true)
-    })
-    
-    $('.main_section').each(function (i, section) {
-      $('.object', section).each(function (j, e) {
-        if (!$(section).is('#rsvp')) {
-          controller.addTween($(section).next(), new TweenMax(e, 1, {
-            css: {"bottom": "-100%"},
-            immediateRender: true
-          }), 400, randomOffset(100))
-        }
-        if (!$(section).is('#welcome')) {
-          controller.addTween($(section), TweenMax.from(e, 1, {
-            css: {"bottom": "100%"},
-            immediateRender: true
-          }), 400, randomOffset(100))
-        }
-      })
-    })
     
     $('[id$="_link"]').each(function(i, link) {
       $(link).click(function (e) {
@@ -125,22 +127,24 @@
           }
         }
       })
-      
-      $(link).bind('activate', function() {
-        var id = $(link).attr('id')
-        $("#container_opacity").toggle(Modernizr.inputtypes.range && id !== "welcome_link")
-        $('.character_container .object').each(function(i, character) {
-          $(character).addClass('poof')
-          $(character).toggleClass('home', id === "welcome_link")
-                      .toggleClass('exercise', id === "about_us_link")
-                      .toggleClass('travel', id === "updates_link")
-                      .toggleClass('wedding', id === "events_link")
-                      .toggleClass('cooking', id === "rsvp_link")
-          setTimeout(function() {
-            $(character).removeClass('poof')
-          }, 100)
+
+      if (mq) {
+        $(link).bind('activate', function() {
+          var id = $(link).attr('id')
+          $("#container_opacity").toggle(Modernizr.inputtypes.range && id !== "welcome_link" && !mobileWidth())
+          $('.character_container .object').each(function(i, character) {
+            $(character).addClass('poof')
+            $(character).toggleClass('home', id === "welcome_link")
+                        .toggleClass('exercise', id === "about_us_link")
+                        .toggleClass('travel', id === "updates_link")
+                        .toggleClass('wedding', id === "events_link")
+                        .toggleClass('cooking', id === "rsvp_link")
+            setTimeout(function() {
+              $(character).removeClass('poof')
+            }, 100)
+          })
         })
-      })
+      }
     })
     
     $(window).scrollspy({target: '.page_header a', offset: $(window).height() / 2})
