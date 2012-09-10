@@ -275,6 +275,7 @@ $container-max-width: 800px;
     h1 {
       font-size: 2em;
       margin: .5em 0;
+      line-height: 1.4em;
       a {
         color: inherit;
       }
@@ -297,6 +298,21 @@ $container-max-width: 800px;
       font-size: 30px;
     }
   }
+}
+
+.image_right {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
+.image_left {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.blog_date {
+  float: right;
+  line-height: 2.5em;
 }
 
 .blog_link {
@@ -773,6 +789,7 @@ form.new_invitation {
     top: 0;
     height: 100%;
     width: 95%;
+    z-index: 1;
     .object {
       border: none;
       background-color: transparent;

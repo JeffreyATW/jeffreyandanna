@@ -99,10 +99,12 @@
     
     $('.main_section').each(function (i, section) {
       $('.object', section).each(function (j, e) {
-        controller.addTween($(section).next(), new TweenMax(e, 1, {
-          css: {"bottom": "-100%"},
-          immediateRender: true
-        }), 400, randomOffset(100))
+        if (!$(section).is('#rsvp')) {
+          controller.addTween($(section).next(), new TweenMax(e, 1, {
+            css: {"bottom": "-100%"},
+            immediateRender: true
+          }), 400, randomOffset(100))
+        }
         if (!$(section).is('#welcome')) {
           controller.addTween($(section), TweenMax.from(e, 1, {
             css: {"bottom": "100%"},
