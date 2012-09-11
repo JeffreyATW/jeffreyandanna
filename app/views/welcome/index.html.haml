@@ -134,21 +134,23 @@
         .carousel-inner
           %section#latest_entry.active.item
             %article.container
-              - first = @feed.entries.first
-              %time.blog_date{:datetime => first.published.strftime("%Y-%m-%d")}= link_to first.published.strftime("%B %-d, %Y"), first.url, :target => "_blank"
-              %h1= link_to first.title, first.url
-              %section= first.content.html_safe
-              %p.blog_link= link_to "Comments", first.url, :target => "_blank"
+              - unless @feed.class == Fixnum
+                - first = @feed.entries.first
+                %time.blog_date{:datetime => first.published.strftime("%Y-%m-%d")}= link_to first.published.strftime("%B %-d, %Y"), first.url, :target => "_blank"
+                %h1= link_to first.title, first.url
+                %section= first.content.html_safe
+                %p.blog_link= link_to "Comments", first.url, :target => "_blank"
           %section#archive.item
             .container
               %h1 Archive
               %table
                 %tbody
-                  - @feed.entries[1..-1].each do |entry|
-                    %tr
-                      %td= link_to entry.title, entry.url, :target => "_blank"
-                      %td= entry.author
-                      %td= entry.published.strftime("%B %-d, %Y")
+                  - unless @feed.class == Fixnum
+                    - @feed.entries[1..-1].each do |entry|
+                      %tr
+                        %td= link_to entry.title, entry.url, :target => "_blank"
+                        %td= entry.author
+                        %td= entry.published.strftime("%B %-d, %Y")
               %p.blog_link= link_to "All updates on the full blog...", "/blog", :target => "_blank"
       .object_container
         .plane.object
