@@ -71,7 +71,10 @@
     var $rsvp, $carousel
     controller = $.superscrollorama(), mq = Modernizr.mq('only all')
 
-    $(window).resize(resizeSections)
+    $(window).resize(function() {
+        resizeSections()
+        $(this).scrollspy('refresh')
+    })
 
     if (mq) {
       if (!mobileWidth()) {
