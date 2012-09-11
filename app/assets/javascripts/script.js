@@ -61,13 +61,14 @@
 
   var countGuests = function () {
     var $this = $(this)
-      $this.find('fieldset').each(function(i, e) {
+      $this.find('fieldset:visible').each(function(i, e) {
       $(e).find('legend').text("Guest #" + (i + 1))
     })
     return $this
   }
   
   $(function () {
+    var $rsvp, $carousel
     controller = $.superscrollorama(), mq = Modernizr.mq('only all')
 
     $(window).resize(resizeSections)
@@ -148,10 +149,17 @@
     })
     
     $(window).scrollspy({target: '.page_header a', offset: $(window).height() / 2})
-    
-    $('.carousel').each(function(i, el) {
+
+    $carousel = $('.carousel')
+    $carousel.each(function(i, el) {
         $(el).carousel({interval: false})
     })
+
+    $carousel.on('mousewheel', '.container', function(e, d) {
+      if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
+        e.preventDefault()
+    })
+
     $('.regular_section').each(function(i, section) {
       $('nav a', section).each(function(j, el) {
         $(el).click(function() {
@@ -161,25 +169,24 @@
       })
     })
 
-    $('.carousel').on('mousewheel', '.container', function(e, d) {
-      if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
-        e.preventDefault()
-    })
-
-    $('#rsvp').on('submit', 'form', function() {
+    $rsvp = $('#rsvp')
+    $rsvp.on('submit', 'form', function() {
       var $this = $(this)
       $.ajax($this.attr('action'), {
         type: $this.attr('method'),
         data: $this.serialize(),
         dataType: 'html',
         success: function(data) {
-          $this.closest('.container').empty().html(countGuests.call(data))
+          var $container = $this.closest('.container')
+          $container.empty().html(data)
+          countGuests.call($container)
         }
       })
       return false;
     })
 
-    $('#rsvp').on('nested:fieldAdded', 'form', countGuests)
+    countGuests.call($rsvp)
+    $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests)
 
     if (Modernizr.inputtypes.range) {
       $('#container_opacity').change(function() {

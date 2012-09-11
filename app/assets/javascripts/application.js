@@ -10,7 +10,7 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require libs/jquery-1.8.0.min
+//= require jquery
 //= require resize
 //= require libs/greensock/TweenMax.min
 //= require libs/jquery.superscrollorama

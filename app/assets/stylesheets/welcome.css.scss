@@ -284,7 +284,10 @@ $container-max-width: 800px;
 
 .blog_date {
   float: right;
-  line-height: 2.5em;
+  line-height: 4.7em;
+  a {
+    color: inherit;
+  }
 }
 
 .blog_link {

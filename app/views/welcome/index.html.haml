@@ -135,7 +135,7 @@
           %section#latest_entry.active.item
             %article.container
               - first = @feed.entries.first
-              %p.blog_date= first.published.strftime("%B %-d, %Y")
+              %time.blog_date{:datetime => first.published.strftime("%Y-%m-%d")}= link_to first.published.strftime("%B %-d, %Y"), first.url, :target => "_blank"
               %h1= link_to first.title, first.url
               %section= first.content.html_safe
               %p.blog_link= link_to "Comments", first.url, :target => "_blank"
