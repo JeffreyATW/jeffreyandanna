@@ -237,6 +237,9 @@ $container-max-width: 800px;
     }
     table {
       width: 100%;
+      td {
+        padding: 5px 0;
+      }
       tr:nth-child(odd) {
         background: rgba(218,218,255,.25);
       }
