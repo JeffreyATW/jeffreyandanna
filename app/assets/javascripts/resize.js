@@ -1,5 +1,5 @@
-var resizeSections = function () {
-  $('.main_section').css('min-height', /Firefox/.test(navigator.userAgent) ? $(window).height() - parseInt($('.main_section').css('padding-top'), 10) : $(window).height())
+var resizeSections = function (windowHeight) {
+  $('.main_section').css('min-height', /Firefox/.test(navigator.userAgent) ? windowHeight - parseInt($('.main_section').css('padding-top'), 10) : windowHeight)
 }
 
-resizeSections()
+resizeSections($(window).height())

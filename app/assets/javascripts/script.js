@@ -1,10 +1,10 @@
 !function () {
   "use strict";
 
-  var controller, mq
+  var controller, mq, windowHeight, windowWidth
 
   var mobileWidth = function() {
-      return $(window).width() < 620
+      return windowWidth < 620
   }
 
   var parseDecimal = function (x) {
@@ -12,13 +12,13 @@
   }
   
   var randomOffset = function (px) {
-    return parseDecimal(Math.random() * px) - px
+    return windowHeight > 700 ? parseDecimal(Math.random() * px) - px : 0
   }
   
   var addCharacterTween = function (character, id, bottomPercent, invalidate, offset) {
     var bottom = $(character).css('bottom')
       , tweenOpts
-    if (bottom.match('%') === null) bottom = (parseDecimal(bottom) / parseDecimal($(window).height())) * 100
+    if (bottom.match('%') === null) bottom = (parseDecimal(bottom) / parseDecimal(windowHeight)) * 100
     tweenOpts = {
       css: {"bottom": parseDecimal(bottom) + bottomPercent + "%"},
       immediateRender: true,
@@ -49,7 +49,7 @@
     }
     if (typeof offset === "undefined") offset = -300
 
-    controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(50), invalidate)
+    controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
   }
   
   var changeState = function (state) {
@@ -70,9 +70,13 @@
   $(function () {
     var $rsvp, $carousel
     controller = $.superscrollorama(), mq = Modernizr.mq('only all')
+    windowHeight = $(window).height()
+    windowWidth = $(window).width()
 
     $(window).resize(function() {
-        resizeSections()
+        windowHeight = $(window).height()
+        windowWidth = $(window).width()
+        resizeSections(windowHeight)
         $(this).scrollspy('refresh')
     })
 
@@ -151,7 +155,7 @@
       }
     })
     
-    $(window).scrollspy({target: '.page_header a', offset: $(window).height() / 2})
+    $(window).scrollspy({target: '.page_header a', offset: windowHeight / 2})
 
     $carousel = $('.carousel')
     $carousel.each(function(i, el) {
