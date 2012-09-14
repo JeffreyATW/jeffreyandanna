@@ -82,7 +82,7 @@
 
     if (mq) {
       if (!mobileWidth()) {
-        var imgUrls = [];
+        var imgUrls = []
         $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
           $.each(['standing', 'jumping', 'falling'], function(j, b) {
             $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
@@ -95,7 +95,7 @@
             }
           })
         })
-        $.preloadCssImages({imgUrls: imgUrls});
+        $.preloadCssImages({imgUrls: imgUrls})
       }
 
       $('.character_container .object').each(function (i, e) {
@@ -129,9 +129,9 @@
         if (!mobileWidth()) {
           var target = $('#' + $(this).attr('id').replace(/_link/, ''))
           if (target.length) {
-            var top = target.offset().top;
-            $('html,body').animate({scrollTop: top}, 2000);
-            return false;
+            var top = target.offset().top
+            $('html,body').animate({scrollTop: top}, 2000)
+            return false
           }
         }
       })
@@ -189,7 +189,7 @@
           countGuests.call($container)
         }
       })
-      return false;
+      return false
     })
 
     countGuests.call($rsvp)
@@ -206,4 +206,4 @@
       })
     }
   })
-}(window.jQuery);
+}(window.jQuery)
