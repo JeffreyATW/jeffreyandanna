@@ -1,7 +1,7 @@
 !function () {
   "use strict";
 
-  var controller, mq, windowHeight, windowWidth
+  var controller, windowHeight, windowWidth
 
   var mobileWidth = function() {
       return windowWidth < 620
@@ -10,17 +10,18 @@
   var parseDecimal = function (x) {
     return parseInt(x, 10)
   }
-  
+
+  // Staggers objects +/- random amount within specified range.
+  // Causes problems (floating characters) if height is 700 or under.
   var randomOffset = function (px) {
     return windowHeight > 700 ? parseDecimal(Math.random() * px) - px : 0
   }
-  
+
+  // Create tween from one section to the next.
+  // Force character to stand after tween is complete.
   var addCharacterTween = function (character, id, bottomPercent, invalidate, offset) {
-    var bottom = $(character).css('bottom')
-      , tweenOpts
-    if (bottom.match('%') === null) bottom = (parseDecimal(bottom) / parseDecimal(windowHeight)) * 100
-    tweenOpts = {
-      css: {"bottom": parseDecimal(bottom) + bottomPercent + "%"},
+    var tweenOpts = {
+      css: {"bottom": $(character).data('bottom') + bottomPercent + "%"},
       immediateRender: true,
       ease: Back.easeIn,
       onComplete: changeState,
@@ -28,6 +29,7 @@
       onReverseComplete: changeState,
       onReverseCompleteParams: ["standing"]
     }
+    // Both position in animation and scrolling direction affect state of character.
     if (invalidate) {
       $.extend(tweenOpts, {
         onUpdate: function () {
@@ -47,6 +49,7 @@
         }
       })
     }
+    // Cause character to jump 300 pixels after moving from one section to the next.
     if (typeof offset === "undefined") offset = -300
 
     controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
@@ -59,6 +62,7 @@
                   .toggleClass("jumping", state === "jumping")
   }
 
+  // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
   var countGuests = function () {
     var $this = $(this)
       $this.find('fieldset:visible').each(function(i, e) {
@@ -66,13 +70,16 @@
     })
     return $this
   }
-  
+
   $(function () {
-    var $rsvp, $carousel
-    controller = $.superscrollorama(), mq = Modernizr.mq('only all')
+    // Check for media query support
+    var $rsvp, $carousel, mq = Modernizr.mq('only all')
+    controller = $.superscrollorama()
     windowHeight = $(window).height()
     windowWidth = $(window).width()
 
+    // When resized, resize all sections and establish new thresholds for
+    // navigation item activation
     $(window).resize(function() {
         windowHeight = $(window).height()
         windowWidth = $(window).width()
@@ -81,6 +88,7 @@
     })
 
     if (mq) {
+      // Don't preload images if they won't be displayed (viewport too narrow)
       if (!mobileWidth()) {
         var imgUrls = []
         $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
@@ -98,6 +106,13 @@
         $.preloadCssImages({imgUrls: imgUrls})
       }
 
+      // Store bottom offset for later readjusting
+      $('.object').each(function (i, el) {
+        var $el = $(el), bottom = $el.css('bottom')
+        $el.data('bottom', parseDecimal(bottom.match('%') === null ? Math.round((parseDecimal(bottom) / parseDecimal(windowHeight)) * 100) : bottom))
+      })
+
+      // Tweens for characters
       $('.character_container .object').each(function (i, e) {
         addCharacterTween(e, '#welcome', 0, false, 0)
         addCharacterTween(e, '#about_us', -100, true)
@@ -106,16 +121,22 @@
         addCharacterTween(e, '#rsvp', -400, true)
       })
 
+      // Tweens for inanimate objects.
+      // Two tweens are needed - one to go from hidden above to displayed, and
+      // one to go from displayed to hidden below.
       $('.main_section').each(function (i, section) {
         $('.object', section).each(function (j, e) {
-          if (!$(section).is('#rsvp')) {
-            controller.addTween($(section).next(), new TweenMax(e, 1, {
+          var $section = $(section)
+          // Last section doesn't need to be hidden below
+          if (!$section.is('#rsvp')) {
+            controller.addTween($section.next(), new TweenMax(e, 1, {
               css: {"bottom": "-100%"},
               immediateRender: true
             }), 400, randomOffset(100))
           }
-          if (!$(section).is('#welcome')) {
-            controller.addTween($(section), TweenMax.from(e, 1, {
+          // First section doesn't need to be hidden above
+          if (!$section.is('#welcome')) {
+            controller.addTween($section, TweenMax.from(e, 1, {
               css: {"bottom": "100%"},
               immediateRender: true
             }), 400, randomOffset(100))
@@ -126,19 +147,41 @@
     
     $('[id$="_link"]').each(function(i, link) {
       $(link).click(function (e) {
+        // Go directly to section if mobile width.
         if (!mobileWidth()) {
-          var target = $('#' + $(this).attr('id').replace(/_link/, ''))
-          if (target.length) {
-            var top = target.offset().top
-            $('html,body').animate({scrollTop: top}, 2000)
+          var selector = '#' + $(this).attr('id').replace(/_link/, ''), $target = $(selector)
+          if ($target.length) {
+            var top = $target.offset().top
+            $('html,body').animate({scrollTop: top}, 2000, function() {
+              // Readjust objects after scroll. Either displayed, hidden above,
+              // or hidden below based on current section.
+              $('.object_container .object').each(function(i, e) {
+                var $e = $(e)
+                if ($e.closest(selector).length) {
+                  $e.css('bottom', $e.data('bottom') + "%")
+                } else if ($e.closest('.main_section').prevAll(selector).length) {
+                  $e.css('bottom', '100%')
+                } else {
+                  $e.css('bottom', '-100%')
+                }
+              })
+              // Readjust characters after scroll.
+              $('.character_container .object').each(function(i, e) {
+                var $e = $(e)
+                $e.css('bottom', ($e.data('bottom') - (100 * $target.index()) + 100) + "%")
+              })
+            })
             return false
           }
         }
       })
 
       if (mq) {
+        // Change character clothes when section changes.
         $(link).bind('activate', function() {
           var id = $(link).attr('id')
+          // Display container opacity slider if supported and not on section
+          // with no container.
           $("#container_opacity").toggle(Modernizr.inputtypes.range && id !== "welcome_link" && !mobileWidth())
           $('.character_container .object').each(function(i, character) {
             $(character).addClass('poof')
@@ -154,7 +197,8 @@
         })
       }
     })
-    
+
+    // Change active section about halfway through scroll.
     $(window).scrollspy({target: '.page_header a', offset: windowHeight / 2})
 
     $carousel = $('.carousel')
@@ -162,6 +206,7 @@
         $(el).carousel({interval: false})
     })
 
+    // Prevent scrolling when at beginning or end of content container.
     $carousel.on('mousewheel', '.container', function(e, d) {
       if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
         e.preventDefault()
@@ -170,13 +215,14 @@
     $('.regular_section').each(function(i, section) {
       $('nav a', section).each(function(j, el) {
         $(el).click(function() {
-          $(this).closest('.regular_section').children('.carousel').carousel(j)
+          $(section).children('.carousel').carousel(j)
           return false
         })
       })
     })
 
     $rsvp = $('#rsvp')
+    // Replace RSVP form with AJAX response.
     $rsvp.on('submit', 'form', function() {
       var $this = $(this)
       $.ajax($this.attr('action'), {
@@ -192,13 +238,18 @@
       return false
     })
 
+    // Count guests if a form loads with the page, and when guests are added
+    // or removed.
     countGuests.call($rsvp)
     $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests)
 
+    // Only make range slider work if supported.
     if (Modernizr.inputtypes.range) {
       $('#container_opacity').change(function() {
         var val = $(this).val()
         if (val < 20) {
+          // Hide completely if under 20% opacity - allows users to scroll
+          // window with mouse over containers.
           $('.content_section, .carousel').hide()
         } else {
           $('.content_section, .carousel').show().css('opacity', (val / 100))
