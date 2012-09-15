@@ -62,7 +62,7 @@
       controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
     }
 
-  // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
+    // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
     , countGuests = function () {
       var $this = $(this)
         $this.find('fieldset:visible').each(function(i, e) {
