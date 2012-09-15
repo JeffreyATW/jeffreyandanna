@@ -73,7 +73,7 @@
 
   $(function () {
     // Check for media query support
-    var $rsvp, $carousel, mq = Modernizr.mq('only all')
+    var $rsvp, $carousel, mq = Modernizr.mq('only all'), imgUrls = []
     controller = $.superscrollorama()
     windowHeight = $(window).height()
     windowWidth = $(window).width()
@@ -90,7 +90,6 @@
     if (mq) {
       // Don't preload images if they won't be displayed (viewport too narrow)
       if (!mobileWidth()) {
-        var imgUrls = []
         $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
           $.each(['standing', 'jumping', 'falling'], function(j, b) {
             $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
