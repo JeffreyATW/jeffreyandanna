@@ -3,73 +3,73 @@
 
   var controller, windowHeight, windowWidth
 
-  var mobileWidth = function() {
+    , mobileWidth = function () {
       return windowWidth < 620
-  }
-
-  var parseDecimal = function (x) {
-    return parseInt(x, 10)
-  }
-
-  // Staggers objects +/- random amount within specified range.
-  // Causes problems (floating characters) if height is 700 or under.
-  var randomOffset = function (px) {
-    return windowHeight > 700 ? parseDecimal(Math.random() * px) - px : 0
-  }
-
-  // Create tween from one section to the next.
-  // Force character to stand after tween is complete.
-  var addCharacterTween = function (character, id, bottomPercent, invalidate, offset) {
-    var tweenOpts = {
-      css: {"bottom": $(character).data('bottom') + bottomPercent + "%"},
-      immediateRender: true,
-      ease: Back.easeIn,
-      onComplete: changeState,
-      onCompleteParams: ["standing"],
-      onReverseComplete: changeState,
-      onReverseCompleteParams: ["standing"]
     }
-    // Both position in animation and scrolling direction affect state of character.
-    if (invalidate) {
-      $.extend(tweenOpts, {
-        onUpdate: function () {
-          if (((this.ratio === 0 || this.ratio === 1) &&
-               this.state !== "standing") ||
-              currScroll <= 0) {
-            changeState.call(this, "standing")
-          } else if (this.ratio > 0 && currScroll > prevScroll && this.state !== "falling") {
-            changeState.call(this, "falling")
-          } else if (this.ratio > 0 && prevScroll > currScroll && this.state !== "jumping") {
-            changeState.call(this, "jumping")
-          } else if (this.ratio < 0 && currScroll > prevScroll && this.state !== "jumping") {
-            changeState.call(this, "jumping")
-          } else if (this.ratio < 0 && prevScroll > currScroll && this.state !== "falling") {
-            changeState.call(this, "falling")
+
+    , parseDecimal = function (x) {
+      return parseInt(x, 10)
+    }
+
+    // Staggers objects +/- random amount within specified range.
+    // Causes problems (floating characters) if height is 700 or under.
+    , randomOffset = function (px) {
+      return windowHeight > 700 ? parseDecimal(Math.random() * px) - px : 0
+    }
+
+    , changeState = function (state) {
+      this.state = state
+      $(this.target).toggleClass("standing", state === "standing")
+                    .toggleClass("falling", state === "falling")
+                    .toggleClass("jumping", state === "jumping")
+    }
+
+    // Create tween from one section to the next.
+    // Force character to stand after tween is complete.
+    , addCharacterTween = function (character, id, bottomPercent, invalidate, offset) {
+      var tweenOpts = {
+        css: {"bottom": $(character).data('bottom') + bottomPercent + "%"},
+        immediateRender: true,
+        ease: Back.easeIn,
+        onComplete: changeState,
+        onCompleteParams: ["standing"],
+        onReverseComplete: changeState,
+        onReverseCompleteParams: ["standing"]
+      }
+      // Both position in animation and scrolling direction affect state of character.
+      if (invalidate) {
+        $.extend(tweenOpts, {
+          onUpdate: function () {
+            if (((this.ratio === 0 || this.ratio === 1) &&
+                 this.state !== "standing") ||
+                currScroll <= 0) {
+              changeState.call(this, "standing")
+            } else if (this.ratio > 0 && currScroll > prevScroll && this.state !== "falling") {
+              changeState.call(this, "falling")
+            } else if (this.ratio > 0 && prevScroll > currScroll && this.state !== "jumping") {
+              changeState.call(this, "jumping")
+            } else if (this.ratio < 0 && currScroll > prevScroll && this.state !== "jumping") {
+              changeState.call(this, "jumping")
+            } else if (this.ratio < 0 && prevScroll > currScroll && this.state !== "falling") {
+              changeState.call(this, "falling")
+            }
           }
-        }
-      })
-    }
-    // Cause character to jump 300 pixels after moving from one section to the next.
-    if (typeof offset === "undefined") offset = -300
+        })
+      }
+      // Cause character to jump 300 pixels after moving from one section to the next.
+      if (offset === undefined) offset = -300
 
-    controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
-  }
-  
-  var changeState = function (state) {
-    this.state = state
-    $(this.target).toggleClass("standing", state === "standing")
-                  .toggleClass("falling", state === "falling")
-                  .toggleClass("jumping", state === "jumping")
-  }
+      controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
+    }
 
   // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
-  var countGuests = function () {
-    var $this = $(this)
-      $this.find('fieldset:visible').each(function(i, e) {
-      $(e).find('legend').text("Guest #" + (i + 1))
-    })
-    return $this
-  }
+    , countGuests = function () {
+      var $this = $(this)
+        $this.find('fieldset:visible').each(function(i, e) {
+        $(e).find('legend').text("Guest #" + (i + 1))
+      })
+      return $this
+    }
 
   $(function () {
     // Check for media query support
@@ -146,7 +146,7 @@
     }
     
     $('[class$="_link"]').each(function(i, link) {
-      $(link).click(function (e) {
+      $(link).click(function () {
         // Go directly to section if mobile width.
         if (!mobileWidth()) {
           var selector = '#' + $(this).attr('class').replace(/_link/, ''), $target = $(selector)
@@ -208,7 +208,7 @@
 
     // Prevent scrolling when at beginning or end of content container.
     $carousel.on('mousewheel', '.container', function(e, d) {
-      if (!mobileWidth() && ((d > 0 && $(this).scrollTop() == 0) || (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight())))
+      if (!mobileWidth() && ((d > 0 && $(this).scrollTop() === 0) || (d < 0 &&  $(this).scrollTop() === $(this).get(0).scrollHeight - $(this).innerHeight())))
         e.preventDefault()
     })
 
@@ -257,4 +257,4 @@
       })
     }
   })
-}(window.jQuery)
+}()
