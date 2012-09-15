@@ -16,7 +16,7 @@
   %header.page_header
     .container
       %h1
-        %a#welcome_link{:href => "#welcome"}
+        %a#welcome_link.welcome_link{:href => "#welcome"}
           %span.jeffrey
             J
             %span.not_first_letter> effrey
@@ -28,19 +28,19 @@
       %nav
         %ul
           %li
-            %a#about_us_link{:href => "#about_us"}
+            %a#about_us_link.about_us_link{:href => "#about_us"}
               %i.icon-user
               %span.link_text About Us
           %li
-            %a#updates_link{:href => "#updates"}
+            %a#updates_link.updates_link{:href => "#updates"}
               %i.icon-rss
               %span.link_text Updates
           %li
-            %a#events_link{:href => "#events"}
+            %a#events_link.events_link{:href => "#events"}
               %i.icon-calendar
               %span.link_text Events
           %li
-            %a#rsvp_link{:href => "#rsvp"}
+            %a#rsvp_link.rsvp_link{:href => "#rsvp"}
               %i.icon-envelope-alt
               %span.link_text RSVP
   .main{:role => "main"}
@@ -94,7 +94,7 @@
                 Jeffrey helped Anna move into a nice new place with her housemates on the other side of the Mission, right next to SF General Hospital. This came in handy when Jeffrey smashed his shoulder into Market Street after getting hit by a car on his bike. Anna rushed to his rescue and brought him to bed (across the street). Anna's apartment was great for other, less
                 painful reasons - there was a gorgeous cat, awesome landlords, and plenty of bright space to hold a series of puzzle parties, which are just what they sound like - parties where friends came over and solved #{link_to "one ridiculously challenging puzzle", "https://www.facebook.com/photo.php?v=727747356368", :target => "_blank"}.
               = image_tag "versailles.jpg", :alt => "Visiting Versailles", :class => "image_left"
-              %p They traveled Europe in late 2010 -  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam - all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the Updates section!
+              %p They traveled Europe in late 2010 -  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam - all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the #{link_to "Updates section", "#updates", :class => "updates_link"}!
               %p
                 Jeffrey moved in with Anna in 2011. The rest of the year was filled with travels - to Austin for SxSW, New Jersey to see Anna's family, and New York to see Jeffrey's. After a year of new sights and sounds, they finished the year off on Treasure Island, surrounded by friends and a beautiful panorama of the city where they had started their life. As the New Year's fireworks shot into the sky, Jeffrey took out the engagement ring, promptly dropped it, fumbled around in the dark, and
                 presented it to Anna.
@@ -103,7 +103,14 @@
             .container
               %h1 Anna
               = image_tag "anna.jpg", :alt => "Anna in the Cinque Terre", :class => "image_left"
-              %p Anna is good at local music and volleyball and web editing and cooking delicious food! This is a temporary bio!
+              %p
+                Anna was born in New Jersey, but her family moved to Northern California before she could truly call herself a "Jersey girl." The subsequent coming-of-age years in Sebastopol revolved around volleyball, Gravenstein apples and a high school located next to a dairy farm.
+              %p
+                Thus far, her adult life has been a love letter to the University of California: she spent four awesome years in the majestic redwood forest of UC Santa Cruz, and she has worked at UC Berkeley ever since she graduated. She started working in student affairs before transitioning into web editing and communications for a less student-centric department; currently, she gets to work on high-profile university websites, plus she gets to use the word "Specialist" in her payroll title!
+              %p
+                After entering the post-college world, Anna discovered a love for independent music, which later developed into a specific focus on Bay Area-based bands and artists. Her involvement with several local music blogs in her spare time led to a part-time gig with the Bay Bridged, a local music website and non-profit, where she assists with blog and event production.
+              %p
+                In her spare time, Anna also enjoys cooking/baking, reading, spending time with friends and family, swimming, running, and simply walking around San Francisco.
           %section#about_jeffrey.item
             .container
               %h1 Jeffrey
@@ -194,7 +201,8 @@
                 and <b>Starbelly</b>. And if you're looking to splurge,
                 try <b>Aziza</b>, <b>Gary Danko</b>, or <b>Michael Mina</b>.
               %p
-                Looking to plan your trip for our wedding? Look at the Events section
+                Looking to plan your trip for our wedding? Look at the
+                = link_to "Events section", "#events", :class => "events_link"
                 to learn more about what to expect, and places to stay. And don't
                 hesitate to reach out to us to have any questions answered.
       .object_container

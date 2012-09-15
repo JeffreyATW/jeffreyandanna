@@ -145,11 +145,11 @@
       })
     }
     
-    $('[id$="_link"]').each(function(i, link) {
+    $('[class$="_link"]').each(function(i, link) {
       $(link).click(function (e) {
         // Go directly to section if mobile width.
         if (!mobileWidth()) {
-          var selector = '#' + $(this).attr('id').replace(/_link/, ''), $target = $(selector)
+          var selector = '#' + $(this).attr('class').replace(/_link/, ''), $target = $(selector)
           if ($target.length) {
             var top = $target.offset().top
             $('html,body').animate({scrollTop: top}, 2000, function() {
