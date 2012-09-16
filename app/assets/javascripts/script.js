@@ -212,9 +212,13 @@
     })
 
     $('.regular_section').each(function(i, section) {
-      $('nav a', section).each(function(j, el) {
-        $(el).click(function() {
+      var $sectionLinks = $('nav a', section)
+      $sectionLinks.each(function(j, el) {
+        var $el = $(el)
+        $el.click(function() {
           $(section).children('.carousel').carousel(j)
+          $sectionLinks.removeClass('active')
+          $el.addClass('active')
           return false
         })
       })

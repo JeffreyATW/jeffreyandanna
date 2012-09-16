@@ -107,7 +107,7 @@ td { vertical-align: top; }
 }
 
 
-.main .container, .carousel .container, .main_section, .regular_section nav li a {
+.main .container, .carousel .container, .main_section, .object_container, .regular_section nav li a {
   @include box-sizing(border-box);
 }
 
@@ -123,7 +123,7 @@ a {
 
 nav a {
   @include transition(background-color 1s, transform .2s);
-  &:hover {
+  &:hover, .active {
     @include transform(scale(1.1));
   }
 }
@@ -139,7 +139,7 @@ nav a {
   z-index: 2;
   width: 100%;
   @include background(linear-gradient(top, rgba(255,255,255,.75), rgba(255,255,255,.25)));
-  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#{ie_hex_str(rgba(255,255,255,.5))}, endColorStr=#{ie_hex_str(rgba(255,255,255,.5))});
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#{ie_hex_str(rgba(255,255,255,.75))}, endColorStr=#{ie_hex_str(rgba(255,255,255,.25))});
   a {
     color: #333;
   }
@@ -264,7 +264,7 @@ $container-max-width: 800px;
 
 .main_section {
   width: 100%;
-  padding-top: 77px;
+  min-height: 100%;
   position: relative;
   overflow: hidden;
   header {
@@ -273,6 +273,10 @@ $container-max-width: 800px;
       font-size: 40px;
     }
   }
+}
+
+.content_section {
+  padding-top: 77px;
 }
 
 .image_right {
@@ -345,7 +349,7 @@ $container-max-width: 800px;
     a:hover {
       background: $color-4;
     }
-    li.active a {
+    a.active {
       background: $color-5;
     }
   }
@@ -790,6 +794,10 @@ form.new_invitation {
   .object_container {
     opacity: .5;
     perspective: 200;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
   }
 
   .character_container {
