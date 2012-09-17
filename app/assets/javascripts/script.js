@@ -71,9 +71,17 @@
       return $this
     }
 
+    , assetLocationCounter = function() {
+      var i = -1;
+      return function() {
+        i++
+        return document.location.protocol + "//assets" + (i % 4) + "." + document.location.host + "/objects/"
+      }
+    }
+
   $(function () {
     // Check for media query support
-    var $rsvp, $carousel, mq = Modernizr.mq('only all'), imgUrls = []
+    var $rsvp, $carousel, mq = Modernizr.mq('only all'), imgUrls = [], assetLocation = assetLocationCounter()
     controller = $.superscrollorama()
     windowHeight = $(window).height()
     windowWidth = $(window).width()
@@ -94,11 +102,11 @@
           $.each(['standing', 'jumping', 'falling'], function(j, b) {
             $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
               if (!(a === "backup" && b !== "standing")) {
-                imgUrls.push("/assets/objects/" + a + "/" + b + "-" + c + ".png")
+                imgUrls.push(assetLocation() + a + "/" + b + "-" + c + ".png")
               }
             })
             if (a === "backup" && b !== "standing") {
-              imgUrls.push("/assets/objects/" + a + "/" + b + ".png")
+              imgUrls.push(assetLocation() + a + "/" + b + ".png")
             }
           })
         })
