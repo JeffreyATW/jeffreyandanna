@@ -263,6 +263,7 @@ $container-max-width: 800px;
 }
 
 .main_section {
+  @include transform(translate3d(0,0,0));
   width: 100%;
   min-height: 800px;
   position: relative;
@@ -325,7 +326,7 @@ $container-max-width: 800px;
 }
 
 #welcome {
-  background-color: #ffda73;
+  background: #ffda73 url('backgrounds/welcome.jpg');
   h1 {
     color: #7279da;
     text-shadow: .05em .1em 0 #081073;
@@ -357,26 +358,29 @@ $container-max-width: 800px;
 
 $about-us-color: #d4f870;
 #about_us, #about_us nav a, #about_us .item .container {
-  background: $about-us-color;
+  background-color: $about-us-color;
 }
 #about_us {
   @include regular-section-styles($about-us-color, #e065bb, #7d0057, #c7f83e, #b1f100);
+  background-image: url('backgrounds/about_us.jpg');
 }
 
 $updates-color: #61b7cf;
 #updates, #updates nav a, #updates .item .container {
-  background: $updates-color;
+  background-color: $updates-color;
 }
 #updates {
   @include regular-section-styles($updates-color, #ffba73, #a65400, #39aecf, #057d9f);
+  background-image: url('backgrounds/updates.jpg');
 }
 
 $events-color: #9c6ad6;
 #events, #events nav a, #events .item .container {
-  background: $events-color;
+  background-color: $events-color;
 }
 #events {
   @include regular-section-styles($events-color, #fff573, #a69a00, #8742d6, #580EAD);
+  background-image: url('backgrounds/events.jpg');
   .coming_soon {
     text-align: center;
     font-size: 2em;
@@ -391,10 +395,11 @@ $events-color: #9c6ad6;
 
 $rsvp-color: #ff7373;
 #rsvp, #rsvp nav a, #rsvp .item .container {
-  background: $rsvp-color;
+  background-color: $rsvp-color;
 }
 #rsvp {
   @include regular-section-styles($rsvp-color, #67e667, #008500, #ff4040, #ff0000);
+  background-image: url('backgrounds/rsvp.jpg');
 }
 
 .form_row {
