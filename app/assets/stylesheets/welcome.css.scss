@@ -263,7 +263,6 @@ $container-max-width: 800px;
 }
 
 .main_section {
-  @include transform(translate3d(0,0,0));
   width: 100%;
   min-height: 800px;
   position: relative;
