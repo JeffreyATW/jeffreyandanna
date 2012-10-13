@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909001548) do
+ActiveRecord::Schema.define(:version => 20121013151349) do
 
   create_table "guests", :force => true do |t|
     t.string   "name"
@@ -26,10 +26,12 @@ ActiveRecord::Schema.define(:version => 20120909001548) do
     t.boolean  "responded"
     t.boolean  "going"
     t.string   "rsvp"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "email"
     t.text     "notes"
+    t.boolean  "save_the_date_sent"
+    t.boolean  "invited"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

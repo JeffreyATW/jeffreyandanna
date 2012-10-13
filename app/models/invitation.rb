@@ -2,7 +2,7 @@ class Invitation < ActiveRecord::Base
   has_many :guests, :dependent => :destroy, :inverse_of => :invitation
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
-  attr_accessible :address, :going, :plus_one, :responded, :guests_attributes, :email, :notes
+  attr_accessible :address, :save_the_date_sent, :invited, :going, :responded, :guests_attributes, :email, :notes
   before_save :ensure_has_one_guest
   before_create :generate_rsvp
   validates_associated :guests

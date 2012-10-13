@@ -125,6 +125,8 @@ RailsAdmin.config do |config|
        field :guests
        field :address
        field :email
+       field :save_the_date_sent
+       field :invited
        field :responded
        field :going
        field :rsvp
@@ -133,6 +135,8 @@ RailsAdmin.config do |config|
       field :guests
       field :address
       field :email
+      field :save_the_date_sent
+      field :invited
       field :responded
       field :going
       field :notes
