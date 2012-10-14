@@ -111,7 +111,7 @@ td { vertical-align: top; }
   @include box-sizing(border-box);
 }
 
-body {
+body, input {
   font-family: "Imprima", sans-serif;
   font-size: 16px;
 }
@@ -121,7 +121,7 @@ a {
   color: #0080ff;
 }
 
-nav a {
+nav a, .new_invitation input[type="submit"] {
   @include transition(background-color 1s, transform .2s);
   &:hover, .active {
     @include transform(scale(1.1));
@@ -301,6 +301,11 @@ $container-max-width: 800px;
   text-align: right;
 }
 
+.new_invitation input[type="submit"], .regular_section nav li a {
+  font-weight: bold;
+  @include border-radius(10px);
+}
+
 .regular_section {
   header h1 {
     margin: 0;
@@ -314,10 +319,8 @@ $container-max-width: 800px;
       float: left;
       margin-left: 20px;
       a {
-        font-weight: bold;
         line-height: 25px;
         padding: 10px;
-        @include border-radius(10px);
         display: block;
       }
     }
@@ -393,11 +396,13 @@ $events-color: #9c6ad6;
 }
 
 $rsvp-color: #ff7373;
+$rsvp-hover-color: #ff4040;
+$rsvp-active-color: #ff0000;
 #rsvp, #rsvp nav a, #rsvp .item .container {
   background-color: $rsvp-color;
 }
 #rsvp {
-  @include regular-section-styles($rsvp-color, #67e667, #008500, #ff4040, #ff0000);
+  @include regular-section-styles($rsvp-color, #67e667, #008500, $rsvp-hover-color, $rsvp-active-color);
   background-image: url('backgrounds/rsvp.jpg');
 }
 
@@ -416,11 +421,21 @@ label {
   width: 140px;
 }
 
-form.new_invitation {
+form.new_invitation input {
   font-size: 2em;
-  input[type="text"] {
+  &[type="text"] {
     width: 260px;
-    margin-bottom: .5em;
+    margin-right: .5em;
+  }
+  &[type="submit"] {
+    background-color: $rsvp-color;
+    border: none;
+    &:hover {
+      background-color: $rsvp-hover-color;
+    }
+    &:active {
+      background-color: $rsvp-active-color;
+    }
   }
 }
 
@@ -988,15 +1003,13 @@ form.new_invitation {
     position: absolute;
     left: 50%;
     top: 25%;
+    //width: 100%;
   }
 
-  form.new_invitation, .respond {
+  form.new_invitation, .centerer p {
     position: relative;
     left: -50%;
     text-align: center;
-  }
-
-  .respond {
   }
 }
 

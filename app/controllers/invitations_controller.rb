@@ -13,22 +13,27 @@ class InvitationsController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    @invitation = Invitation.find_by_rsvp(session[:rsvp])
+    @invitation = Invitation.find_by_rsvp(session[:rsvp]) || Invitation.new
 
-    if params[:invitation] && params[:invitation][:rsvp]
-      unless @invitation.responded
-        @invitation.going = true
-      end
-      @invitation.responded = true
-      @invitation.save
-    else
-      if @invitation.update_attributes(params[:invitation])
-        flash.now[:notice] = "Your information has been updated!"
+    if @invitation.persisted?
+      if params[:invitation] && params[:invitation][:rsvp]
+        unless @invitation.responded
+          @invitation.going = true
+        end
+        @invitation.responded = true
+        @invitation.save
       else
-        flash.now[:alert] = "There was an error saving your information."
+        if @invitation.update_attributes(params[:invitation])
+          flash.now[:notice] = "Your information has been updated!"
+        else
+          flash.now[:alert] = "There was an error saving your information."
+        end
       end
+      render :edit
+    else
+      @invitation.errors.add(:base, "We can't find an invitation with that code. Try again!")
+      render :partial => "invitations/rsvp"
     end
-    render :edit
   end
 
   private
