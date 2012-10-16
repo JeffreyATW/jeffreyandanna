@@ -51,10 +51,14 @@
       .backup.object.standing
     %section#welcome.main_section
       %header
-        %h1
-          %span.jeffrey Jeffrey
-          %span.and and
-          %span.anna Anna
+        %hgroup
+          %h1
+            %span.jeffrey Jeffrey
+            %span.and and
+            %span.anna Anna
+          %h3 ...are getting married!
+          %h2 August 17, 2013
+          %h2 San Francisco, CA
       .object_container
         .window.object
         .projectorscreen.object
@@ -241,7 +245,7 @@
                     - @feed.entries[1..-1].each do |entry|
                       %tr
                         %td= link_to entry.title, entry.url, :target => "_blank"
-                        %td= entry.author
+                        %td.author= entry.author
                         %td= entry.published.strftime("%B %-d, %Y")
               %p.blog_link= link_to "All updates on the full blog...", "/blog", :target => "_blank"
       .object_container
@@ -265,8 +269,25 @@
                 %a.active{:href => "#ceremony"} Ceremony
               %li
                 %a{:href => "#accomodations"} Accomodations
-      %section.content_section
-        %p.coming_soon Information Coming Soon!
+      .carousel.slide
+        .carousel-inner
+          %section#ceremony.active.item
+            .container
+              %h1 Ceremony
+              %p
+                The ceremony and reception will take place at
+                %b
+                  = link_to "the Winery", "http://winery-sf.com/", :target => "_blank"
+                  on Treasure Island in San Francisco, on Saturday, August 17,
+                  2013.
+                More details will be surfaced as the date arrives - stay tuned!
+          %section#accomodations.item
+            .container
+              %h1 Accommodations
+              %p
+                We are working with multiple hotels in the Bay Area to establish
+                group discount rates. We'll have all the details in place by
+                the time we send out invitations!
       .object_container
         .mirrorball.object
         .djbooth.object

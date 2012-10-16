@@ -130,7 +130,6 @@ nav a, .new_invitation input[type="submit"] {
 
 .page_header, #welcome {
   h1 {
-    text-align: center;
     @include transform(skew(0,-10deg));
   }
 }
@@ -144,6 +143,7 @@ nav a, .new_invitation input[type="submit"] {
     color: #333;
   }
   h1 {
+    text-align: center;
     font-size: 12px;
     float: left;
     width: 25%;
@@ -181,7 +181,7 @@ nav a, .new_invitation input[type="submit"] {
   display: none;
 }
 
-h1, .coming_soon {
+h1, h2 {
   font-family: 'Carter One', sans-serif;
   font-weight: normal;
   .jeffrey, .anna, .and {
@@ -272,21 +272,19 @@ $container-max-width: 800px;
     h1 {
       font-size: 40px;
     }
+    h2 {
+      font-size: 30px;
+      margin: .2em 0;
+    }
+    h3 {
+      font-size: 25px;
+      margin: .5em 0;
+    }
   }
 }
 
 .content_section {
   padding-top: 77px;
-}
-
-.image_right {
-  float: right;
-  margin: 0 0 1em 1em;
-}
-
-.image_left {
-  float: left;
-  margin: 0 1em 1em 0;
 }
 
 .blog_date {
@@ -307,10 +305,6 @@ $container-max-width: 800px;
 }
 
 .regular_section {
-  header h1 {
-    margin: 0;
-  }
-
   nav {
     display: none;
     float: right;
@@ -327,11 +321,24 @@ $container-max-width: 800px;
   }
 }
 
+$welcome-heading-shadow-color: #081073;
 #welcome {
   background: #ffda73 url('backgrounds/welcome.jpg');
-  h1 {
+  header {
+    top: 15%;
+  }
+  h1, h2, h3 {
+    text-align: center;
     color: #7279da;
-    text-shadow: .05em .1em 0 #081073;
+  }
+  h1, h3 {
+    text-shadow: .05em .1em 0 $welcome-heading-shadow-color;
+  }
+  h1 {
+    margin-bottom: 0;
+  }
+  h2 {
+    text-shadow: .05em .1em 0 $welcome-heading-shadow-color, 0 0 20px white;
   }
 }
 
@@ -383,16 +390,6 @@ $events-color: #9c6ad6;
 #events {
   @include regular-section-styles($events-color, #fff573, #a69a00, #8742d6, #580EAD);
   background-image: url('backgrounds/events.jpg');
-  .coming_soon {
-    text-align: center;
-    font-size: 2em;
-    color: #fff573;
-    text-shadow: .05em .1em 0 #a69a00, 0 0 20px white;
-    clear: both;
-    margin-top: 5em;
-    position: relative;
-    z-index: 1;
-  }
 }
 
 $rsvp-color: #ff7373;
@@ -443,6 +440,26 @@ form.new_invitation input {
   display: none;
 }
 
+#about_us img {
+  width: auto;
+}
+.image_right {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+.image_left {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+@media only screen and (max-width: 400px) {
+  #about_us img {
+    max-width: 100%;
+    height: auto;
+    float: none;
+  }
+}
+
 @media only screen and (max-width: 619px) {
   .page_header {
     h1 {
@@ -466,6 +483,9 @@ form.new_invitation input {
     @include box-sizing(border-box);
     padding-top: 45px;
   }
+  .author {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 620px) {
@@ -480,9 +500,6 @@ form.new_invitation input {
     width: 100%;
     z-index: 1;
     position: absolute;
-  }
-  .main_section header h1 {
-    font-size: 60px;
   }
   .regular_section {
     header h1 {
@@ -528,6 +545,21 @@ form.new_invitation input {
   }
 }
 
+@media only screen and (min-width: 620px) and (min-height: 601px) {
+  .main_section header {
+    h1 {
+      margin: 0;
+      font-size: 60px;
+    }
+    h2 {
+      font-size: 40px;
+    }
+    h3 {
+      font-size: 30px;
+    }
+  }
+}
+
 @mixin sprite-background($map, $name) {
   $image-path: "objects/#{$map}/#{$name}.png";
   background-image: url($image-path);
@@ -548,8 +580,8 @@ form.new_invitation input {
 
   .window {
     @include sprite-background("home", "window");
-    bottom: 30%;
-    left: 4%;
+    bottom: 34%;
+    left: 0%;
   }
 
   .projectorscreen {
