@@ -285,9 +285,31 @@
             .container
               %h1 Accommodations
               %p
-                We are working with multiple hotels in the Bay Area to establish
-                group discount rates. We'll have all the details in place by
-                the time we send out invitations!
+                Due to concerns of price and convenience, we've opted to contract with two hotels - one in Emeryville and one in San Francisco. #{mail_to "wedding@jeffreyandanna.us", "Email us", :target => "_blank"} to reserve at discounted rates!
+              %a{:href => "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank", :class => "hotel_heading marriott_heading"}
+                %hgroup
+                  %h2 Home Base
+                  %h3 Courtyard Marriott in Emeryville
+              %p
+                Emeryville is a small city right outside of San Francisco, to the west of Oakland and Berkeley. We will admit up front that Emeryville is not the most exciting place to stay: the city consists of mostly office buildings, apartment complexes, and a few large shopping centers. However, the convenience and price can't be beat. The #{link_to "Courtyard Marriott hotel", "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank"} is located right off the freeway, next to the Bay Bridge (of which the wedding venue on Treasure Island is in the middle), is also close to public transit (a #{link_to "free shuttle service", "http://www.emerygoround.com/", :target => "_blank"} to the nearest #{link_to "BART", "http://bart.gov/", :target => "_blank"} station stops at the hotel), and will cost guests only
+                %strong $139-149
+                a night.
+              %a{:href => "http://www.kensingtonparkhotel.com/", :target => "_blank", :class => "hotel_heading kensington_heading"}
+                %hgroup
+                  %h2 The City Option
+                  %h3 Kensington Park Hotel in San Francisco
+              %p
+                The #{link_to "Kensington Park Hotel", "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank"} is located in Union Square. We know what you're thinking: "Geez, I know I'll be a tourist and all, but that doesn't mean you have to offer a hotel in the most tourist-centric neighborhood in San Francisco!" And, well, you'd be right, but hear us out - there's a reason why Union Square is the home base for so many people visiting San Francisco. The neighborhood's central location is surrounded by public transit options that will take you all over the City and beyond, and you'll likely find it easier and quicker to return to at the end of a long day of exploring. Not only that, but the Kensington is offering a very reasonable discounted rate for our guests at
+                %strong $199
+                a night - so, if you'd rather save some bucks (to spend instead on some of San Francisco's amazing food options!), then this hotel should serve you well.
+              %p
+                Prices do not include tax. If you're interested in booking with these hotels at these discounted rates, please
+                %strong #{mail_to "wedding@jeffreyandanna.us", "email us", :target => "_blank"}
+                and we can send you a reservation link!
+              %p
+                Please note that you are not at all required to stay in the hotels that we've outlined above. We've also looked at the #{link_to "Columbus Motor Inn", "http://www.columbusmotorinn.com/", :target => "_blank"}, the #{link_to "Hilton Garden Inn", "http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-san-francisco-oakland-bay-bridge-SFOBBGI/index.html", :target => "_blank"}, the #{link_to "Inn at Jack London Square", "http://www.innatthesquare.com/", :target => "_blank"} in Oakland, and the #{link_to "Joie de Vivre hotels", "http://www.jdvhotels.com/", :target => "_blank"}.
+              %p
+                And searching #{link_to "Yelp", "http://www.yelp.com/", :target => "_blank"}, #{link_to "TripAdvisor", "http://www.tripadvisor.com/", :target => "_blank"}, or #{link_to "Airbnb", "https://www.airbnb.com/", :target => "_blank"} are all solid options for finding accommodations in the area. If you have any questions about hotels or neighborhoods or anything like that, please don't hesitate to #{mail_to "wedding@jeffreyandanna.us", "email"} or call us.
       .object_container
         .mirrorball.object
         .djbooth.object

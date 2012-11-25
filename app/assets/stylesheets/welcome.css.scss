@@ -247,13 +247,13 @@ $container-max-width: 800px;
         text-align: right;
       }
     }
+    h1 a, a.hotel_heading {
+      color: inherit;
+    }
     h1 {
       font-size: 2em;
       margin: .5em 0;
       line-height: 1.4em;
-      a {
-        color: inherit;
-      }
     }
     section h1 {
       margin: 1em 0;
@@ -450,6 +450,24 @@ form.new_invitation input {
 .image_left {
   float: left;
   margin: 0 1em 1em 0;
+}
+
+.hotel_heading {
+  display: block;
+  h2 {
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    @include box-sizing(border-box);
+    padding-bottom: 210px;
+  }
+}
+
+.marriott_heading h2 {
+  background-image: url('/marriott.jpg')
+}
+
+.kensington_heading h2 {
+  background-image: url('/kensington.jpg')
 }
 
 @media only screen and (max-width: 400px) {
