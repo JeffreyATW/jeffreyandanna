@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require resize
-//= require libs/greensock/TweenMax.min
+//= require libs/greensock/TweenMax
 //= require libs/jquery.superscrollorama
 //= require libs/jquery.mousewheel
 //= require libs/jquery.preloadCssImages

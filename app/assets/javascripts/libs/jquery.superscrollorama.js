@@ -33,139 +33,162 @@ var currScroll;
 		// PRIVATE FUNCTIONS
 
 		function init() {
+            var requestId;
+            (function() {
+              window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+              window.cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame ||
+                                            window.mozkitCancelAnimationFrame || window.msCancelAnimationFrame;
+            })();
+
+            function scrollCheck(timestamp) {
+              didScrollCheck = true;
+            }
+
 			// scroll to top of page
 			$('html, body').animate({ scrollTop: 0 }, 0);
 
 			$(window).scroll(function() {
-				didScrollCheck = true;
+              if (requestAnimationFrame) {
+                if (cancelAnimationFrame) {
+                  cancelAnimationFrame(requestId);
+                }
+                requestId = requestAnimationFrame(checkScrollAnim);
+              } else {
+                didScrollCheck = true;
+              }
 			});
-			setInterval(function() {
-				if (didScrollCheck) {
-					checkScrollAnim();
-					didScrollCheck = false;
-				}
-			}, 10);
+
+            if (!requestAnimationFrame) {
+              setInterval(function() {
+                  if (didScrollCheck) {
+                      didScrollCheck = false;
+                  }
+              }, 10);
+            }
 		}
 
 		function checkScrollAnim() {
-		  prevScroll = currScroll;
+		    prevScroll = currScroll;
 			var currScrollPoint = superscrollorama.settings.isVertical ? $(window).scrollTop() : $(window).scrollLeft();
-			currScroll = currScrollPoint;
-			var offsetAdjust = superscrollorama.settings.isVertical ? -$(window).height()/2 : -$(window).width()/2;
-			var i, startPoint, endPoint;
+            if (currScrollPoint >= 0) {
+                currScroll = currScrollPoint;
+                var offsetAdjust = superscrollorama.settings.isVertical ? -$(window).height()/2 : -$(window).width()/2;
+                var i, startPoint, endPoint;
 
-			// check all animObjects
-			var numAnim = animObjects.length;
-			for (i=0; i<numAnim; i++) {
-				var animObj = animObjects[i],
-					target = animObj.target,
-					offset = animObj.offset;
+                // check all animObjects
+                var numAnim = animObjects.length;
+                for (i=0; i<numAnim; i++) {
+                    var animObj = animObjects[i],
+                        target = animObj.target,
+                        offset = animObj.offset;
 
-				if (typeof(target) === 'string') {
-					startPoint = superscrollorama.settings.isVertical ? $(target).offset().top : $(target).offset().left;
-					offset += offsetAdjust;
-				} else if (typeof(target) === 'number')	{
-					startPoint = target;
-				} else {
-					startPoint = superscrollorama.settings.isVertical ? target.offset().top : target.offset().left;
-					offset += offsetAdjust;
-				}
+                    if (typeof(target) === 'string') {
+                        startPoint = superscrollorama.settings.isVertical ? $(target).offset().top : $(target).offset().left;
+                        offset += offsetAdjust;
+                    } else if (typeof(target) === 'number')	{
+                        startPoint = target;
+                    } else {
+                        startPoint = superscrollorama.settings.isVertical ? target.offset().top : target.offset().left;
+                        offset += offsetAdjust;
+                    }
 
-				startPoint += offset;
-				endPoint = animObj.dur ? startPoint + animObj.dur : startPoint;
+                    startPoint += offset;
+                    endPoint = animObj.dur ? startPoint + animObj.dur : startPoint;
 
-				if ((currScrollPoint > startPoint && currScrollPoint < endPoint) && animObj.state !== 'TWEENING') {
-				  if (animObj.state === 'BEFORE' && animObj.invalidate) animObj.tween.invalidate();
-					// if it should be TWEENING and isn't..
-					animObj.state = 'TWEENING';
-					animObj.start = startPoint;
-					animObj.end = endPoint;
-					animObj.tween.progress((currScrollPoint - animObj.start)/(animObj.end - animObj.start)).pause();
-				} else if (currScrollPoint < startPoint && animObj.state !== 'BEFORE') {
-					// if it should be at the BEFORE tween state and isn't..
-					animObj.tween.reverse();
-					animObj.state = 'BEFORE';
-				} else if (currScrollPoint > endPoint && animObj.state !== 'AFTER') {
-					// if it should be at the AFTER tween state and isn't..
-          if (animObj.invalidate)
-					animObj.tween.play();
-					animObj.state = 'AFTER';
-				} else if (animObj.state === 'TWEENING') {
-					// if it is TWEENING..
-					animObj.tween.progress((currScrollPoint - animObj.start)/(animObj.end - animObj.start)).pause();
-				}
-			}
+                    if ((currScrollPoint > startPoint && currScrollPoint < endPoint) && animObj.state !== 'TWEENING') {
+                      if (animObj.state === 'BEFORE' && animObj.invalidate) animObj.tween.invalidate();
+                        // if it should be TWEENING and isn't..
+                        animObj.state = 'TWEENING';
+                        animObj.start = startPoint;
+                        animObj.end = endPoint;
+                        animObj.tween.progress((currScrollPoint - animObj.start)/(animObj.end - animObj.start)).pause();
+                    } else if (currScrollPoint < startPoint && animObj.state !== 'BEFORE') {
+                        // if it should be at the BEFORE tween state and isn't..
+                        animObj.tween.reverse();
+                        animObj.state = 'BEFORE';
+                    } else if (currScrollPoint > endPoint && animObj.state !== 'AFTER') {
+                        // if it should be at the AFTER tween state and isn't..
+                    if (animObj.invalidate)
+                        animObj.tween.play();
+                        animObj.state = 'AFTER';
+                    } else if (animObj.state === 'TWEENING') {
+                        // if it is TWEENING..
+                        animObj.tween.progress((currScrollPoint - animObj.start)/(animObj.end - animObj.start)).pause();
+                    }
+                }
 
-			// check all pinned elements
-			var numPinned = pinnedObjects.length;
-			for (i=0; i<numPinned; i++) {
-				var pinObj = pinnedObjects[i];
-				var el = pinObj.el;
+                // check all pinned elements
+                var numPinned = pinnedObjects.length;
+                for (i=0; i<numPinned; i++) {
+                    var pinObj = pinnedObjects[i];
+                    var el = pinObj.el;
 
-				// should object be pinned?
-				if (pinObj.state != 'PINNED') {
+                    // should object be pinned?
+                    if (pinObj.state != 'PINNED') {
 
-					startPoint = pinObj.spacer ?
-						superscrollorama.settings.isVertical ? pinObj.spacer.offset().top : pinObj.spacer.offset().left :
-						superscrollorama.settings.isVertical ? el.offset().top : el.offset().left;
+                        startPoint = pinObj.spacer ?
+                            superscrollorama.settings.isVertical ? pinObj.spacer.offset().top : pinObj.spacer.offset().left :
+                            superscrollorama.settings.isVertical ? el.offset().top : el.offset().left;
 
-					startPoint += pinObj.offset;
-					endPoint = startPoint + pinObj.dur;
+                        startPoint += pinObj.offset;
+                        endPoint = startPoint + pinObj.dur;
 
-					if (currScrollPoint > startPoint && currScrollPoint < endPoint && pinObj.state !== 'PINNED') {
-						// pin it
-						pinObj.state = 'PINNED';
+                        if (currScrollPoint > startPoint && currScrollPoint < endPoint && pinObj.state !== 'PINNED') {
+                            // pin it
+                            pinObj.state = 'PINNED';
 
-						// set original position value for unpinning
-						pinObj.origPositionVal = superscrollorama.settings.isVertical ? el.css('top') : el.css('left');
-						if (pinObj.origPositionVal === 'auto')
-							pinObj.origPositionVal = 0;
-						else
-							pinObj.origPositionVal = parseInt(pinObj.origPositionVal, 10);
+                            // set original position value for unpinning
+                            pinObj.origPositionVal = superscrollorama.settings.isVertical ? el.css('top') : el.css('left');
+                            if (pinObj.origPositionVal === 'auto')
+                                pinObj.origPositionVal = 0;
+                            else
+                                pinObj.origPositionVal = parseInt(pinObj.origPositionVal, 10);
 
-						// change to fixed position
-						el.css('position','fixed');
-						if (superscrollorama.settings.isVertical)
-							el.css('top', 0);
-						else
-							el.css('left', 0);
+                            // change to fixed position
+                            el.css('position','fixed');
+                            if (superscrollorama.settings.isVertical)
+                                el.css('top', 0);
+                            else
+                                el.css('left', 0);
 
-						pinObj.pinStart = startPoint;
-						pinObj.pinEnd = endPoint;
+                            pinObj.pinStart = startPoint;
+                            pinObj.pinEnd = endPoint;
 
-						if (pinObj.spacer)
-							pinObj.spacer.css('height', pinObj.dur + el.outerHeight());
+                            if (pinObj.spacer)
+                                pinObj.spacer.css('height', pinObj.dur + el.outerHeight());
 
-						if (pinObj.onPin)
-							pinObj.onPin();
-					}
+                            if (pinObj.onPin)
+                                pinObj.onPin();
+                        }
 
-				// Check to see if object should be unpinned
-				} else {
+                    // Check to see if object should be unpinned
+                    } else {
 
-					if (currScrollPoint < pinObj.pinStart || currScrollPoint > pinObj.pinEnd) {
-						// unpin it
-						pinObj.state = currScrollPoint < pinObj.pinStart ? 'BEFORE' : 'AFTER';
+                        if (currScrollPoint < pinObj.pinStart || currScrollPoint > pinObj.pinEnd) {
+                            // unpin it
+                            pinObj.state = currScrollPoint < pinObj.pinStart ? 'BEFORE' : 'AFTER';
 
-						// revert to original position value
-						el.css('position',pinObj.origPosition);
-						if (superscrollorama.settings.isVertical)
-							el.css('top', pinObj.origPositionVal);
-						else
-							el.css('left', pinObj.origPositionVal);
+                            // revert to original position value
+                            el.css('position',pinObj.origPosition);
+                            if (superscrollorama.settings.isVertical)
+                                el.css('top', pinObj.origPositionVal);
+                            else
+                                el.css('left', pinObj.origPositionVal);
 
-						if (pinObj.spacer)
-							pinObj.spacer.css('height', currScrollPoint < pinObj.pinStart ? 0 : pinObj.dur);
+                            if (pinObj.spacer)
+                                pinObj.spacer.css('height', currScrollPoint < pinObj.pinStart ? 0 : pinObj.dur);
 
-						if (pinObj.onUnpin)
-							pinObj.onUnpin();
-					}
-					else if (pinObj.anim) {
-						// do animation
-						pinObj.anim.progress((currScrollPoint - pinObj.pinStart)/(pinObj.pinEnd - pinObj.pinStart));
-					}
-				}
-			}
+                            if (pinObj.onUnpin)
+                                pinObj.onUnpin();
+                        }
+                        else if (pinObj.anim) {
+                            // do animation
+                            pinObj.anim.progress((currScrollPoint - pinObj.pinStart)/(pinObj.pinEnd - pinObj.pinStart));
+                        }
+                    }
+                }
+            }
 		}
 
 		// PUBLIC FUNCTIONS
