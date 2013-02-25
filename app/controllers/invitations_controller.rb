@@ -1,6 +1,10 @@
 class InvitationsController < ApplicationController
-  before_filter :find_rsvp
+  before_filter :find_rsvp, :only => %w{edit update}
   layout false
+
+  def index
+    @invitations = Invitation.all
+  end
 
   def edit
     @invitation = Invitation.find_by_rsvp(find_rsvp)

@@ -6,6 +6,8 @@ Jeffreyandanna::Application.routes.draw do
   put 'rsvp' => "invitations#update", :as => "rsvp"
   get 'rsvp' => "invitations#edit", :as => "invitation"
 
+  get 'rsvp/export' => "invitations#index", :format => "xml"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
