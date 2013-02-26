@@ -16,11 +16,12 @@ xml.svg do
       end
       xml.v(:sampleDataSets, {'xmlns:v' => :'&ns_vars;', :xmlns => :'&ns_custom;'}) do
         @invitations.each do |invitation|
-          xml.v(:sampleDataSet, {:dataSetName => invitation.name}) do
+          xml.v(:sampleDataSet, {:dataSetName => invitation.address_name}) do
             xml.RSVP do
               xml.p invitation.rsvp
             end
             xml.Address do
+              xml.p invitation.address_name
               invitation.address.split("\n").each do |line|
                 xml.p line
               end
