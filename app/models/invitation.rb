@@ -9,7 +9,6 @@ class Invitation < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true
 
   HUMANIZED_ATTRIBUTES = {
-    :plus_one => "+1",
     :id => "ID",
     :rsvp => "RSVP",
     :email => "Email address",
@@ -81,10 +80,11 @@ class Invitation < ActiveRecord::Base
     families.to_sentence
   end
 
-  private
   def generate_rsvp
-    self.rsvp = ('A'..'Z').to_a.shuffle[0,8].join
-    end
+    self.rsvp = ('A'..'Z').to_a.shuffle[0,4].join
+  end
+
+  private
 
   def ensure_has_one_guest
     if self.guests.length < 1 || (self.guests.length == 1 && self.guests.first._destroy == true)
