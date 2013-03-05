@@ -125,10 +125,10 @@ RailsAdmin.config do |config|
        field :guests
        field :address
        field :email
-       field :save_the_date_sent
        field :invited
        field :responded
        field :going
+       field :save_the_date_sent
        field :rsvp
      end
     edit do
