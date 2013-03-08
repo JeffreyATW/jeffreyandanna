@@ -83,12 +83,16 @@ td { vertical-align: top; }
   font-style: normal;
   display: inline-block;
   text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
 }
-.icon-user:before                 { content: "\f007"; }
-.icon-rss:before                  { content: "\f09e"; }
-.icon-calendar:before             { content: "\f073"; }
-.icon-envelope-alt:before         { content: "\f0e0"; }
-
+.icon-user:before		{ content: "\f021"; }
+.icon-plus-sign:before		{ content: "\f022"; }
+.icon-remove-sign:before		{ content: "\f023"; }
+.icon-remove-circle:before		{ content: "\f024"; }
+.icon-ok-circle:before		{ content: "\f025"; }
+.icon-calendar:before		{ content: "\f026"; }
+.icon-rss:before		{ content: "\f027"; }
+.icon-envelope-alt:before		{ content: "\f028"; }
 
 .carousel-inner {
   position: relative;
@@ -111,7 +115,7 @@ td { vertical-align: top; }
   @include box-sizing(border-box);
 }
 
-body, input {
+body, input, textarea {
   font-family: "Imprima", sans-serif;
   font-size: 16px;
 }
@@ -121,10 +125,23 @@ a {
   color: #0080ff;
 }
 
-nav a, .new_invitation input[type="submit"] {
+a:hover {
+  color: #11a0ff;
+}
+
+nav a, input[type="submit"] {
   @include transition(background-color 1s, transform .2s);
+}
+
+nav a {
   &:hover, .active {
     @include transform(scale(1.1));
+  }
+}
+
+input[type="submit"] {
+  &:hover {
+    @include transform(scale(1.05));
   }
 }
 
@@ -299,7 +316,7 @@ $container-max-width: 800px;
   text-align: right;
 }
 
-.new_invitation input[type="submit"], .regular_section nav li a {
+input[type="submit"], .regular_section nav li a {
   font-weight: bold;
   @include border-radius(10px);
 }
@@ -407,10 +424,12 @@ $rsvp-active-color: #ff0000;
   margin: 1em 0;
 }
 
-fieldset {
-  border: 2px groove;
-  padding: 10px;
+fieldset.container {
   margin-bottom: 1em;
+}
+
+legend {
+  font-weight: bold;
 }
 
 label {
@@ -418,22 +437,61 @@ label {
   width: 140px;
 }
 
-form.new_invitation input {
-  font-size: 2em;
-  &[type="text"] {
-    width: 260px;
-    margin-right: .5em;
+form.new_invitation input[type="text"] {
+  font-size: 3em;
+}
+
+input[type="submit"] {
+  font-size: 2.7em;
+}
+
+form.new_invitation input[type="text"] {
+  width: 130px;
+  margin-right: .5em;
+}
+
+form.edit_invitation {
+  clear: both;
+}
+
+.badge {
+  display: block;
+  float: left;
+  font-size: 80px;
+  height: 80px;
+  margin: 8px 20px 20px 0;
+  text-align: center;
+  width: 80px;
+  &.icon-ok-circle {
+    color: green;
   }
-  &[type="submit"] {
-    background-color: $rsvp-color;
-    border: none;
-    &:hover {
-      background-color: $rsvp-hover-color;
-    }
-    &:active {
-      background-color: $rsvp-active-color;
-    }
+  &.icon-remove-circle {
+    color: red;
   }
+}
+
+input[type="submit"], .remove_nested_fields, .add_nested_fields {
+  background-color: $rsvp-color;
+  border: none;
+  padding: 5px 10px;
+  &:hover {
+    background-color: $rsvp-hover-color;
+  }
+  &:active {
+    background-color: $rsvp-active-color;
+  }
+}
+
+.remove_nested_fields, .add_nested_fields {
+  @include border-radius(5px);
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+}
+
+.remove_nested_fields {
+  float: right;
 }
 
 .container_opacity {

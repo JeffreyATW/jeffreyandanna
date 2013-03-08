@@ -1,22 +1,32 @@
+- if flash.present?
+  %p
+    = flash[:notice]
+    = flash[:alert]
+- if @invitation.going
+  %i.icon-ok-circle.badge
+- else
+  %i.icon-remove-circle.badge
 %p
   - if @invitation.going
     Thank you for sending your RSVP! We are delighted that you can come.
   - else
-    Thank you for updating your information!
-%p
-  %strong You're all set,
-  but if you would like to update us with your latest information, you can do so
-  below, then press "Update Invitation".
-= nested_form_for @invitation, :method => "put", :url => rsvp_path do |f|
+    Sorry to miss you at our event.
+- if @invitation.going
+  %p
+    %strong You're all set,
+    but if you would like to update us with your latest information, you can do so
+    below, then press "Update Invitation".
+= nested_form_for @invitation, :method => 'put', :url => rsvp_path do |f|
   .form_row
-    = f.label :going
-    = f.check_box :going
+    = f.label :going, "Attending"
+    = f.radio_button :going, "1", :checked => @invitation.going
+    = f.label :going, "Yes"
+    = f.radio_button :going, "0", :checked => !@invitation.going
+    = f.label :going, "No"
   .form_row
     = f.label :address
     = f.text_area :address, :rows => 4
   = f.fields_for :guests
-  = f.link_to_add "Add a guest", :guests
+  = f.link_to_add " Add a guest", :guests, :class => "icon-plus-sign"
   .form_row
     = f.submit
-    = flash[:notice]
-    = flash[:alert]

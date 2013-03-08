@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_filter :find_rsvp, :only => %w{edit update}
-  #before_filter :authenticate_user!, :only => 'index'
+  before_filter :authenticate_user!, :only => 'index'
   layout false
 
   def index
@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
   end
 
   def update
-    if not find_rsvp
+    unless find_rsvp
       raise ActionController::RoutingError.new('Not Found')
     end
 
@@ -29,7 +29,7 @@ class InvitationsController < ApplicationController
         @invitation.save
       else
         if @invitation.update_attributes(params[:invitation])
-          flash.now[:notice] = "Your information has been updated!"
+          flash.now[:notice] = "Thank you for updating your information!"
         else
           flash.now[:alert] = "There was an error saving your information."
         end
