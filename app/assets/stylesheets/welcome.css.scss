@@ -73,7 +73,7 @@ td { vertical-align: top; }
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
 
-@include font-face("FontAwesome", font-files('fontawesome-webfont.woff', 'fontawesome-webfont.ttf', 'fontawesome-webfont.svg#FontAwesome'), 'fontawesome-webfont.eot');
+@include font-face("FontAwesome", font-files('custom-fontawesome-webfont.woff', 'custom-fontawesome-webfont.ttf', 'fontawesome-webfont.svg#FontAwesome'), 'custom-fontawesome-webfont.eot');
 
 /*  Font Awesome styles
     ------------------------------------------------------- */
