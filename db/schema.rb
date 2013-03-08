@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302221150) do
+ActiveRecord::Schema.define(:version => 20130308171952) do
 
   create_table "guests", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130302221150) do
     t.datetime "updated_at",    :null => false
     t.integer  "invitation_id"
     t.text     "special_needs"
+    t.boolean  "under_4"
   end
 
   create_table "invitations", :force => true do |t|

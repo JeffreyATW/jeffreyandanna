@@ -94,6 +94,7 @@ RailsAdmin.config do |config|
      list do
        field :name
        field :special_needs
+       field :under_4
        field :invitation
      end
   #   export do; end
@@ -101,6 +102,7 @@ RailsAdmin.config do |config|
     edit do
       field :name
       field :special_needs
+      field :under_4
       field :invitation do
         nested_form false
       end

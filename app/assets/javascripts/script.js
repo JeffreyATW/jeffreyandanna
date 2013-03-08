@@ -207,7 +207,7 @@
     })
 
     // Prevent scrolling when at beginning or end of content container.
-    $carousel.on('mousewheel', '.container', function(e, d) {
+    $carousel.on('mousewheel', '.item > .container', function(e, d) {
       var $this = $(this), scrollTop = $this.scrollTop()
       if (!mobileWidth() && ((d > 0 && scrollTop === 0) || (d < 0 && scrollTop >= $this.get(0).scrollHeight - $this.innerHeight() - 1)))
         e.preventDefault()
