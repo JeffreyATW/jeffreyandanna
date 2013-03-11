@@ -71,9 +71,9 @@
       return $this
     }
 
-    , scrollToSection = function (selector, $target) {
-      var top = $target.offset().top
-      $('html,body').animate({scrollTop: top}, 2000, function() {
+    , readjust = function (selector, $target) {
+      // Might be passing in a non-existent object
+      if ($target.length) {
         // Readjust objects after scroll. Either displayed, hidden above,
         // or hidden below based on current section.
         $('.object_container .object').each(function(i, e) {
@@ -91,6 +91,13 @@
           var $e = $(e)
           $e.css('bottom', ($e.data('bottom') - (100 * $target.index()) + 100) + "%")
         })
+      }
+    }
+
+    , scrollToSection = function (selector, $target) {
+      var top = $target.offset().top
+      $('html,body').animate({scrollTop: top}, 2000, function() {
+        readjust(selector, $target)
       })
       return false
     }
@@ -263,11 +270,6 @@
       return false
     })
 
-    // Count guests if a form loads with the page, and when guests are added
-    // or removed.
-    countGuests.call($rsvp)
-    $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests)
-
     // Only make range slider work if supported.
     if (Modernizr.inputtypes.range) {
       $('#container_opacity').change(function() {
@@ -281,5 +283,15 @@
         }
       })
     }
+
+    // Show objects for requested section
+    if (window.location.hash) {
+      readjust(window.location.hash, $(window.location.hash))
+    }
+
+    // Count guests if a form loads with the page, and when guests are added
+    // or removed.
+    countGuests.call($rsvp)
+    $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests)
   })
 }()

@@ -267,16 +267,18 @@
           %nav
             %ul
               %li
-                %a.active{:href => "#ceremony"} Ceremony
+                %a.active{:href => "#festivities"} Festivities
               %li
                 %a{:href => "#accommodations"} Accommodations
+              %li
+                %a{:href => "#registries"} Registries
       .carousel.slide
         .carousel-inner
-          %section#ceremony.active.item
+          %section#festivities.active.item
             .container
-              %h1 Ceremony
+              %h1 Festivities
               %p
-                The ceremony and reception will take place at
+                All festivities will take place at
                 %b
                   = link_to "the Winery", "http://winery-sf.com/", :target => "_blank"
                   on Treasure Island in San Francisco, on Saturday, August 17,
@@ -284,7 +286,26 @@
                 %p
                   Shuttles will leave from both the Kensington and Marriott (details about the hotels are on the
                   = link_to "Accommodations", "#accommodations"
-                  page).
+                  page) around 4:30. Make sure the email in your
+                  = link_to "RSVP", "#rsvp"
+                  is correct so we can email you with furthe details as we get
+                  them.
+                %p
+                  The ceremony will start at 5:30. The reception begins
+                  immediately afterward.
+                %p
+                  Dinner will be served, buffet-style, by the Winery around 7:00.
+                  Dessert will be provided by Sift Cupcakes.
+                  Dietary options are available - please note on your
+                  = link_to "RSVP", "#rsvp"
+                  if you have any special requests!
+                %p
+                  After dinner, be ready to dance and to sing! We will have
+                  karaoke sensation DJ Purple taking requests for the rest of
+                  the night.
+                %p
+                  Above times and specifics are still subject to change - we're
+                  still a few months out!
           %section#accommodations.item
             .container
               %h1 Accommodations
@@ -318,6 +339,10 @@
                 Please note that you are not at all required to stay in the hotels that we've outlined above. We've also looked at the #{link_to "Columbus Motor Inn", "http://www.columbusmotorinn.com/", :target => "_blank"}, the #{link_to "Hilton Garden Inn", "http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-san-francisco-oakland-bay-bridge-SFOBBGI/index.html", :target => "_blank"}, the #{link_to "Inn at Jack London Square", "http://www.innatthesquare.com/", :target => "_blank"} in Oakland, and the #{link_to "Joie de Vivre hotels", "http://www.jdvhotels.com/", :target => "_blank"}.
               %p
                 And searching #{link_to "Yelp", "http://www.yelp.com/", :target => "_blank"}, #{link_to "TripAdvisor", "http://www.tripadvisor.com/", :target => "_blank"}, or #{link_to "Airbnb", "https://www.airbnb.com/", :target => "_blank"} are all solid options for finding accommodations in the area. If you have any questions about hotels or neighborhoods or anything like that, please don't hesitate to #{mail_to "wedding@jeffreyandanna.us", "email"} or call us.
+          %section#registries.item
+            .container
+              %h1 Registries
+              %p We will have gift registries from a few places. Watch this space!
       .object_container
         .mirrorball.object
         .djbooth.object
