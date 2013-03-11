@@ -71,6 +71,37 @@
       return $this
     }
 
+    , scrollToSection = function (selector, $target) {
+      var top = $target.offset().top
+      $('html,body').animate({scrollTop: top}, 2000, function() {
+        // Readjust objects after scroll. Either displayed, hidden above,
+        // or hidden below based on current section.
+        $('.object_container .object').each(function(i, e) {
+          var $e = $(e)
+          if ($e.closest(selector).length) {
+            $e.css('bottom', $e.data('bottom') + "%")
+          } else if ($e.closest('.main_section').prevAll(selector).length) {
+            $e.css('bottom', '100%')
+          } else {
+            $e.css('bottom', '-100%')
+          }
+        })
+        // Readjust characters after scroll.
+        $('.character_container .object').each(function(i, e) {
+          var $e = $(e)
+          $e.css('bottom', ($e.data('bottom') - (100 * $target.index()) + 100) + "%")
+        })
+      })
+      return false
+    }
+
+    , tabClicked = function (e) {
+      $(e.data.section).children('.carousel').carousel(e.data.index)
+      e.data.$sectionLinks.removeClass('active')
+      e.data.$el.addClass('active')
+      return false
+    }
+
   $(function () {
     // Check for media query support
     var $rsvp, $carousel, mq = Modernizr.mq('only all'), imgUrls = []
@@ -145,34 +176,28 @@
       })
     }
     
-    $('[class$="_link"]').each(function(i, link) {
+    $('[href^="#"]').each(function(i, link) {
       $(link).click(function () {
         // Go directly to section if mobile width.
         if (!mobileWidth()) {
-          var selector = '#' + $(this).attr('class').replace(/_link/, ''), $target = $(selector)
-          if ($target.length) {
-            var top = $target.offset().top
-            $('html,body').animate({scrollTop: top}, 2000, function() {
-              // Readjust objects after scroll. Either displayed, hidden above,
-              // or hidden below based on current section.
-              $('.object_container .object').each(function(i, e) {
-                var $e = $(e)
-                if ($e.closest(selector).length) {
-                  $e.css('bottom', $e.data('bottom') + "%")
-                } else if ($e.closest('.main_section').prevAll(selector).length) {
-                  $e.css('bottom', '100%')
-                } else {
-                  $e.css('bottom', '-100%')
-                }
-              })
-              // Readjust characters after scroll.
-              $('.character_container .object').each(function(i, e) {
-                var $e = $(e)
-                $e.css('bottom', ($e.data('bottom') - (100 * $target.index()) + 100) + "%")
-              })
+          var selector = $(this).attr('href'), $target = $(selector), $mainSection, $sectionLinks, $el
+          if ($target.hasClass('main_section')) {
+            scrollToSection(selector, $target)
+          } else if ($target.hasClass('item')) {
+            $mainSection = $target.closest('.main_section')
+            $sectionLinks = $mainSection.find('nav a')
+            $el = $sectionLinks.filter('[href=' + selector + ']')
+            scrollToSection('#' + $mainSection.attr('id'), $mainSection)
+            tabClicked({
+              data: {
+                section: $mainSection,
+                $sectionLinks: $sectionLinks,
+                $el: $el,
+                index: $sectionLinks.index($el)
+              }
             })
-            return false
           }
+          return false
         }
       })
 
@@ -217,12 +242,7 @@
       var $sectionLinks = $('nav a', section)
       $sectionLinks.each(function(j, el) {
         var $el = $(el)
-        $el.click(function() {
-          $(section).children('.carousel').carousel(j)
-          $sectionLinks.removeClass('active')
-          $el.addClass('active')
-          return false
-        })
+        $el.click({section: section, $sectionLinks: $sectionLinks, $el: $el, index: j}, tabClicked)
       })
     })
 

@@ -18,7 +18,7 @@
   %header.page_header
     .container
       %h1
-        %a#welcome_link.welcome_link{:href => "#welcome"}
+        %a#welcome_link{:href => "#welcome"}
           %span.jeffrey
             J
             %span.not_first_letter> effrey
@@ -30,19 +30,19 @@
       %nav
         %ul
           %li
-            %a#about_us_link.about_us_link{:href => "#about_us"}
+            %a#about_us_link{:href => "#about_us"}
               %i.icon-user
               %span.link_text About Us
           %li
-            %a#updates_link.updates_link{:href => "#updates"}
+            %a#updates_link{:href => "#updates"}
               %i.icon-rss
               %span.link_text Updates
           %li
-            %a#events_link.events_link{:href => "#events"}
+            %a#events_link{:href => "#events"}
               %i.icon-calendar
               %span.link_text Events
           %li
-            %a#rsvp_link.rsvp_link{:href => "#rsvp"}
+            %a#rsvp_link{:href => "#rsvp"}
               %i.icon-envelope-alt
               %span.link_text RSVP
   .main{:role => "main"}
@@ -100,7 +100,7 @@
                 Jeffrey helped Anna move into a nice new place with her housemates on the other side of the Mission, right next to SF General Hospital. This came in handy when Jeffrey smashed his shoulder into Market Street after getting hit by a car on his bike. Anna rushed to his rescue and brought him to bed (across the street). Anna's apartment was great for other, less
                 painful reasons - there was a gorgeous cat, awesome landlords, and plenty of bright space to hold a series of puzzle parties, which are just what they sound like - parties where friends came over and solved #{link_to "one ridiculously challenging puzzle", "https://www.facebook.com/photo.php?v=727747356368", :target => "_blank"}.
               = image_tag "versailles.jpg", :alt => "Visiting Versailles", :class => "image_left", :width => 300, :height => 435
-              %p They traveled Europe in late 2010 -  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam - all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the #{link_to "Updates section", "#updates", :class => "updates_link"}!
+              %p They traveled Europe in late 2010 -  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam - all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the #{link_to "Updates section", "#updates"}!
               %p
                 Jeffrey moved in with Anna in 2011. The rest of the year was filled with travels - to Austin for SxSW, New Jersey to see Anna's family, and New York to see Jeffrey's. After a year of new sights and sounds, they finished the year off on Treasure Island, surrounded by friends and a beautiful panorama of the city where they had started their life. As the New Year's fireworks shot into the sky, Jeffrey took out the engagement ring, promptly dropped it, fumbled around in the dark, and
                 presented it to Anna.
@@ -208,7 +208,7 @@
                 try <b>Aziza</b>, <b>Gary Danko</b>, or <b>Michael Mina</b>.
               %p
                 Looking to plan your trip for our wedding? Look at the
-                = link_to "Events section", "#events", :class => "events_link"
+                = link_to "Events section", "#events"
                 to learn more about what to expect, and places to stay. And don't
                 hesitate to reach out to us to have any questions answered.
       .object_container
@@ -269,7 +269,7 @@
               %li
                 %a.active{:href => "#ceremony"} Ceremony
               %li
-                %a{:href => "#accomodations"} Accomodations
+                %a{:href => "#accommodations"} Accommodations
       .carousel.slide
         .carousel-inner
           %section#ceremony.active.item
@@ -281,8 +281,11 @@
                   = link_to "the Winery", "http://winery-sf.com/", :target => "_blank"
                   on Treasure Island in San Francisco, on Saturday, August 17,
                   2013.
-                More details will surface as the date arrives - stay tuned!
-          %section#accomodations.item
+                %p
+                  Shuttles will leave from both the Kensington and Marriott (details about the hotels are on the
+                  = link_to "Accommodations", "#accommodations"
+                  page).
+          %section#accommodations.item
             .container
               %h1 Accommodations
               %p

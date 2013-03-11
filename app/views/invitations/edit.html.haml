@@ -20,6 +20,9 @@
     = f.radio_button :going, "0", :checked => !@invitation.going
     = f.label :going, "No"
   .form_row
+    = f.label :email
+    = f.email_field :email
+  .form_row
     = f.label :address
     = f.text_area :address, :rows => 4
   = f.fields_for :guests
