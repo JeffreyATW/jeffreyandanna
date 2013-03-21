@@ -5,6 +5,14 @@ class InvitationsController < ApplicationController
 
   def index
     @invitations = Invitation.all
+
+    respond_to do |format|
+      format.xml do
+        stream = render_to_string(:template=> "invitations/index" )
+        send_data(stream, :type=> "text/xml", :filename => "invitations.xml")
+      end
+      format.xls
+    end
   end
 
   def edit
