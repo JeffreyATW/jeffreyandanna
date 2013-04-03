@@ -71,7 +71,9 @@ class Invitation < ActiveRecord::Base
     end
     last_names.merge! new_last_names
     last_names.each do |last_name, first_names|
-      if first_names.length > 4
+      if last_name == 'Guest'
+        families << last_name
+      elsif first_names.length > 4 || last_name == 'Rosa'
         families << "The #{last_name} Family"
       else
         families << first_names.to_sentence + ' ' + last_name
@@ -88,10 +90,10 @@ class Invitation < ActiveRecord::Base
 
   def ensure_has_one_guest
     if self.guests.length < 1 || (self.guests.length == 1 && self.guests.first._destroy == true)
-      errors.add(:base, "An invitation must have at least one guest.")
-      return false
+      errors.add(:base, 'An invitation must have at least one guest.')
+      false
     else
-      return true
+      true
     end
   end
 end
