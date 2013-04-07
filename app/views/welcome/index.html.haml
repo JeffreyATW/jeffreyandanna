@@ -271,7 +271,7 @@
               %li
                 %a{:href => "#accommodations"} Accommodations
               %li
-                %a{:href => "#registries"} Registries
+                %a{:href => "#registry"} Registry
       .carousel.slide
         .carousel-inner
           %section#festivities.active.item
@@ -339,10 +339,13 @@
                 Please note that you are not at all required to stay in the hotels that we've outlined above. We've also looked at the #{link_to "Columbus Motor Inn", "http://www.columbusmotorinn.com/", :target => "_blank"}, the #{link_to "Hilton Garden Inn", "http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-san-francisco-oakland-bay-bridge-SFOBBGI/index.html", :target => "_blank"}, the #{link_to "Inn at Jack London Square", "http://www.innatthesquare.com/", :target => "_blank"} in Oakland, and the #{link_to "Joie de Vivre hotels", "http://www.jdvhotels.com/", :target => "_blank"}.
               %p
                 And searching #{link_to "Yelp", "http://www.yelp.com/", :target => "_blank"}, #{link_to "TripAdvisor", "http://www.tripadvisor.com/", :target => "_blank"}, or #{link_to "Airbnb", "https://www.airbnb.com/", :target => "_blank"} are all solid options for finding accommodations in the area. If you have any questions about hotels or neighborhoods or anything like that, please don't hesitate to #{mail_to "wedding@jeffreyandanna.us", "email"} or call us.
-          %section#registries.item
+          %section#registry.item
             .container
-              %h1 Registries
-              %p We will have gift registries from a few places. Watch this space!
+              %h1 Registry
+              .centerer
+                %a{:href => 'https://www.registrylove.com/registries/jeffreyandanna', :target => '_blank'}
+                  %p Our registry is available on RegistryLove! Click to continue to the registry.
+                  = image_tag 'registrylove.jpg', :alt => 'RegistryLove logo'
       .object_container
         .mirrorball.object
         .djbooth.object
@@ -356,10 +359,16 @@
         .carousel-inner
           %section.active.item
             .container
-              - if @invitation.persisted?
-                = render :file => "invitations/edit"
-              - else
-                = render :partial => "invitations/rsvp"
+              .centerer
+                %p
+                  We haven't sent out invitations just yet!
+                  %br
+                  When we do, come back here and you'll be able to RSVP online.
+              -#
+                - if @invitation.persisted?
+                  = render :file => "invitations/edit"
+                - else
+                  = render :partial => "invitations/rsvp"
       .object_container
         .backcounter.object
         .sodastream.object

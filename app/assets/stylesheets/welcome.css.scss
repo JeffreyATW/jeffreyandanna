@@ -1110,12 +1110,12 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
 
   .centerer {
     position: absolute;
-    left: 50%;
     top: 25%;
-    //width: 100%;
+    text-align: center;
+    width: 100%;
   }
 
-  form.new_invitation, .centerer p {
+  form.new_invitation {
     position: relative;
     left: -50%;
     text-align: center;
