@@ -96,8 +96,12 @@
 
     , scrollToSection = function (selector, $target) {
       var top = $target.offset().top
-      $('html,body').animate({scrollTop: top}, 2000, function() {
-        readjust(selector, $target)
+      $('html,body').animate({scrollTop: top}, {
+        duration: 2000,
+        queue: false,
+        complete: function() {
+          readjust(selector, $target)
+        }
       })
       return false
     }
