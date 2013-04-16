@@ -4,17 +4,17 @@
  * JavaScript 
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
- * Copyright (c) 2008-2012, GreenSock. All rights reserved. 
+ * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
  * This work is subject to the terms in http://www.greensock.com/terms_of_use.html or for 
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
  */
 (window._gsQueue || (window._gsQueue = [])).push( function() {
-	
-	_gsDefine("plugins.CSSRulePlugin", ["plugins.TweenPlugin","TweenLite","plugins.CSSPlugin"], function(TweenPlugin, TweenLite, CSSPlugin) {
-		
-		"use strict";
+
+	"use strict";
+
+	window._gsDefine("plugins.CSSRulePlugin", ["plugins.TweenPlugin","TweenLite","plugins.CSSPlugin"], function(TweenPlugin, TweenLite, CSSPlugin) {
 
 		/** @constructor **/
 		var CSSRulePlugin = function() {
@@ -63,7 +63,6 @@
 			}
 			return a;
 		};
-
 							
 		
 		//@private gets called when the tween renders for the first time. This kicks everything off, recording start/end values, etc.
@@ -93,4 +92,4 @@
 		
 	}, true);
 	
-}); if (window._gsDefine) { _gsQueue.pop()(); }
+}); if (window._gsDefine) { window._gsQueue.pop()(); }

@@ -59,7 +59,7 @@
       // Cause character to jump 300 pixels after moving from one section to the next.
       if (offset === undefined) offset = -300
 
-      controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), invalidate)
+      controller.addTween(id, new TweenMax(character, 1, tweenOpts), 500, offset + randomOffset(windowHeight / 20), true, invalidate)
     }
 
     // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
