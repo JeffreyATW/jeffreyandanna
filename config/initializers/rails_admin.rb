@@ -96,6 +96,7 @@ RailsAdmin.config do |config|
        field :special_needs
        field :under_4
        field :invitation
+       field :table
      end
   #   export do; end
   #   show do; end
@@ -106,6 +107,7 @@ RailsAdmin.config do |config|
       field :invitation do
         nested_form false
       end
+      field :table
     end
   #   create do; end
   #   update do; end
@@ -142,6 +144,33 @@ RailsAdmin.config do |config|
       field :responded
       field :going
       field :notes
+    end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  end
+
+  config.model Table do
+    list do
+      field :name
+      field :notes
+      field :guests do
+        column_width 800
+      end
+    end
+    edit do
+      field :name
+      field :notes
+      field :guests do
+        associated_collection_scope do
+          table = bindings[:object]
+          Proc.new { |scope|
+            scope = scope.where(table_id: nil)
+          }
+        end
+      end
     end
   #   export do; end
   #   show do; end

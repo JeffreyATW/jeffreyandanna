@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308171952) do
+ActiveRecord::Schema.define(:version => 20130505162408) do
 
   create_table "guests", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130308171952) do
     t.integer  "invitation_id"
     t.text     "special_needs"
     t.boolean  "under_4"
+    t.integer  "table_id"
   end
 
   create_table "invitations", :force => true do |t|
@@ -47,6 +48,13 @@ ActiveRecord::Schema.define(:version => 20130308171952) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "tables", :force => true do |t|
+    t.string   "name"
+    t.text     "notes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
