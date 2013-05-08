@@ -60,6 +60,13 @@
           %h3 ...are getting married!
           %h2 August 17, 2013
           %h2 San Francisco, CA
+          - if @remaining > 0
+            %h3
+              - if @remaining == 0
+                Today's the big day!
+              - else
+                = @remaining
+                days to go!
       .object_container
         .window.object
         .projectorscreen.object
