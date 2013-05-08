@@ -65,7 +65,7 @@
     // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
     , countGuests = function () {
       var $this = $(this)
-        $this.find('fieldset:visible').each(function(i, e) {
+        $this.find('fieldset:visible').each(function (i, e) {
         $(e).find('legend').text("Guest #" + (i + 1))
       })
       return $this
@@ -76,7 +76,7 @@
       if ($target.length) {
         // Readjust objects after scroll. Either displayed, hidden above,
         // or hidden below based on current section.
-        $('.object_container .object').each(function(i, e) {
+        $('.object_container .object').each(function (i, e) {
           var $e = $(e)
           if ($e.closest(selector).length) {
             $e.css('bottom', $e.data('bottom') + "%")
@@ -87,7 +87,7 @@
           }
         })
         // Readjust characters after scroll.
-        $('.character_container .object').each(function(i, e) {
+        $('.character_container .object').each(function (i, e) {
           var $e = $(e)
           $e.css('bottom', ($e.data('bottom') - (100 * $target.index()) + 100) + "%")
         })
@@ -99,7 +99,7 @@
       $('html,body').animate({scrollTop: top}, {
         duration: 2000,
         queue: false,
-        complete: function() {
+        complete: function () {
           readjust(selector, $target)
         }
       })
@@ -123,7 +123,7 @@
 
     // When resized, resize all sections and establish new thresholds for
     // navigation item activation
-    $(window).resize(function() {
+    $(window).resize(function () {
         windowHeight = $(window).height()
         windowWidth = $(window).width()
         resizeSections(windowHeight)
@@ -133,9 +133,9 @@
     if (mq) {
       // Don't preload images if they won't be displayed (viewport too narrow)
       if (!mobileWidth()) {
-        $.each(['jeffrey', 'anna', 'backup'], function(i, a) {
-          $.each(['standing', 'jumping', 'falling'], function(j, b) {
-            $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function(k, c) {
+        $.each(['jeffrey', 'anna', 'backup'], function (i, a) {
+          $.each(['standing', 'jumping', 'falling'], function (j, b) {
+            $.each(['home', 'exercise', 'travel', 'wedding', 'cooking'], function (k, c) {
               if (!(a === "backup" && b !== "standing")) {
                 imgUrls.push(assetLocation + a + "/" + b + "-" + c + ".png")
               }
@@ -187,7 +187,7 @@
       })
     }
     
-    $('[href^="#"]').each(function(i, link) {
+    $('[href^="#"]').each(function (i, link) {
       $(link).click(function () {
         // Go directly to section if mobile width.
         if (!mobileWidth()) {
@@ -214,19 +214,19 @@
 
       if (mq) {
         // Change character clothes when section changes.
-        $(link).bind('activate', function() {
+        $(link).bind('activate', function () {
           var id = $(link).attr('id')
           // Display container opacity slider if supported and not on section
           // with no container.
           $("#container_opacity").toggle(Modernizr.inputtypes.range && id !== "welcome_link" && !mobileWidth())
-          $('.character_container .object').each(function(i, character) {
+          $('.character_container .object').each(function (i, character) {
             $(character).addClass('poof')
             $(character).toggleClass('home', id === "welcome_link")
                         .toggleClass('exercise', id === "about_us_link")
                         .toggleClass('travel', id === "updates_link")
                         .toggleClass('wedding', id === "events_link")
                         .toggleClass('cooking', id === "rsvp_link")
-            setTimeout(function() {
+            setTimeout(function () {
               $(character).removeClass('poof')
             }, 100)
           })
@@ -238,20 +238,20 @@
     $(window).scrollspy({target: '.page_header a', offset: windowHeight / 2})
 
     $carousel = $('.carousel')
-    $carousel.each(function(i, el) {
+    $carousel.each(function (i, el) {
         $(el).carousel({interval: false})
     })
 
     // Prevent scrolling when at beginning or end of content container.
-    $carousel.on('mousewheel', '.item > .container', function(e, d) {
+    $carousel.on('mousewheel', '.item > .container', function (e, d) {
       var $this = $(this), scrollTop = $this.scrollTop()
       if (!mobileWidth() && ((d > 0 && scrollTop === 0) || (d < 0 && scrollTop >= $this.get(0).scrollHeight - $this.innerHeight() - 1)))
         e.preventDefault()
     })
 
-    $('.regular_section').each(function(i, section) {
+    $('.regular_section').each(function (i, section) {
       var $sectionLinks = $('nav a', section)
-      $sectionLinks.each(function(j, el) {
+      $sectionLinks.each(function (j, el) {
         var $el = $(el)
         $el.click({section: section, $sectionLinks: $sectionLinks, $el: $el, index: j}, tabClicked)
       })
@@ -259,13 +259,26 @@
 
     $rsvp = $('#rsvp')
     // Replace RSVP form with AJAX response.
-    $rsvp.on('submit', 'form', function() {
-      var $this = $(this)
+    $rsvp.on('submit', 'form', function () {
+      var $this = $(this),
+        guestFail = false;
+      $this.find('.guest_name').each(function () {
+        var val = $(this).val()
+        if (val === "Guest" || val === "") {
+          alert('Please fill in all guest names, or remove guests who are not coming!')
+          guestFail = true;
+          return false
+        }
+        return true
+      });
+      if (guestFail) {
+        return false
+      }
       $.ajax($this.attr('action'), {
         type: $this.attr('method'),
         data: $this.serialize(),
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           var $container = $this.closest('.container')
           $container.empty().html(data)
           countGuests.call($container)
@@ -276,7 +289,7 @@
 
     // Only make range slider work if supported.
     if (Modernizr.inputtypes.range) {
-      $('#container_opacity').change(function() {
+      $('#container_opacity').change(function () {
         var val = $(this).val()
         if (val < 20) {
           // Hide completely if under 20% opacity - allows users to scroll

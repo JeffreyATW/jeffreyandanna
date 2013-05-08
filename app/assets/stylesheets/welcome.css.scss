@@ -438,17 +438,17 @@ label {
   width: 140px;
 }
 
-form.new_invitation input[type="text"] {
-  font-size: 3em;
+form.new_invitation {
+  text-align: center;
+  input[type="text"] {
+    font-size: 3em;
+    width: 190px;
+    margin-right: .5em;
+  }
 }
 
 input[type="submit"] {
   font-size: 2.7em;
-}
-
-form.new_invitation input[type="text"] {
-  width: 190px;
-  margin-right: .5em;
 }
 
 form.edit_invitation {
@@ -1113,10 +1113,6 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
     top: 25%;
     text-align: center;
     width: 100%;
-  }
-
-  form.new_invitation {
-    text-align: center;
   }
 }
 
