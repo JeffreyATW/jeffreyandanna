@@ -304,9 +304,12 @@ $container-max-width: 800px;
   padding-top: 77px;
 }
 
+.blog_metadata {
+  font-size: .9em;
+  font-style: italic;
+}
+
 .blog_date {
-  float: right;
-  line-height: 4.7em;
   a {
     color: inherit;
   }
