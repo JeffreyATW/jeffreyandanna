@@ -304,6 +304,9 @@
                   karaoke sensation DJ Purple taking requests for the rest of
                   the night.
                 %p
+                  Attire will be dressy, but not formal. Full gowns and
+                  three-piece suits not required.
+                %p
                   Above times and specifics are still subject to change - we're
                   still a few months out!
           %section#accommodations.item
@@ -360,11 +363,6 @@
           %section.active.item
             .container
               .centerer
-                %p
-                  We haven't sent out invitations just yet!
-                  %br
-                  When we do, come back here and you'll be able to RSVP online.
-              -#
                 - if @invitation.persisted?
                   = render :file => "invitations/edit"
                 - else
