@@ -262,7 +262,9 @@
     $rsvp.on('submit', 'form', function () {
       var $this = $(this),
         guestFail = false;
-      $this.find('.guest_name').each(function () {
+      // Only look for visible guest names - deleted names still exist in the
+      // DOM
+      $this.find('.guest_name:visible').each(function () {
         var val = $(this).val()
         if (val === "Guest" || val === "") {
           alert('Please fill in all guest names, or remove guests who are not coming!')
