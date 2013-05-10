@@ -7,7 +7,7 @@ class Guest < ActiveRecord::Base
 
   HUMANIZED_ATTRIBUTES = {
     :special_needs => 'Special requests',
-    :under_4 => 'Under 4?'
+    :under_4 => 'Under age 4?'
   }
 
   def self.human_attribute_name(attr, options={})
