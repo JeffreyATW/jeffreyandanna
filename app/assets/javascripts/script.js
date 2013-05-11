@@ -266,7 +266,12 @@
       // DOM
       $this.find('.guest_name:visible').each(function () {
         var val = $(this).val()
-        if (val === "Guest" || val === "") {
+        if (val === "Guest") {
+          // don't submit form if person says cancel - set guestFail to true
+          // which will return false down below
+          guestFail = !confirm('It looks like you have left some guests\' names as "Guest". Do you want to continue to RSVP and provide their names some time later?')
+          return false
+        } else if (val === "") {
           alert('Please fill in all guest names, or remove guests who are not coming!')
           guestFail = true;
           return false
