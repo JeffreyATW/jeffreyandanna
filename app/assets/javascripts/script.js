@@ -3,8 +3,12 @@
 
   var controller, windowHeight, windowWidth
 
+    , tabletWidth = function () {
+      return windowWidth < 800
+    }
+
     , mobileWidth = function () {
-      return windowWidth < 620
+      return windowWidth < 710
     }
 
     , parseDecimal = function (x) {
@@ -245,7 +249,7 @@
     // Prevent scrolling when at beginning or end of content container.
     $carousel.on('mousewheel', '.item > .container', function (e, d) {
       var $this = $(this), scrollTop = $this.scrollTop()
-      if (!mobileWidth() && ((d > 0 && scrollTop === 0) || (d < 0 && scrollTop >= $this.get(0).scrollHeight - $this.innerHeight() - 1)))
+      if (!tabletWidth() && ((d > 0 && scrollTop === 0) || (d < 0 && scrollTop >= $this.get(0).scrollHeight - $this.innerHeight() - 1)))
         e.preventDefault()
     })
 

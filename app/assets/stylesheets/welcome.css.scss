@@ -544,7 +544,8 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
   }
 }
 
-@media only screen and (max-width: 619px) {
+$mobile-width: 710px;
+@media only screen and (max-width: $mobile-width - 1) {
   .page_header {
     h1 {
       margin: 0;
@@ -572,7 +573,7 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
   }
 }
 
-@media only screen and (min-width: 620px) {
+@media only screen and (min-width: $mobile-width) {
   .page_header li [class^="icon-"]:before, .page_header li [class*=" icon-"]:before {
     @include box-sizing(border-box);
     padding-right: .5em;
@@ -629,7 +630,7 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
   }
 }
 
-@media only screen and (min-width: 620px) and (min-height: 601px) {
+@media only screen and (min-width: $mobile-width) and (min-height: 601px) {
   .main_section header {
     h1 {
       margin: 0;
@@ -921,7 +922,7 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
   }
 }
 
-@media only screen and (min-width: 620px) and (min-height: 600px) {
+@media only screen and (min-width: $mobile-width) and (min-height: 600px) {
   .carousel .container {
     @include border-radius(10px);
   }
