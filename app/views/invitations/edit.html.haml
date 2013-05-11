@@ -29,6 +29,6 @@
   = f.link_to_add " Add a guest", :guests, :class => "icon-plus-sign"
   .form_row
     = f.submit
-    %div
+    %p.flash
       = flash[:notice]
       = flash[:alert]

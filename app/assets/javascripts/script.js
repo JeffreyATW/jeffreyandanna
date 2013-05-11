@@ -289,6 +289,7 @@
           var $container = $this.closest('.container')
           $container.empty().html(data)
           countGuests.call($container)
+          $('.flash', $container).fadeOut(5000);
         }
       })
       return false
