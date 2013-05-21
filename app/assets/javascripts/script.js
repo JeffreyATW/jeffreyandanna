@@ -265,7 +265,7 @@
     // Replace RSVP form with AJAX response.
     $rsvp.on('submit', 'form', function () {
       var $this = $(this),
-        guestFail = false;
+        guestFail = false
       // Only look for visible guest names - deleted names still exist in the
       // DOM
       $this.find('.guest_name:visible').each(function () {
@@ -277,11 +277,11 @@
           return false
         } else if (val === "") {
           alert('Please fill in all guest names, or remove guests who are not coming!')
-          guestFail = true;
+          guestFail = true
           return false
         }
         return true
-      });
+      })
       if (guestFail) {
         return false
       }
@@ -293,10 +293,17 @@
           var $container = $this.closest('.container')
           $container.empty().html(data)
           countGuests.call($container)
-          $('.flash', $container).fadeOut(5000);
+          $('.flash', $container).fadeOut(5000)
         }
       })
       return false
+    }).on('nested:fieldRemoved', function () {
+      var $this = $(this)
+      if ($this.find('.guest_name:visible').length < 2) {
+        $this.find('.remove_nested_fields').hide()
+      }
+    }).on('nested:fieldAdded', function () {
+      $(this).find('.remove_nested_fields').show()
     })
 
     // Only make range slider work if supported.
