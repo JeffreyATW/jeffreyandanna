@@ -68,10 +68,12 @@
 
     // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
     , countGuests = function () {
-      var $this = $(this)
-        $this.find('fieldset:visible').each(function (i, e) {
+      var $this = $(this),
+        $visibleFieldsets = $this.find('fieldset:visible')
+      $visibleFieldsets.each(function (i, e) {
         $(e).find('legend').text("Guest #" + (i + 1))
       })
+      $this.find('.remove_nested_fields').toggle($visibleFieldsets.length > 1)
       return $this
     }
 
@@ -297,13 +299,6 @@
         }
       })
       return false
-    }).on('nested:fieldRemoved', function () {
-      var $this = $(this)
-      if ($this.find('.guest_name:visible').length < 2) {
-        $this.find('.remove_nested_fields').hide()
-      }
-    }).on('nested:fieldAdded', function () {
-      $(this).find('.remove_nested_fields').show()
     })
 
     // Only make range slider work if supported.
