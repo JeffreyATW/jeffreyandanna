@@ -1,5 +1,10 @@
 require 'rabl'
 class TablesController < ApplicationController
+  Rabl.configure do |config|
+    config.include_json_root = false
+    config.include_child_root = false
+  end
+
   # GET /tables
   # GET /tables.json
   def index
@@ -49,7 +54,7 @@ class TablesController < ApplicationController
     respond_to do |format|
       if @table.save
         format.html { redirect_to @table, notice: 'Table was successfully created.' }
-        format.json { render json: @table, status: :created, location: @table }
+        format.json { render 'tables/create', status: :created, location: @table }
       else
         format.html { render action: "new" }
         format.json { render json: @table.errors, status: :unprocessable_entity }

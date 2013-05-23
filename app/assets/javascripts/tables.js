@@ -46,8 +46,7 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
         return { table: _.omit(Backbone.RelationalModel.prototype.toJSON.call(this), ['id']) }
       },
       validate: function (attrs, options) {
-        // TODO make this work
-        if (attrs.guests > 8) {
+        if (attrs.guests.length > 8) {
           return "can't have more than 8 guests";
         }
       },
@@ -69,8 +68,20 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
 
   GuestCollectionView = Marionette.CollectionView.extend({
     onRender: function () {
-      this.$el.sortable({
-        connectWith: '.guest_list'
+      var that = this;
+      that.$el.sortable({
+        connectWith: '.guest_list',
+        cursor: 'move',
+        stop: function () {
+          $('.table_guests').sortable('enable');
+        },
+        over: function () {
+          $(this).closest('.table').addClass('hover');
+        },
+        out: function () {
+          $(this).closest('.table').removeClass('hover');
+        },
+        revert: true
       });
     },
     itemView: Marionette.ItemView.extend({
@@ -83,6 +94,17 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
             randomHex();
         }
         this.$el.css('color', '#' + colors[invitationId]);
+        this.$el.mousedown(function () {
+          $('.table_guests').not($(this).parent()).each(function () {
+            var $this = $(this);
+
+            if ($this.find('li').length >= 8) {
+              $this.sortable('disable');
+            } else {
+              $this.sortable('enable');
+            }
+          });
+        })
       },
       events: {
         'dragged': 'assign'
@@ -100,12 +122,13 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
     onRender: function () {
       this.$el.sortable({
         connectWith: '.guest_list',
+        cursor: 'move',
         receive: function (e, ui) {
           ui.item.trigger('dragged', []);
         }
       })
     }
-  })
+  }),
 
   unassignedGuestCollectionView = new UnassignedGuestCollectionView({
     el: '#guests',
@@ -127,7 +150,8 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
           left: that.model.get('x'),
           top: that.model.get('y')
         }).draggable({
-          containment: 'parent'
+          containment: 'parent',
+          cursor: 'move'
         }).on('sortreceive', function (e, ui) {
           ui.item.trigger('dragged', [that.model]);
         });
@@ -136,9 +160,18 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
       events: {
         'dragstop': function (e, ui) {
           this.model.set({x: ui.position.left, y: ui.position.top});
-        }
+        },
+        'click .close_button': 'destroy'
       },
       className: 'table',
+      destroy: function () {
+        this.model.off('change remove:guests');
+        this.model.destroy({success: function (model) {
+          model.get('guests').each(function (guest) {
+            guest.unset('table');
+          })
+        }});
+      },
       template: '#table_template'
     })
   });
@@ -157,6 +190,22 @@ $.ajaxSetup({
   }
 });
 
+$('#new_table').submit(function (e) {
+  var o = {}, a = $(this).serializeArray();
+  e.preventDefault();
+  $.each(a, function() {
+    if (o[this.name] !== undefined) {
+      if (!o[this.name].push) {
+        o[this.name] = [o[this.name]];
+      }
+      o[this.name].push(this.value || '');
+    } else {
+      o[this.name] = this.value || '';
+    }
+  });
+
+  tableCollection.create(o);
+});
 
 tableCollectionView.render();
 unassignedGuestCollectionView.render();

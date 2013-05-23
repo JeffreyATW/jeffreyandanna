@@ -8,9 +8,18 @@
 %section.unassigned_guests
   %h1 Unassigned guests
   %ul#guests.guest_list
+%form#new_table
+  %h2 New table
+  %input{type: 'text', name: 'name', placeholder: 'Name'}
+  %select{name: 'table_type'}
+    %option{value: 'round'} Round
+    %option{value: 'banquet'} Banquet
+  %input{type: 'submit', value: 'Create'}
 
 %script{:type => 'text/template', :id => 'table_template'}
   %h2 <%= table.name %>
   %ul.table_guests.guest_list
+  .close_button
+    &times;
 %script{:type => 'text/template', :id => 'guest_template'}
   <%= name %>

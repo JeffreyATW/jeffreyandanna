@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  background: grey;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
 #tables {
   height: 1000px;
   left: 0;
@@ -10,29 +16,73 @@
   width: 100%;
 }
 
-.table {
-  border: 1px solid black;
-  border-radius: 150px;
-  height: 300px;
-  width: 300px;
-  text-align: center;
+.table, .unassigned_guests {
+  background: #fff;
+}
 
-  .table_guests {
-    height: 200px;
+.table, .guest {
+  cursor: move;
+}
+
+.table {
+  border-radius: 150px;
+  box-shadow: 10px 10px 30px rgba(0,0,0,.5);
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  transition-property: box-shadow, background;
+  transition-duration: .2s;
+  transition-easing-function: linear;
+  &.hover {
+    background: #ffff99;
+    box-shadow: 10px 10px 30px rgba(0,0,0,1);
+  }
+  h2 {
+    margin-bottom: 0;
   }
 }
 
-.unassigned_guests {
-  border-color: black;
-  border-style: solid;
-  border-width: 1px 0 0 1px;
-  bottom: 0;
-  height: 300px;
+$guest-line-height: 16px;
+.guest {
+  line-height: $guest-line-height;
+}
+
+.table_guests {
+  height: $guest-line-height * 8;
+}
+
+.unassigned_guests, #new_table {
+  padding: 20px;
   position: fixed;
+  bottom: 0;
+}
+
+.unassigned_guests {
+  height: 300px;
   right: 0;
   width: 200px;
-
   .guest_list {
     min-height: 200px;
   }
+}
+
+.guest_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.close_button {
+  color: grey;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  transition: color .5s linear;
+  &:hover {
+    color: black;
+  }
+}
+
+#new_table {
+  left: 0;
 }
