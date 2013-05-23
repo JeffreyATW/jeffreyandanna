@@ -1,2 +1,2 @@
 collection @tables, object_root: false
-attributes :name, :notes, :x, :y
+attributes :id, :name, :notes, :x, :y

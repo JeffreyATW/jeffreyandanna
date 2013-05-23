@@ -4,10 +4,12 @@ class TablesController < ApplicationController
   # GET /tables.json
   def index
     @tables = Table.all
-    @tables_rabl = Rabl.render(@tables, 'tables/index', view_path: 'app/views', format: 'json')
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        @tables_rabl = Rabl.render(@tables, 'tables/index', view_path: 'app/views', format: 'json')
+        @guests_rabl = Rabl.render(Guest.attending, 'tables/guests', view_path: 'app/views', format: 'json')
+      }
       format.json { render json: @tables }
     end
   end

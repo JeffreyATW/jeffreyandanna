@@ -1,7 +1,17 @@
 - content_for :js do
   :javascript
     var tables = #{@tables_rabl.html_safe}
+    var guests = #{@guests_rabl.html_safe}
   = javascript_include_tag 'tables'
 
+#tables
+%ul#guests.guest_list
+
 %script{:type => 'text/template', :id => 'table_template'}
+  %h2 <%= name %>
+  %ul.table_guests.guest_list
+    <% _.each(guests, function (guest) { %>
+    %li <%= guest.name %>
+    <% }); %>
+%script{:type => 'text/template', :id => 'guest_template'}
   <%= name %>
