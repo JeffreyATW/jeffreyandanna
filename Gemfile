@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'haml'
 gem 'feedzirra'
 gem 'rails_admin', '~> 0.4.7'
+gem 'rabl'
 
 # Gems used only for assets and not required
 # in production environments by default.

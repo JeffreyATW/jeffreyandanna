@@ -8,6 +8,8 @@ Jeffreyandanna::Application.routes.draw do
 
   get 'rsvp/export' => "invitations#index"
 
+  resources :tables
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

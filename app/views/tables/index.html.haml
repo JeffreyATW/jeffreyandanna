@@ -1,0 +1,7 @@
+- content_for :js do
+  :javascript
+    var tables = #{@tables_rabl.html_safe}
+  = javascript_include_tag 'tables'
+
+%script{:type => 'text/template', :id => 'table_template'}
+  <%= name %>

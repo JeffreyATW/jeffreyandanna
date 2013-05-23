@@ -117,6 +117,8 @@ GEM
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    rabl (0.8.5)
+      activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -203,6 +205,7 @@ DEPENDENCIES
   haml
   jquery-rails (~> 2.2.1)
   mysql2
+  rabl
   rails (= 3.2.13)
   rails_admin (~> 0.4.7)
   sass-rails (~> 3.2.6)
