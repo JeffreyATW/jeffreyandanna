@@ -168,8 +168,10 @@
             left: that.model.get('x'),
             top: that.model.get('y')
           }).draggable({
+            cancel: 'h2',
             containment: 'parent',
-            cursor: 'move'
+            cursor: 'move',
+            stack: '.table'
           }).on('sortreceive', function (e, ui) {
             ui.item.trigger('dragged', [that.model]);
           });
@@ -179,21 +181,29 @@
           'dragstop': function (e, ui) {
             this.model.set({x: ui.position.left, y: ui.position.top});
           },
-          'click .close_button': 'destroy'
+          'click .close_button': function () {
+            var that = this;
+            this.$el.fadeOut(function () {
+              var models = that.model.get('guests').models, i, len;
+              // models array will reduce in size as we iterate - always remove first
+              for (i = 0, len = models.length; i < len; i += 1) {
+                models[0].set('table', undefined);
+              }
+              that.model.destroy();
+            });
+          },
+          'blur h2': function (e) {
+            this.model.set('name', $(e.currentTarget).text());
+          },
+          'keydown h2': function (e) {
+            if (e.which === 13) {
+              $(e.currentTarget).trigger('blur');
+              e.preventDefault();
+            }
+          }
         },
         className: function () {
           return 'table ' + this.model.get('table_type');
-        },
-        destroy: function () {
-          var that = this;
-          this.$el.fadeOut(function () {
-            var models = that.model.get('guests').models, i, len;
-            // models array will reduce in size as we iterate - always remove first
-            for (i = 0, len = models.length; i < len; i += 1) {
-              models[0].set('table', undefined);
-            }
-            that.model.destroy();
-          });
         },
         template: '#table_template'
       })

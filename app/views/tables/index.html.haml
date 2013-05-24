@@ -19,7 +19,7 @@
   %input{type: 'submit', value: 'Create'}
 
 %script{:type => 'text/template', :id => 'table_template'}
-  %h2 <%= table.name %>
+  %h2{contenteditable: true} <%= table.name %>
   <% if (table.table_type !== 'dance_floor') { %>
   %ul.table_guests.guest_list
   <% } %>
