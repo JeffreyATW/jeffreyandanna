@@ -26,10 +26,23 @@ body {
 }
 
 .table {
-  border-radius: 150px;
+  &.round {
+    border-radius: 150px;
+    height: 200px;
+    width: 200px;
+  }
+  &.banquet {
+    height: 100px;
+    width: 320px;
+    h2 {
+      margin-top: 5px;
+    }
+    .guest {
+      float: left;
+      width: 160px;
+    }
+  }
   box-shadow: 10px 10px 30px rgba(0,0,0,.5);
-  height: 200px;
-  width: 200px;
   transition-property: box-shadow, background;
   transition-duration: .2s;
   transition-easing-function: linear;
@@ -57,13 +70,20 @@ $guest-line-height: 16px;
   bottom: 0;
 }
 
+$unassigned-guests-height: 300px;
 .unassigned_guests {
   height: 300px;
-  overflow: scroll;
   right: 0;
   width: 200px;
+  $unassigned-guests-heading-height: 24px;
+  $unassigned-guests-margin-height: 18px;
+  h1 {
+    height: $unassigned-guests-heading-height;
+    margin: 0 0 $unassigned-guests-margin-height 0;
+  }
   .guest_list {
-    min-height: 200px;
+    height: $unassigned-guests-height - $unassigned-guests-heading-height - $unassigned-guests-margin-height;
+    overflow: scroll;
   }
 }
 
@@ -76,6 +96,7 @@ $guest-line-height: 16px;
 .close_button {
   color: grey;
   cursor: pointer;
+  display: inline-block;
   font-size: 18px;
   transition: color .5s linear;
   &:hover {
