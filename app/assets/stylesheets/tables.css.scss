@@ -18,6 +18,7 @@ body {
 
 .table, .unassigned_guests {
   background: #fff;
+  text-align: center;
 }
 
 .table, .guest {
@@ -29,7 +30,6 @@ body {
   box-shadow: 10px 10px 30px rgba(0,0,0,.5);
   height: 200px;
   width: 200px;
-  text-align: center;
   transition-property: box-shadow, background;
   transition-duration: .2s;
   transition-easing-function: linear;
@@ -59,6 +59,7 @@ $guest-line-height: 16px;
 
 .unassigned_guests {
   height: 300px;
+  overflow: scroll;
   right: 0;
   width: 200px;
   .guest_list {
@@ -76,7 +77,6 @@ $guest-line-height: 16px;
   color: grey;
   cursor: pointer;
   font-size: 18px;
-  text-align: center;
   transition: color .5s linear;
   &:hover {
     color: black;

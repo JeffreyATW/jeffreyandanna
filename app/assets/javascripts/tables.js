@@ -5,7 +5,7 @@
 //= require libs/backbone
 //= require libs/backbone.marionette
 //= require libs/backbone-relational
-//= require libs/backbone.projections
+//= require libs/backbone.collectionsubset
 
 var csrfToken = $('meta[name="csrf-token"]').attr('content'),
 
@@ -60,7 +60,7 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
 
   guestCollection = new GuestCollection(guests),
 
-  unassignedGuestCollection = new BackboneProjections.Filtered(guestCollection, {
+  unassignedGuestCollection = guestCollection.subcollection({
     filter: function (guest) {
       return !guest.get('table');
     }
@@ -125,7 +125,8 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
         cursor: 'move',
         receive: function (e, ui) {
           ui.item.trigger('dragged', []);
-        }
+        },
+        revert: true
       })
     }
   }),
@@ -165,12 +166,15 @@ var csrfToken = $('meta[name="csrf-token"]').attr('content'),
       },
       className: 'table',
       destroy: function () {
-        this.model.off('change remove:guests');
-        this.model.destroy({success: function (model) {
-          model.get('guests').each(function (guest) {
-            guest.unset('table');
-          })
-        }});
+        var that = this;
+        this.$el.fadeOut(function () {
+          var models = that.model.get('guests').models, i, len;
+          // models array will reduce in size as we iterate - always remove first
+          for (i = 0, len = models.length; i < len; i += 1) {
+            models[0].set('table', undefined);
+          }
+          that.model.destroy();
+        });
       },
       template: '#table_template'
     })
