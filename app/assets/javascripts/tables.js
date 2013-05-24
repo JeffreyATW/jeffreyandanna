@@ -38,8 +38,8 @@
           type: Backbone.HasMany,
           key: 'guests',
           keyDestination: 'guest_ids',
-          relatedModel: 'Guest',
-          collectionType: 'GuestCollection',
+          relatedModel: Guest,
+          collectionType: GuestCollection,
           includeInJSON: 'id',
           reverseRelation: {
             key: 'table',
@@ -54,8 +54,14 @@
           if (!attrs.name.length) {
             return "must have a name";
           }
-          if (attrs.guests.length > 8) {
-            return "can't have more than 8 guests";
+          if (attrs.table_type !== 'dance_floor') {
+            if (attrs.guests.length > 8) {
+              return "can't have more than 8 guests";
+            }
+          } else {
+            if (attrs.guests.length > 0) {
+              return "can't have any guests";
+            }
           }
         },
         url: function() {
@@ -220,6 +226,10 @@
         o[this.name] = this.value || '';
       }
     });
+
+    if (o.table_type === 'dance_floor' && o.name === '') {
+      o.name = 'Dance floor';
+    }
 
     // wait: true causes validate to run before model is added to collection
     tableCollection.create(o, {wait: true});

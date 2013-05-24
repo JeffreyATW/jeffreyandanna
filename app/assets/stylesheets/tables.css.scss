@@ -9,7 +9,7 @@ body {
 }
 
 #tables {
-  height: 1000px;
+  height: 100%;
   left: 0;
   position: absolute;
   top: 0;
@@ -25,11 +25,33 @@ body {
   cursor: move;
 }
 
+.close_button {
+  color: grey;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color .5s linear;
+  display: inline-block;
+  &:hover {
+    color: black;
+  }
+}
+
 .table {
+  box-shadow: 10px 10px 30px rgba(0,0,0,.5);
+  transition-property: box-shadow, background;
+  transition-duration: .2s;
+  transition-easing-function: linear;
   &.round {
     border-radius: 150px;
     height: 200px;
     width: 200px;
+  }
+  &.banquet, &.dance_floor {
+    .close_button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
   }
   &.banquet {
     height: 100px;
@@ -42,10 +64,13 @@ body {
       width: 160px;
     }
   }
-  box-shadow: 10px 10px 30px rgba(0,0,0,.5);
-  transition-property: box-shadow, background;
-  transition-duration: .2s;
-  transition-easing-function: linear;
+  &.dance_floor {
+    background: lightgrey;
+    height: 480px;
+    left: 640px;
+    top: 320px;
+    width: 640px;
+  }
   &.hover {
     background: #ffff99;
     box-shadow: 10px 10px 30px rgba(0,0,0,1);
@@ -91,17 +116,6 @@ $unassigned-guests-height: 300px;
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.close_button {
-  color: grey;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 18px;
-  transition: color .5s linear;
-  &:hover {
-    color: black;
-  }
 }
 
 #new_table {

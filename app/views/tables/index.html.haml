@@ -5,6 +5,7 @@
   = javascript_include_tag 'tables'
 
 #tables
+.dance_floor
 %section.unassigned_guests
   %h1 Unassigned guests
   %ul#guests.guest_list
@@ -14,11 +15,14 @@
   %select{name: 'table_type'}
     %option{value: 'round'} Round
     %option{value: 'banquet'} Banquet
+    %option{value: 'dance_floor'} Dance Floor
   %input{type: 'submit', value: 'Create'}
 
 %script{:type => 'text/template', :id => 'table_template'}
   %h2 <%= table.name %>
+  <% if (table.table_type !== 'dance_floor') { %>
   %ul.table_guests.guest_list
+  <% } %>
   .close_button
     &times;
 %script{:type => 'text/template', :id => 'guest_template'}
