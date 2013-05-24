@@ -171,7 +171,6 @@
             cancel: 'h2',
             containment: 'parent',
             cursor: 'move',
-            stack: '.table'
           }).on('sortreceive', function (e, ui) {
             ui.item.trigger('dragged', [that.model]);
           });
