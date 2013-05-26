@@ -185,28 +185,28 @@ RailsAdmin.config do |config|
       field :done
       field :parent_task
       field :child_tasks
+      field :creator
       field :created_at
       field :due_date
-      field :creator
     end
     edit do
-      field :title
-      field :description
-      field :done
-      field :creator do
-        default_value do
-          bindings[:view]._current_user.id
-        end
+      group :default do
+        field :title
+        field :description
+        field :child_tasks
+        field :done
       end
-      field :child_tasks
-      field :parent_task
-      field :created_at
-      field :due_date
+      group :advanced do
+        active false
+        field :creator do
+          default_value do
+            bindings[:view]._current_user.id
+          end
+        end
+        field :parent_task
+        field :created_at
+        field :due_date
+      end
     end
-  #   export do; end
-  #   show do; end
-  #   edit do; end
-  #   create do; end
-  #   update do; end
   end
 end

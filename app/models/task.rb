@@ -3,7 +3,7 @@ class Task < ActiveRecord::Base
   belongs_to :parent_task, class_name: 'Task', inverse_of: :child_tasks
   belongs_to :creator, class_name: 'User'
 
-  attr_accessible :creator_id, :description, :done, :parent_task_id, :title, :due_date, :child_task_ids
+  attr_accessible :creator_id, :description, :done, :parent_task_id, :title, :due_date, :child_task_ids, :created_at
 
   validates_presence_of :title, :creator
 end
