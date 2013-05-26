@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523225002) do
+ActiveRecord::Schema.define(:version => 20130526180611) do
 
   create_table "guests", :force => true do |t|
     t.string   "name"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(:version => 20130523225002) do
     t.integer  "x"
     t.integer  "y"
     t.string   "table_type"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "creator_id"
+    t.boolean  "done"
+    t.integer  "parent_task_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.datetime "due_date"
   end
 
   create_table "users", :force => true do |t|

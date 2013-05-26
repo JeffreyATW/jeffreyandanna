@@ -178,4 +178,31 @@ RailsAdmin.config do |config|
   #   create do; end
   #   update do; end
   end
+
+  config.model Task do
+    list do
+      field :title
+      field :done
+      field :parent_task
+      field :child_tasks
+      field :created_at
+      field :due_date
+      field :creator
+    end
+    edit do
+      field :title
+      field :description
+      field :done
+      field :creator
+      field :child_tasks
+      field :parent_task
+      field :created_at
+      field :due_date
+    end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  end
 end
