@@ -181,6 +181,7 @@ RailsAdmin.config do |config|
 
   config.model Task do
     list do
+      items_per_page 100
       field :title
       field :done
       field :parent_task
