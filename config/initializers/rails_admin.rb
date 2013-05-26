@@ -182,7 +182,11 @@ RailsAdmin.config do |config|
   config.model Task do
     list do
       items_per_page 100
-      field :title
+      field :title do
+        pretty_value do
+          bindings[:object].is_child_task? ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{value}".html_safe : value
+        end
+      end
       field :done
       field :parent_task
       field :child_tasks
