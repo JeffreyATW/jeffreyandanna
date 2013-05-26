@@ -4,4 +4,6 @@ class Task < ActiveRecord::Base
   belongs_to :creator, class_name: 'User'
 
   attr_accessible :creator_id, :description, :done, :parent_task_id, :title, :due_date, :child_task_ids
+
+  validates_presence_of :title, :creator
 end

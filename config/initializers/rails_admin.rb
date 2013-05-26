@@ -193,7 +193,11 @@ RailsAdmin.config do |config|
       field :title
       field :description
       field :done
-      field :creator
+      field :creator do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
       field :child_tasks
       field :parent_task
       field :created_at
