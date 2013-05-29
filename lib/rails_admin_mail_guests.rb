@@ -16,16 +16,17 @@ module RailsAdmin
         register_instance_option :controller do
           Proc.new do
             @options = [['Self (for testing)', 'self'],
+                        ['Broken address (for testing)', 'broken'],
                         ['Attending', 'attending'],
                         ['Responded', 'responded'],
                         ['Not Attending', 'not_attending'],
                         ['Not Responded', 'not_responded']]
             if request.method == 'GET'
             elsif request.method == 'POST'
-              if params[:mail][:group] == 'self'
-                debugger
-                invitation = Invitation.new(email: current_user.email, address: '123 Main St\nSan Francisco, CA')
-                guest = Guest.new(name: current_user.email)
+              if params[:mail][:group] == 'self' || params[:mail][:group] == 'broken'
+                email = params[:mail][:group] == 'self' ? current_user.email : 'broken@blah.nope'
+                invitation = Invitation.new(email: email, address: '123 Main St\nSan Francisco, CA')
+                guest = Guest.new(name: email)
                 invitation.guests << guest
                 invitation.generate_rsvp
                 InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body]).deliver
