@@ -34,7 +34,8 @@ module RailsAdmin
               elsif @options.map{|option| option[1]}.include? params[:mail][:group]
                 invitations = Invitation.send(params[:mail][:group]).where('email != ""')
                 invitations.each do |invitation|
-                  InvitationMailer.delay.invitation_email(invitation, params[:mail][:subject], params[:mail][:body])
+                  # InvitationMailer.delay.invitation_email(invitation, params[:mail][:subject], params[:mail][:body])
+                  InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body])
                 end
                 flash.alert = 'Mail sent to guests.'
               else

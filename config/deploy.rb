@@ -1,7 +1,7 @@
 require "bundler/capistrano"
-require "delayed/recipes"
+# require "delayed/recipes"
 
-set :rails_env, 'production' #added for delayed job
+# set :rails_env, 'production' #added for delayed job
 set :application, "jeffreyandanna"
 set :repository,  "git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git"
 
@@ -22,9 +22,9 @@ default_environment['PATH'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/ge
 default_environment['GEM_PATH'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
 default_environment['GEM_HOME'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
 
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+# after "deploy:stop",    "delayed_job:stop"
+# after "deploy:start",   "delayed_job:start"
+# after "deploy:restart", "delayed_job:restart"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
