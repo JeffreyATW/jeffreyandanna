@@ -13,7 +13,7 @@ class Guest < ActiveRecord::Base
   scope :attending, includes(:invitation).where('invitations.going' => true).order('invitations.id')
   scope :not_attending, includes(:invitation).where('invitations.going' => false, 'invitations.responded' => true).order('invitations.id')
   scope :responded, includes(:invitation).where('invitations.responded' => true).order('invitations.id')
-  scope :not_responded, includes(:invitation).where('invitations.responded' => false, 'invitations.going' => false).order('invitations.id')
+  scope :not_responded, includes(:invitation).where('invitations.responded' => false, 'invitations.going' => false, 'invitations.invited' => true).order('invitations.id')
 
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super

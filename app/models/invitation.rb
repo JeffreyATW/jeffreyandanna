@@ -18,7 +18,7 @@ class Invitation < ActiveRecord::Base
   scope :attending, where(going: true)
   scope :not_attending, where(going: false, responded: true)
   scope :responded, where(responded: true)
-  scope :not_responded, where(going: false, responded: false)
+  scope :not_responded, where(going: false, responded: false, invited: true)
 
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
