@@ -54,5 +54,7 @@ gem 'capistrano'
 # To use debugger
 # gem 'debugger'
 
+gem 'devise'
 
-gem "devise"
+gem 'daemons'
+gem 'delayed_job_active_record'
