@@ -15,13 +15,22 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            @options = [['Attending', 'attending'],
+            @options = [['Self (for testing)', 'self'],
+                        ['Attending', 'attending'],
                         ['Responded', 'responded'],
                         ['Not Attending', 'not_attending'],
                         ['Not Responded', 'not_responded']]
             if request.method == 'GET'
             elsif request.method == 'POST'
-              if @options.map{|option| option[1]}.include? params[:mail][:group]
+              if params[:mail][:group] == 'self'
+                debugger
+                invitation = Invitation.new(email: current_user.email, address: '123 Main St\nSan Francisco, CA')
+                guest = Guest.new(name: current_user.email)
+                invitation.guests << guest
+                invitation.generate_rsvp
+                InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body]).deliver
+                flash.alert = 'Mail sent to your email address.'
+              elsif @options.map{|option| option[1]}.include? params[:mail][:group]
                 invitations = Invitation.send(params[:mail][:group]).where('email != ""')
                 invitations.each do |invitation|
                   InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body]).deliver
