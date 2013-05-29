@@ -23,21 +23,26 @@ module RailsAdmin
                         ['Not Responded', 'not_responded']]
             if request.method == 'GET'
             elsif request.method == 'POST'
-              if params[:mail][:group] == 'self' || params[:mail][:group] == 'broken'
-                email = params[:mail][:group] == 'self' ? current_user.email : 'broken@blah.nope'
-                invitation = Invitation.new(email: email, address: '123 Main St\nSan Francisco, CA')
-                guest = Guest.new(name: email)
-                invitation.guests << guest
-                invitation.generate_rsvp
-                InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body]).deliver
-                flash.alert = 'Mail sent to your email address.'
-              elsif @options.map{|option| option[1]}.include? params[:mail][:group]
-                invitations = Invitation.send(params[:mail][:group]).where('email != ""')
-                invitations.each do |invitation|
-                  # InvitationMailer.delay.invitation_email(invitation, params[:mail][:subject], params[:mail][:body])
-                  InvitationMailer.invitation_email(invitation, params[:mail][:subject], params[:mail][:body]).deliver
+              if @options.map{|option| option[1]}.include? params[:mail][:group]
+                if params[:mail][:group] == 'self' || params[:mail][:group] == 'broken'
+                  broken = 'broken@blah.nope'
+                  email = params[:mail][:group] == 'self' ? current_user.email : broken
+                  invitation = Invitation.new(email: email, address: <<EOF
+123 Main St
+San Francisco, CA
+EOF
+)
+                  guest = Guest.new(name: email)
+                  invitation.guests << guest
+                  invitation.generate_rsvp
+                  invitations = [invitation]
+                  flash.alert = params[:mail][:group] == 'self' ? 'Mail sent to your email address.' : "Mail sent to a bogus address (#{broken})."
+                else
+                  invitations = Invitation.send(params[:mail][:group]).where('email != ""')
+                  flash.alert = 'Mail sent to guests.'
                 end
-                flash.alert = 'Mail sent to guests.'
+                InvitationMailer.invitation_email(invitations, params[:mail][:subject], params[:mail][:body]).deliver
+                GuestMail.create(group: @options.detect{|option| option[1] == params[:mail][:group]}[0], subject: params[:mail][:subject], body: params[:mail][:body])
               else
                 flash.notice = 'No don\'t :('
               end

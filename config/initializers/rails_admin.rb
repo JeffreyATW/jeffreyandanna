@@ -138,7 +138,6 @@ RailsAdmin.config do |config|
   #     configure :address, :text
   #     configure :responded, :boolean
   #     configure :going, :boolean
-  #     configure :plus_one, :boolean
   #     configure :rsvp, :string
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime   #   # Sections:
@@ -151,6 +150,17 @@ RailsAdmin.config do |config|
        field :going
        field :save_the_date_sent
        field :rsvp
+     end
+     show do
+       field :guests
+       field :address
+       field :email
+       field :save_the_date_sent
+       field :invited
+       field :responded
+       field :going
+       field :rsvp
+       field :notes
      end
     edit do
       field :guests
@@ -229,6 +239,20 @@ RailsAdmin.config do |config|
         field :created_at
         field :due_date
       end
+    end
+  end
+
+  config.model GuestMail do
+    list do
+      field :subject
+      field :group
+      field :created_at
+    end
+    show do
+      field :subject
+      field :group
+      field :body
+      field :created_at
     end
   end
 end
