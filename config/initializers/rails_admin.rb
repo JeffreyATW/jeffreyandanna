@@ -1,11 +1,28 @@
 # RailsAdmin config file. Generated on August 22, 2012 22:17
 # See github.com/sferik/rails_admin for more informations
 
+require "#{Rails.root}/lib/rails_admin_mail_guests"
+
 RailsAdmin.config do |config|
 
   # If your default_local is different from :en, uncomment the following 2 lines and set your default locale here:
   # require 'i18n'
   # I18n.default_locale = :de
+
+  config.actions do
+    dashboard
+    index
+    history_index
+    new
+
+    mail_guests
+
+    show
+    edit
+    delete
+    history_show
+    export
+  end
 
   config.current_user_method { current_user } # auto-generated
 

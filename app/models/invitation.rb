@@ -15,6 +15,11 @@ class Invitation < ActiveRecord::Base
     :guests => "Guest(s)"
   }
 
+  scope :attending, where(going: true)
+  scope :not_attending, where(going: false, responded: true)
+  scope :responded, where(responded: true)
+  scope :not_responded, where(going: false, responded: false)
+
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
@@ -84,6 +89,10 @@ class Invitation < ActiveRecord::Base
 
   def generate_rsvp
     self.rsvp = ('A'..'Z').to_a.shuffle[0,4].join
+  end
+
+  def get_binding
+    binding
   end
 
   private
