@@ -10,7 +10,7 @@ module RailsAdmin
       class MailGuests < Base
         RailsAdmin::Config::Actions.register(self)
         register_instance_option :root? do
-          'icon-envelope'
+          true
         end
 
         register_instance_option :controller do
@@ -46,7 +46,7 @@ module RailsAdmin
         end
 
         register_instance_option :link_icon do
-          'icon-folder-open'
+          'icon-envelope'
         end
 
         register_instance_option :http_methods do
