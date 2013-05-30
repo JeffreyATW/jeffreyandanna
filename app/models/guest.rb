@@ -19,6 +19,22 @@ class Guest < ActiveRecord::Base
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
+  def save_the_date_sent
+    invitation.present? ? invitation.save_the_date_sent : nil
+  end
+
+  def invited
+    invitation.present? ? invitation.invited : nil
+  end
+
+  def going
+    invitation.present? ? invitation.going : nil
+  end
+
+  def responded
+    invitation.present? ? invitation.responded : nil
+  end
+
   def to_s
     name
   end

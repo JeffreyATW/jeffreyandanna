@@ -108,15 +108,31 @@ RailsAdmin.config do |config|
   #     configure :rsvp, :string
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime   #   # Sections:
-     list do
-       field :name
-       field :special_needs
-       field :under_4
-       field :invitation
-       field :table
-     end
+    list do
+      field :name
+      field :responded, :boolean do
+        sortable 'invitations.responded'
+      end
+      field :going, :boolean do
+        sortable 'invitations.going'
+      end
+      field :under_4
+      field :special_needs
+      field :invitation
+      field :table
+    end
   #   export do; end
-  #   show do; end
+    show do
+      field :name
+      field :save_the_date_sent, :boolean
+      field :invited, :boolean
+      field :responded, :boolean
+      field :going, :boolean
+      field :special_needs
+      field :under_4
+      field :invitation
+      field :table
+    end
     edit do
       field :name
       field :special_needs
