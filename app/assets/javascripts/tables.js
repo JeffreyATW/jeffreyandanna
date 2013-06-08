@@ -16,6 +16,15 @@
 
     colors = {},
 
+    sortableOpts = {
+      connectWith: '.guest_list',
+      cursor: 'move',
+      stop: function () {
+        $('.table_guests').sortable('enable');
+      },
+      revert: true
+    },
+
     randomHex = function () {
       var pad = '00';
       return (pad + Math.floor(Math.random()*192).toString(16)).slice(-pad.length);
@@ -85,20 +94,14 @@
     GuestCollectionView = Marionette.CollectionView.extend({
       onRender: function () {
         var that = this;
-        that.$el.sortable({
-          connectWith: '.guest_list',
-          cursor: 'move',
-          stop: function () {
-            $('.table_guests').sortable('enable');
-          },
+        that.$el.sortable($.extend(sortableOpts, {
           over: function () {
             $(this).closest('.table').addClass('hover');
           },
           out: function () {
             $(this).closest('.table').removeClass('hover');
-          },
-          revert: true
-        });
+          }
+        }));
       },
       itemView: Marionette.ItemView.extend({
         initialize: function () {
@@ -137,14 +140,11 @@
 
     UnassignedGuestCollectionView = GuestCollectionView.extend({
       onRender: function () {
-        this.$el.sortable({
-          connectWith: '.guest_list',
-          cursor: 'move',
+        this.$el.sortable($.extend(sortableOpts, {
           receive: function (e, ui) {
             ui.item.trigger('dragged', []);
-          },
-          revert: true
-        });
+          }
+        }));
       }
     }),
 
