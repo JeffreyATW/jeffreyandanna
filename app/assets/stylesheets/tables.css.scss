@@ -5,7 +5,7 @@
 body {
   background: grey;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 11px;
 }
 
 #tables {
@@ -28,7 +28,7 @@ body {
 .close_button {
   color: grey;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   transition: color .5s linear;
   display: inline-block;
   &:hover {
@@ -37,43 +37,43 @@ body {
 }
 
 .table {
-  box-shadow: 10px 10px 30px rgba(0,0,0,.5);
+  box-shadow: 8px 8px 23px rgba(0,0,0,.5);
   transition-property: box-shadow, background;
   transition-duration: .2s;
   transition-easing-function: linear;
   &.round {
-    border-radius: 150px;
-    height: 200px;
-    width: 200px;
+    border-radius: 75px;
+    height: 150px;
+    width: 150px;
   }
   &.banquet, &.dance_floor {
     .close_button {
       position: absolute;
-      top: 5px;
-      right: 10px;
+      top: 3px;
+      right: 8px;
     }
   }
   &.banquet {
-    height: 100px;
-    width: 320px;
+    height: 75px;
+    width: 240px;
     h2 {
       margin-top: 5px;
     }
     .guest {
       float: left;
-      width: 160px;
+      width: 120px;
     }
   }
   &.dance_floor {
     background: lightgrey;
-    height: 480px;
-    left: 640px;
-    top: 320px;
-    width: 640px;
+    height: 360px;
+    left: 480px;
+    top: 240px;
+    width: 480px;
   }
   &.hover {
     background: #ffff99;
-    box-shadow: 10px 10px 30px rgba(0,0,0,1);
+    box-shadow: 8px 8px 23px rgba(0,0,0,1);
   }
   h2 {
     cursor: text;
@@ -81,7 +81,7 @@ body {
   }
 }
 
-$guest-line-height: 16px;
+$guest-line-height: 12px;
 .guest {
   line-height: $guest-line-height;
 }
@@ -91,18 +91,18 @@ $guest-line-height: 16px;
 }
 
 .unassigned_guests, #new_table {
-  padding: 20px;
+  padding: 15px;
   position: fixed;
   bottom: 0;
 }
 
-$unassigned-guests-height: 300px;
+$unassigned-guests-height: 225px;
 .unassigned_guests {
-  height: 300px;
+  height: $unassigned-guests-height;
   right: 0;
-  width: 200px;
-  $unassigned-guests-heading-height: 24px;
-  $unassigned-guests-margin-height: 18px;
+  width: 160px;
+  $unassigned-guests-heading-height: 18px;
+  $unassigned-guests-margin-height: 14px;
   h1 {
     height: $unassigned-guests-heading-height;
     margin: 0 0 $unassigned-guests-margin-height 0;
