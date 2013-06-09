@@ -36,6 +36,7 @@ body {
   }
 }
 
+$guest-line-height: 12px;
 .table {
   box-shadow: 8px 8px 23px rgba(0,0,0,.5);
   transition-property: box-shadow, background;
@@ -84,7 +85,6 @@ body {
   }
 }
 
-$guest-line-height: 12px;
 .guest {
   line-height: $guest-line-height;
 }
