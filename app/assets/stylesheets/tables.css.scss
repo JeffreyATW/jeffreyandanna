@@ -45,6 +45,9 @@ body {
     border-radius: 75px;
     height: 150px;
     width: 150px;
+    .table_guests {
+      height: $guest-line-height * 8;
+    }
   }
   &.banquet, &.dance_floor {
     .close_button {
@@ -84,10 +87,6 @@ body {
 $guest-line-height: 12px;
 .guest {
   line-height: $guest-line-height;
-}
-
-.table_guests {
-  height: $guest-line-height * 8;
 }
 
 .unassigned_guests, #new_table {
