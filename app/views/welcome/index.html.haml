@@ -377,11 +377,10 @@
         .carousel-inner
           %section.active.item
             .container
-              .centerer
-                - if @invitation.persisted?
-                  = render :file => "invitations/edit"
-                - else
-                  = render :partial => "invitations/rsvp"
+              - if @invitation.present? && @invitation.persisted?
+                = render :file => "invitations/edit"
+              - else
+                = render :partial => "invitations/rsvp"
       .object_container
         .backcounter.object
         .sodastream.object
