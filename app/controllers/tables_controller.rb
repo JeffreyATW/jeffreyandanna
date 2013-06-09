@@ -10,6 +10,7 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
+    @title = 'Tables'
     @tables = Table.all
 
     respond_to do |format|
