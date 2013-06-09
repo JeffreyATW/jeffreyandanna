@@ -1,5 +1,6 @@
 require 'rails_admin/config/actions'
 require 'rails_admin/config/actions/base'
+require 'mandrill'
 
 module RailsAdminMailGuests
 end
@@ -41,7 +42,22 @@ EOF
                   invitations = Invitation.send(params[:mail][:group]).where('email != ""')
                   flash.alert = 'Mail sent to guests.'
                 end
-                InvitationMailer.invitation_email(invitations, params[:mail][:subject], params[:mail][:body]).deliver
+                Mandrill::API.new.messages.send({
+                  subject: params[:mail][:subject],
+                  from_name: 'Jeffrey and Anna',
+                  from_email: 'wedding@jeffreyandanna.us',
+                  text: params[:mail][:body],
+                  to: invitations.map{|invitation| {email: invitation.email}},
+                  merge_vars: invitations.map{|invitation|
+                    {rcpt: invitation.email, vars: [
+                      {name: 'name', content: invitation.address_name},
+                      {name: 'rsvp', content: invitation.rsvp},
+                      {name: 'address', content: invitation.address},
+                      {name: 'email', content: invitation.email}
+                    ]}
+                  }
+                })
+                #InvitationMailer.invitation_email(invitations, params[:mail][:subject], params[:mail][:body]).deliver
                 GuestMail.create(group: @options.detect{|option| option[1] == params[:mail][:group]}[0], subject: params[:mail][:subject], body: params[:mail][:body])
               else
                 flash.notice = 'No don\'t :('

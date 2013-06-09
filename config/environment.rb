@@ -13,13 +13,3 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true,
   :port => 587
 }
-
-ActionMailer::Base.sendmail_settings = {
-  :address => 'smtp.mandrillapp.com',
-  :domain => 'jeffreyandanna.us',
-  :authentication => :plain,
-  :user_name => APP_CONFIG['mandrill']['user_name'],
-  :password => APP_CONFIG['mandrill']['password'],
-  :enable_starttls_auto => true,
-  :port => 587
-}

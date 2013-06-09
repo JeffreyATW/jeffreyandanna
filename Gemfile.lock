@@ -67,6 +67,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     feedzirra (0.0.24)
@@ -103,6 +104,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mandrill-api (1.0.33)
+      excon (~> 0.16.0)
+      json (~> 1.7.7)
     mime-types (1.23)
     multi_json (1.7.3)
     mysql2 (0.3.11)
@@ -204,6 +208,7 @@ DEPENDENCIES
   feedzirra
   haml
   jquery-rails (~> 2.2.1)
+  mandrill-api
   mysql2
   rabl
   rails (= 3.2.13)

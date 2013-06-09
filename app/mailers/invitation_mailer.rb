@@ -1,3 +1,4 @@
+# Unused. Talking to the Mandrill API instead.
 class InvitationMailer < ActionMailer::Base
   default from: 'Jeffrey and Anna <wedding@jeffreyandanna.us>'
 
