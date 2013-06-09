@@ -10,7 +10,7 @@
 - if @invitation.going
   %p
     %strong You're all set,
-    but if you would like to update us with your latest information, you can do so
+    but if you would like to update us with your latest information or notify us that you can't make it, you can do so
     below, then press "Update Invitation".
 = nested_form_for @invitation, :method => 'put', :url => rsvp_path do |f|
   .form_row
