@@ -67,6 +67,9 @@ $guest-line-height: 12px;
       float: left;
       width: 120px;
     }
+    .table_guests {
+      height: $guest-line-height * 3;
+    }
   }
   &.dance_floor {
     background: lightgrey;
