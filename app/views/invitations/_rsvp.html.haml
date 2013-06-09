@@ -6,3 +6,7 @@
     = f.submit "RSVP"
   - if @invitation.errors.present?
     %p= @invitation.errors[:base].first
+  - else
+    %p
+      If you can't make it, please enter your RSVP anyway, and you will be able
+      to set "Attending" to "No" in the next step.
