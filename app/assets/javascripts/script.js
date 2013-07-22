@@ -317,7 +317,7 @@
 
     // Show objects for requested section
     if (window.location.hash) {
-      readjust(window.location.hash, $(window.location.hash))
+      $('[href=' + window.location.hash + ']').click();
     }
 
     // Count guests if a form loads with the page, and when guests are added
