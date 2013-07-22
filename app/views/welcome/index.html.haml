@@ -53,21 +53,20 @@
       .backup.object.standing
     %section#welcome.main_section
       %header
-        %hgroup
-          %h1
-            %span.jeffrey Jeffrey
-            %span.and and
-            %span.anna Anna
-          %h3 ...are getting married!
-          %h2 August 17, 2013
-          %h2 San Francisco, CA
-          - if @remaining > 0
-            %h3
-              - if @remaining == 0
-                Today's the big day!
-              - else
-                = @remaining
-                days to go!
+        %h1
+          %span.jeffrey Jeffrey
+          %span.and and
+          %span.anna Anna
+        %h3 ...are getting married!
+        %h2 August 17, 2013
+        %h2 San Francisco, CA
+        - if @remaining > 0
+          %h3
+            - if @remaining == 0
+              Today's the big day!
+            - else
+              = @remaining
+              days to go!
       .object_container
         .window.object
         .projectorscreen.object
@@ -91,26 +90,24 @@
                 %a{:href => "#about_anna"} Anna
               %li
                 %a{:href => "#about_jeffrey"} Jeffrey
-              %li
-                %a{:href => "#our_home"} Our Home
       .carousel.slide
         .carousel-inner
           %section#our_story.active.item
             .container
               %h1 Our Story
               = image_tag "ziplining.jpg", :alt => "Ziplining in Vancouver", :class => "image_right", :width => 300, :height => 412
-              %p It all started over sausages and beers (as all wonderful things should). Jeffrey and Anna met at Gestalt Haus while out with a mutual friend in the Mission. Initial conversation included UC Santa Cruz, where they both went to school (they never met during that time, however), as well as music - Anna had seen Jeffrey's sister's band play when they were performing around SF circa 2006.
+              %p It all started over sausages and beers (as all wonderful things should). Jeffrey and Anna met at Gestalt Haus while out with a mutual friend in the Mission. Initial conversation included UC Santa Cruz, where they both went to school (they never met during that time, however), as well as music &mdash; Anna had seen Jeffrey's sister's band play when they were performing around SF circa 2006.
               %p Nothing after that was particularly deliberate. In an effort to go see more live shows and see more friends in the process, Anna started creating Facebook events for different shows, inviting people to come along. Jeffrey, in an effort to meet more people upon moving to SF, accepted every invite he could attend. From there, something slowly but surely clicked. Their first date was at Fly Bar in Divisidero, followed by the Tallest Man on Earth at the Independent (he's actually not that tall in real life, but he makes excellent music).
               %p Jeffrey had recently moved into the city with new job prospects. He had come from his dad's place in San Rafael, where he was staying after realizing grad school in Seattle wasn't for him. In early 2009, he found a pleasant space in a not-so-pleasant neighborhood, and spent his free time exploring the city with his new Internet friends.
               %p Anna moved to SF in late 2008, after living in Berkeley and Oakland the previous three years. She originally moved to the East Bay after graduating from UC Santa Cruz in 2005 and securing a job at UC Berkeley. While her first apartment in SF was in a less desirable location (with an evil landlord, to boot), her housemates were fantastic.
               %p Shortly after they started dating, Anna's upstairs neighbors left the toilet running and her aforementioned crummy apartment was soon deluged; she and her housemates were left temporarily homeless and Anna was scheduled to stay with her parents for the time being. One evening, Anna was about to head to her parents' house, but her car was stuck behind another in her shared garage. She had the keys, but she had no idea how to drive a manual transmission Saab. Taking a page out of the Matrix, Jeffrey looked up instructions on how to drive a stick on his iPhone and downloaded them into his brain. After a stall or two, the car was moved and Anna could go along her way.
               %p
                 Jeffrey helped Anna move into a nice new place with her housemates on the other side of the Mission, right next to SF General Hospital. This came in handy when Jeffrey smashed his shoulder into Market Street after getting hit by a car on his bike. Anna rushed to his rescue and brought him to bed (across the street). Anna's apartment was great for other, less
-                painful reasons - there was a gorgeous cat, awesome landlords, and plenty of bright space to hold a series of puzzle parties, which are just what they sound like - parties where friends came over and solved #{link_to "one ridiculously challenging puzzle", "https://www.facebook.com/photo.php?v=727747356368", :target => "_blank"}.
+                painful reasons &mdash; there was a gorgeous cat, awesome landlords, and plenty of bright space to hold a series of puzzle parties, which are just what they sound like &mdash; parties where friends came over and solved #{link_to "one ridiculously challenging puzzle", "https://www.facebook.com/photo.php?v=727747356368", :target => "_blank"}.
               = image_tag "versailles.jpg", :alt => "Visiting Versailles", :class => "image_left", :width => 300, :height => 435
-              %p They traveled Europe in late 2010 -  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam - all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the #{link_to "Updates section", "#updates"}!
+              %p They traveled Europe in late 2010 &mdash;  London, Paris, the Cinque Terre, Florence, Rome, Berlin, Amsterdam &mdash; all within two-and-a-half weeks. Needless to say, it was spectacular. You can read all about it in the #{link_to "Updates section", "#updates"}!
               %p
-                Jeffrey moved in with Anna in 2011. The rest of the year was filled with travels - to Austin for SxSW, New Jersey to see Anna's family, and New York to see Jeffrey's. After a year of new sights and sounds, they finished the year off on Treasure Island, surrounded by friends and a beautiful panorama of the city where they had started their life. As the New Year's fireworks shot into the sky, Jeffrey took out the engagement ring, promptly dropped it, fumbled around in the dark, and
+                Jeffrey moved in with Anna in 2011. The rest of the year was filled with travels &mdash; to Austin for SxSW, New Jersey to see Anna's family, and New York to see Jeffrey's. After a year of new sights and sounds, they finished the year off on Treasure Island, surrounded by friends and a beautiful panorama of the city where they had started their life. As the New Year's fireworks shot into the sky, Jeffrey took out the engagement ring, promptly dropped it, fumbled around in the dark, and
                 presented it to Anna.
               %p In early 2012, they moved into an apartment in Hayes Valley with a beautiful overlook of their city. They adopted Backup, an orange, noisy, lovable menace. They've been settling into their newly engaged life, but they can't wait until 2013, when they'll be married in their city among family and friends!
           %section#about_anna.item
@@ -134,7 +131,7 @@
                 Rafael, he spent his youth drawing comics. In fact, he drew everything
                 on this site!
               %p
-                He became enamored with the web early on - he made his first website
+                He became enamored with the web early on &mdash; he made his first website
                 in 1994. He's been constantly making them ever since, and lucky for
                 him, it's an important tool of the trade in San Francisco.
               %p
@@ -147,78 +144,6 @@
                 to work on the Embarcadero every day. He also bikes to #{link_to "Noisebridge", "https://noisebridge.net", :target => "_blank"}, a
                 local hackerspace, where he teaches a free class on frontend web
                 development.
-          %section#our_home.item
-            .container
-              %h1 Our Home
-              = image_tag "ourhome.jpg", :alt => "The view from our window", :width => 760, :height => 263
-              %p
-                We've lived in San Francisco for as long as we've known each other. We
-                love the city and its many neighborhoods - the Tenderloin, Mission,
-                Potrero Hill and Hayes Valley being the sites of our many homes - and
-                enjoy making the most of it from the bay to the breakers.
-              %p
-                We live in a comfortable apartment in Hayes Valley with an amazing
-                view. We're in the real center of the city (the words "San Francisco"
-                hover over our building on most maps) and from our place we can walk
-                in any direction and find something fun to do.
-              %p
-                If you're visiting San Francisco, there are the obvious sights and
-                sounds. Your first vacation shouldn't be complete without a walk along
-                the Embarcadero through
-                %b Fisherman's Wharf
-                and the <b>Ferry Building</b>. A walk along the
-                %b Golden Gate Bridge
-                can be spectacular when it's not
-                fogged over, and the hills of
-                %b North Beach
-                will provide you with a plethora of beautiful, historic sites.
-              %p
-                Of course, there are many attractions that are off the beaten path.
-                Our neighborhood and the adjoining
-                %b Mission district
-                are full of cute
-                shops, delicious food, and parks with a view. Chinatown might be
-                historic, but the
-                %b Inner Richmond
-                is home to arguably the best Asian
-                food in the city.
-                %b Haight-Ashbury
-                might have been the center of the
-                Summer of Love half a century ago, but now it's a great place to go
-                clothes shopping. And you can't beat
-                %b Golden Gate Park
-                when it comes to
-                biking or jogging.
-              %p
-                We've got a bunch of food recommendations! Our favorite burrito
-                place is
-                %b Taqueria Cancún.
-                If you're looking for pizza, try <b>Pauline's</b>,
-                <b>Patxi</b>'s, or <b>Little Star</b>.
-                %b Lahore Karahi
-                is our favorite Indian/Pakistani
-                place, and
-                %b Mandalay
-                is great Burmese food. We've had many a
-                breakfast at
-                %b St. Francis Fountain
-                and <b>Dynamo Donuts</b>, and the coffee at <b>Blue Bottle</b>,
-                <b>Ritual</b>, and
-                %b Four Barrel
-                is much celebrated.
-                %b Magnolia Pub
-                and
-                %b Rosamunde/Toronado
-                serve spectacular beer. Good mid-range dinner places to check out
-                are
-                %b Tangerine
-                and <b>Starbelly</b>. And if you're looking to splurge,
-                try <b>Aziza</b>, <b>Gary Danko</b>, or <b>Michael Mina</b>.
-              %p
-                Looking to plan your trip for our wedding? Look at the
-                = link_to "Events section", "#events"
-                to learn more about what to expect, and places to stay. And don't
-                hesitate to reach out to us to have any questions answered.
       .object_container
         .track.object
         .tree1.object
@@ -281,7 +206,7 @@
               %li
                 %a.active{:href => "#festivities"} Festivities
               %li
-                %a{:href => "#accommodations"} Accommodations
+                %a{:href => "#visitors_guide"} Visitor's Guide
               %li
                 %a{:href => "#registry"} Registry
       .carousel.slide
@@ -310,7 +235,7 @@
               %p
                 Dinner will be served, buffet-style, by the Winery around 7:00.
                 Dessert will be provided by Sift Cupcakes.
-                Dietary options are available - please note on your
+                Dietary options are available &mdash; please note on your
                 = link_to "RSVP", "#rsvp"
                 if you have any special requests!
               %p
@@ -322,41 +247,163 @@
                 Attire will be dressy, but not formal. Full gowns and
                 three-piece suits not required.
               %p
-                Above times and specifics are still subject to change - we're
+                Above times and specifics are still subject to change &mdash; we're
                 still a few months out!
-          %section#accommodations.item
+          %section#visitors_guide.item
+            %a#our_home
             .container
-              %h1 Accommodations
+              %h1 Visitor's Guide
               %p
-                Due to concerns of price and convenience, we've opted to contract with two hotels - one in Emeryville and one in San Francisco. #{mail_to "wedding@jeffreyandanna.us", "Email us", :target => "_blank"} to reserve at discounted rates!
-              %a{:href => "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank", :class => "hotel_heading marriott_heading"}
-                %hgroup
-                  %h2 Home Base
-                  %h3 Courtyard Marriott in Emeryville
+                We've lived in San Francisco for as long as we've known each other. We
+                love the city and its many neighborhoods &mdash; the Tenderloin, Mission,
+                Potrero Hill and Hayes Valley being the sites of our many homes &mdash; and
+                enjoy making the most of it from the bay to the breakers.
+              %h2 Destinations
               %p
-                Emeryville is a small city right outside of San Francisco, to the west of Oakland and Berkeley. We will admit up front that Emeryville is not the most exciting place to stay: the city consists of mostly office buildings, apartment complexes, and a few large shopping centers. However, the convenience and price can't be beat. The #{link_to "Courtyard Marriott hotel", "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank"} is located right off the freeway, next to the Bay Bridge (of which the wedding venue on Treasure Island is in the middle), is also close to public transit (a #{link_to "free shuttle service", "http://www.emerygoround.com/", :target => "_blank"} to the nearest #{link_to "BART", "http://bart.gov/", :target => "_blank"} station stops at the hotel), and will cost guests only
-                %strong $139-149
-                a night.
-              %a{:href => "http://www.kensingtonparkhotel.com/", :target => "_blank", :class => "hotel_heading kensington_heading"}
-                %hgroup
-                  %h2 The City Option
-                  %h3 Kensington Park Hotel in San Francisco
+                If you're visiting San Francisco, there are the obvious sights and
+                sounds.
               %p
-                The #{link_to "Kensington Park Hotel", "http://www.marriott.com/hotels/travel/oakmv-courtyard-oakland-emeryville/", :target => "_blank"}
-                is located in Union Square. While the neighborhood is tourist-centric, there's a reason why Union Square is the home base for
-                so many people visiting San Francisco. It's surrounded by public transit options that will take you all over the City and beyond, and you'll likely
-                find it easier and quicker to return to at the end of a long day of exploring. Not only that, but the Kensington is
-                offering a very reasonable discounted rate for our guests at
-                %strong $199
-                a night - so, if you'd rather save some bucks (to spend instead on some of San Francisco's amazing food options!), then this hotel should serve you well.
+                Your first vacation shouldn't be complete without a walk along
+                the Embarcadero from the
+                %b Ferry Building to
+                to <b>Fisherman's Wharf</b>. Along the walk, you'll come across
+                the <b>Exploratorium</b>, a unique science museum that just
+                moved into Pier 15, <b>Pier 38</b>, a maritime shopping center,
+                and <b>Musée Mécanique</b>, Pier 45's arcade game museum.
               %p
-                Prices do not include tax. These prices are valid from Thursday, August 15 to Monday, August 19, but feel free to extend your reservation if you plan on staying longer. If you're interested in booking with these hotels at these discounted rates, please
-                %strong #{mail_to "wedding@jeffreyandanna.us", "email us", :target => "_blank"}
-                and we can send you a reservation link!
+                A hike up the nearby Telegraph Hill to <b>Coit Tower</b> will
+                give you a great view of downtown.
               %p
-                Please note that you are not at all required to stay in the hotels that we've outlined above. We've also looked at the #{link_to "Columbus Motor Inn", "http://www.columbusmotorinn.com/", :target => "_blank"}, the #{link_to "Hilton Garden Inn", "http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-san-francisco-oakland-bay-bridge-SFOBBGI/index.html", :target => "_blank"}, the #{link_to "Inn at Jack London Square", "http://www.innatthesquare.com/", :target => "_blank"} in Oakland, and the #{link_to "Joie de Vivre hotels", "http://www.jdvhotels.com/", :target => "_blank"}.
+                A walk along the
+                %b Golden Gate Bridge
+                can provide spectacular views of the north
+                bay when it's not fogged over. Dress warmly just in case!
               %p
-                And searching #{link_to "Yelp", "http://www.yelp.com/", :target => "_blank"}, #{link_to "TripAdvisor", "http://www.tripadvisor.com/", :target => "_blank"}, or #{link_to "Airbnb", "https://www.airbnb.com/", :target => "_blank"} are all solid options for finding accommodations in the area. If you have any questions about hotels or neighborhoods or anything like that, please don't hesitate to #{mail_to "wedding@jeffreyandanna.us", "email"} or call us.
+                Of course, there are many attractions that are off the beaten path.
+                Our neighborhood, <b>Hayes Valley</b>, and the adjoining
+                %b Mission district
+                are full of cute shops, delicious food, and parks with a view.
+                <b>Dolores Park</b>, in particular, is a major attraction for
+                the age 20-30 crowd. For a great day in the park, get food and
+                drinks at nearby <b>Rhea's Deli</b> or <b>Bi-Rite Market</b>.
+                Move higher up for the best views. Just be discreet with
+                alcoholic beverages. There's a fantastic playground for children
+                as well.
+              %p
+                If you're looking to hike the many hills of our city,
+                <b>Bernal Hill</b> and <b>Twin Peaks</b> provide short
+                expeditions with great visual payoffs. <b>Mount Sutro</b>
+                provides a lovely hike through a lush forest with ocean views.
+              %h2 Restaurants
+              %p
+                Some might think that the official food of San Francisco is
+                clam chowder in a bread bowl, but they'd be wrong &mdash; it's
+                definitely the super burrito, invented right in the Mission.
+                Head to <b>Taqueria Cancún</b> or <b>El Farolito</b> for what
+                most (not all) consider to be the best of the bunch.
+              %p
+                The sandwiches at <b>Ike's Place</b> and the aforementioned
+                <b>Rhea's</b> are so popular that it's often best to check out
+                their menus online and call ahead.
+              %p
+                Food trucks are essentially haute fast food, and San Francisco's
+                got them in spades. In addition to the <b>Off the Grid</b>
+                pop-ups throughout the city, there's <b>SOMA StrEAT Food
+                Park</b>, a snazzy setup which has a constantly rotating cast of
+                trucks, plus wine and beer.
+              %p
+                For a great dinner date, there's <b>Starbelly</b>, a new
+                American restaurant with some fancy pizzas, among other things.
+                <b>Tangerine</b> is our
+                favorite Asian fusion spot. <b>Lolinda</b> and <b>Destino</b>
+                have delicious South American small plates &mdash; their meat
+                options are not to be missed.
+              %p
+                If you're really looking to splurge, there's <b>Gary Danko</b>
+                and <b>Michael Mina</b>, two treasures with creative menus and
+                drinks, and <b>Aziza</b> with a Moroccan-inspired menu. Consider
+                reserving far ahead of time for these fancier options.
+              %p
+                Trust us: while we might not be on the east coast, our pizza is
+                definitely worth a try. Go to <b>Pauline's</b>, which also
+                serves their own wine, <b>Little Star</b> for deep dish with a
+                cornmeal crust, or <b>Patxi</b>'s if the former is too crowded.
+              %p
+                %b Lahore Karahi
+                is our favorite Indian/Pakistani place, and
+                %b Mandalay
+                serves great Burmese food. If you've never tried Burmese food,
+                we think it combines the best of Chinese, Thai, and Vietnamese
+                cooking.
+              %h2 Drinks
+              %p
+                <b>Magnolia Pub</b> and <b>Monk's Kettle</b> are the go-to
+                places for great beer selections along with some delectable pub
+                food. <b>Toronado</b> also has a wide variety of beers, and
+                sausages next door at <b>Rosamunde</b> make the night complete.
+              %p
+                <b>83 Proof</b> hosts some amazing mixologists,
+                <b>Hotel Biron</b> is a dark, cozy wine bar, <b>Doctor Teeth</b>
+                is a lively spot with an awesome fried food menu,
+                and <b>Two Sisters Bar and Books</b>' cocktails are outstanding.
+              %h2 Desserts
+              %p
+                Looking for ice cream? Head to <b>Humphry Slocombe</b> for some
+                strange but surprisingly tasty flavors. <b>Bi-Rite</b> also has
+                some of the best scoops around, if you can bear the line.
+                <b>Smitten</b>'s ice cream is churned using dry ice, making it
+                exceptionally smooth.
+              %p
+                Cupcakes are especially hip. Try <b>Kara's Cupcakes</b>, in
+                truck or storefront form. And if you can't wait for our wedding,
+                visit <b>Sift Cupcakes</b> for some of the moistest ones we've
+                ever had.
+              %p
+                Finally, try to catch the <b>Crème Brûlée Cart</b> if you can.
+                And if you're looking for an upscale twist on a traditional
+                candy shop, don't miss <b>Miette</b>.
+              %h2 A Day in Hayes Valley
+              %p
+                Want to explore our neighborhood? Try this itinerary out for
+                size.
+              %p
+                Start the day with some breakfast. Head to <b>Ritual</b> for
+                great coffee, or have a large cup of joe at <b>La Boulange</b>
+                along with some pastries. You can go for a full breakfast
+                at <b>Stacks</b>, or head up Haight for <b>Kate's Kitchen</b>.
+              %p
+                <b>Samovar</b> is a unique tea house which is great for
+                breakfast or lunch. Other excellent lunch options include
+                <b>Flipper's Gourmet Burgers</b> and <b>Patxi's</b> pizza.
+              %p
+                From Hayes Valley, you can rent bikes and ride to Golden Gate
+                Park along the <b>Wiggle</b>, a popular route that avoids most
+                of the hills. Or if you're looking to indulge in the arts, see
+                a show at the <b>SFJAZZ Center</b>.
+              %p
+                There are numerous great restaurants along Hayes or Gough
+                Street, but especially worth mention are <b>Suppenkuche</b>, a
+                German joint, <b>Lers Ros</b> for fancy Thai cuisine, and
+                <b>Sauce</b>, whose menu has some interesting twists on the
+                classics.
+              %p
+                Finally, go for some drinks. Try <b>Two Sisters</b>, <b>Place
+                Pigalle</b>, or head to the <b>Biergarten</b>, an outdoor venue
+                with large pours and warm pretzels.
+              %h2 Accommodations
+              %p
+                If you haven't booked at <b>Hotel Kensington</b>, or the
+                <b>Courtyard Marriott</b> in Emeryville, we might also suggest
+                the <b>Columbus Motor Inn</b> in North Beach, the <b>Hilton
+                Garden Inn</b> in Emeryville, or the <b>Inn at Jack London
+                Square</b> in Oakland.
+              %h2 Finally...
+              %p
+                When all else fails, try searching #{link_to "Yelp", "http://www.yelp.com/", :target => "_blank"}
+                or #{link_to "TripAdvisor", "http://www.tripadvisor.com/", :target => "_blank"}
+                for finding food, activities, or accommodations in the area. If
+                you have any questions, please don't hesitate to
+                #{mail_to "wedding@jeffreyandanna.us", "email"} or call us!
           %section#registry.item
             .container
               %h1 Registry
