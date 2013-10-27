@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
