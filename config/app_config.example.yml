@@ -1,0 +1,11 @@
+secret_token:
+mandrill:
+  user_name:
+  password:
+database:
+  database:
+  username:
+  password:
+deploy:
+  server:
+  username:
