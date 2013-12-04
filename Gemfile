@@ -23,10 +23,6 @@ gem 'compass-rails', '2.0.alpha.0'
 
 gem 'uglifier', '>= 1.0.3'
 
-group :development do
-  gem 'debugger'
-end
-
 group :test, :development do
   gem 'sqlite3'
 end
@@ -49,9 +45,6 @@ gem 'jquery-rails'
 
 # Deploy with Capistrano
 gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
 
 gem 'devise'
 

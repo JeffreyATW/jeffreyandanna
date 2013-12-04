@@ -72,8 +72,7 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
-
-@include font-face("FontAwesome", font-files('<%= asset_path('custom-fontawesome-webfont.woff') %>', '<%= asset_path('custom-fontawesome-webfont.ttf') %>', '<%= asset_path('fontawesome-webfont.svg#FontAwesome') %>'), '<%= asset_path('custom-fontawesome-webfont.eot') %>');
+@include font-face("FontAwesome", font-files(asset-path('custom-fontawesome-webfont.woff', font), asset-path('custom-fontawesome-webfont.ttf', font), asset-path('fontawesome-webfont.svg#FontAwesome', font)), asset-path('custom-fontawesome-webfont.eot', font));
 
 /*  Font Awesome styles
     ------------------------------------------------------- */
@@ -344,7 +343,7 @@ input[type="submit"], .regular_section nav li a {
 
 $welcome-heading-shadow-color: #081073;
 #welcome {
-  background: #ffda73 url('backgrounds/welcome.jpg');
+  background: #ffda73 image-url('backgrounds/welcome.jpg');
   header {
     top: 15%;
   }
@@ -392,7 +391,7 @@ $about-us-color: #d4f870;
 }
 #about_us {
   @include regular-section-styles($about-us-color, #e065bb, #7d0057, #c7f83e, #b1f100);
-  background-image: url('backgrounds/about_us.jpg');
+  background-image: image-url('backgrounds/about_us.jpg');
 }
 
 $updates-color: #61b7cf;
@@ -401,7 +400,7 @@ $updates-color: #61b7cf;
 }
 #updates {
   @include regular-section-styles($updates-color, #ffba73, #a65400, #39aecf, #057d9f);
-  background-image: url('backgrounds/updates.jpg');
+  background-image: image-url('backgrounds/updates.jpg');
 }
 
 $events-color: #9c6ad6;
@@ -410,7 +409,7 @@ $events-color: #9c6ad6;
 }
 #events {
   @include regular-section-styles($events-color, #fff573, #a69a00, #8742d6, #580EAD);
-  background-image: url('backgrounds/events.jpg');
+  background-image: image-url('backgrounds/events.jpg');
 }
 
 $rsvp-color: #ff7373;
@@ -421,7 +420,7 @@ $rsvp-active-color: #ff0000;
 }
 #rsvp {
   @include regular-section-styles($rsvp-color, #67e667, #008500, $rsvp-hover-color, $rsvp-active-color);
-  background-image: url('backgrounds/rsvp.jpg');
+  background-image: image-url('backgrounds/rsvp.jpg');
 }
 
 .form_row {
@@ -530,11 +529,11 @@ input[type="submit"], .remove_nested_fields, .add_nested_fields {
 }
 
 .marriott_heading h2 {
-  background-image: url('/marriott.jpg')
+  background-image: image-url('/marriott.jpg')
 }
 
 .kensington_heading h2 {
-  background-image: url('/kensington.jpg')
+  background-image: image-url('/kensington.jpg')
 }
 
 @media only screen and (max-width: 400px) {
@@ -647,10 +646,10 @@ $mobile-width: 710px;
 }
 
 @mixin sprite-background($map, $name) {
-  $image-path: "objects/#{$map}/#{$name}.png";
+  $image-path: "/objects/#{$map}/#{$name}.png";
   background-image: url($image-path);
-  height: image-height($image-path);
-  width: image-width($image-path);
+  height: image-height("<%= Rails.root %>" + "/public" + $image-path);
+  width: image-width("<%= Rails.root %>" + "/public" + $image-path);
 }
 
 @media only screen and (min-width: $container-max-width) and (min-height: 601px) {

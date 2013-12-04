@@ -5,8 +5,6 @@ class Task < ActiveRecord::Base
 
   default_scope order(:parent_task_id, :id)
 
-  #attr_accessible :creator_id, :description, :done, :parent_task_id, :title, :due_date, :child_task_ids, :created_at
-
   validates_presence_of :title, :creator
 
   def is_child_task?

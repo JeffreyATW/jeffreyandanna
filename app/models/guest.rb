@@ -2,7 +2,6 @@ class Guest < ActiveRecord::Base
   belongs_to :invitation, :inverse_of => :guests
   belongs_to :table, :inverse_of => :guests
 
-  #attr_accessible :name, :special_needs, :under_4, :invitation_id, :invitation_attributes, :table_id, :table_attributes
   validates_presence_of :name, :invitation
 
   HUMANIZED_ATTRIBUTES = {

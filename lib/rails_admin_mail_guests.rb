@@ -57,7 +57,6 @@ EOF
                     ]}
                   }
                 })
-                #InvitationMailer.invitation_email(invitations, params[:mail][:subject], params[:mail][:body]).deliver
                 GuestMail.create(group: @options.detect{|option| option[1] == params[:mail][:group]}[0], subject: params[:mail][:subject], body: params[:mail][:body])
               else
                 flash.notice = 'No don\'t :('
