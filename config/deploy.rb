@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "dotenv/capistrano"
 # require "delayed/recipes"
 
 # set :rails_env, 'production' #added for delayed job

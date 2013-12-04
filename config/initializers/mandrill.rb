@@ -1,1 +1,0 @@
-ENV['MANDRILL_APIKEY'] = APP_CONFIG['mandrill']['password']

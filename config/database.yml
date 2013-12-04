@@ -1,8 +1,3 @@
-<% if Rails.env == "production" %>
-<% APP_CONFIG = YAML.load_file("#{Rails.root}/../../shared/config/app_config.yml") %>
-<% else %>
-<% APP_CONFIG = YAML.load_file("#{Rails.root}/config/app_config.yml") %>
-<% end %>
 development:
   adapter: mysql2
   encoding: utf8
@@ -30,7 +25,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: <%= APP_CONFIG["database"]["database"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
   pool: 5
-  username: <%= APP_CONFIG["database"]["username"] %>
-  password: <%= APP_CONFIG["database"]["password"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>

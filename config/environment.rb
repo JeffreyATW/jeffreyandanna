@@ -8,8 +8,8 @@ ActionMailer::Base.smtp_settings = {
   :address => 'smtp.mandrillapp.com',
   :domain => 'jeffreyandanna.us',
   :authentication => :plain,
-  :user_name => APP_CONFIG['mandrill']['user_name'],
-  :password => APP_CONFIG['mandrill']['password'],
+  :user_name => ENV['MANDRILL_USER_NAME'],
+  :password => ENV['MANDRILL_APIKEY'],
   :enable_starttls_auto => true,
   :port => 587
 }
