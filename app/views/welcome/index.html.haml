@@ -541,7 +541,7 @@
         .mixer.object
         .grill.object
     %input{:type => "range", :id => "container_opacity", :class => "container_opacity", :value => 100}
-  = javascript_include_tag "application", :async => Rails.env == "production"
+  = javascript_include_tag "application", :async => (%w(staging production).include? Rails.env)
   :javascript
     var _gaq=[['_setAccount','UA-32988072-1'],['_trackPageview'],['_setDomain','#{request.host}']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

@@ -27,6 +27,10 @@ group :test, :development do
   gem 'sqlite3'
 end
 
+group :staging do
+  gem 'pg'
+end
+
 group :production do
   gem 'mysql2'
   gem 'therubyracer', :platforms => :ruby
