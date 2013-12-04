@@ -1,3 +1,4 @@
+ruby '2.0.0'
 source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
@@ -28,6 +29,7 @@ group :test, :development do
 end
 
 group :staging do
+  gem 'rails_12factor'
   gem 'pg'
 end
 
