@@ -71,7 +71,7 @@ class TablesController < ApplicationController
     @table = Table.find(params[:id])
 
     respond_to do |format|
-      if @table.update_attributes(params[:table])
+      if @table.update_attributes(params[:table].permit(:name, :notes, :x, :y, :table_type, :guest_ids => []))
         format.html { redirect_to @table, notice: 'Table was successfully updated.' }
         format.json { head :no_content }
       else

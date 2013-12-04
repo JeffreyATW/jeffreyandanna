@@ -1,4 +1,5 @@
 secret_token:
+devise_secret_key:
 mandrill:
   user_name:
   password:

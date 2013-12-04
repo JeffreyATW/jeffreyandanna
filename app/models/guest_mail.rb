@@ -1,3 +1,3 @@
 class GuestMail < ActiveRecord::Base
-  attr_accessible :body, :group, :subject
+  #attr_accessible :body, :group, :subject
 end

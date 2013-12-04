@@ -3,7 +3,7 @@ Jeffreyandanna::Application.routes.draw do
 
   devise_for :users
 
-  put 'rsvp' => "invitations#update", :as => "rsvp"
+  patch 'rsvp' => "invitations#update", :as => "rsvp"
   get 'rsvp' => "invitations#edit", :as => "invitation"
 
   get 'rsvp/export' => "invitations#index"

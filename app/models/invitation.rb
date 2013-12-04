@@ -2,7 +2,7 @@ class Invitation < ActiveRecord::Base
   has_many :guests, :dependent => :destroy, :inverse_of => :invitation
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
-  attr_accessible :address, :save_the_date_sent, :invited, :going, :responded, :guests_attributes, :email, :notes
+  #attr_accessible :address, :save_the_date_sent, :invited, :going, :responded, :guests_attributes, :email, :notes
   before_save :ensure_has_one_guest
   before_create :generate_rsvp
   validates_associated :guests
@@ -15,10 +15,10 @@ class Invitation < ActiveRecord::Base
     :guests => "Guest(s)"
   }
 
-  scope :attending, where(going: true)
-  scope :not_attending, where(going: false, responded: true)
-  scope :responded, where(responded: true)
-  scope :not_responded, where(going: false, responded: false, invited: true)
+  scope :attending, -> { where(going: true) }
+  scope :not_attending, -> { where(going: false, responded: true) }
+  scope :responded, -> { where(responded: true) }
+  scope :not_responded, -> { where(going: false, responded: false, invited: true) }
 
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super

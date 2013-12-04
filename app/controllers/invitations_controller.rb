@@ -36,7 +36,7 @@ class InvitationsController < ApplicationController
         @invitation.responded = true
         @invitation.save
       else
-        if @invitation.update_attributes(params[:invitation])
+        if @invitation.update_attributes(params[:invitation].permit(:going, :email, :address, :guests_attributes => [:_destroy, :name, :special_needs, :under_4, :id]))
           flash.now[:notice] = "Thank you for updating your information!"
         else
           flash.now[:alert] = "There was an error saving your information."

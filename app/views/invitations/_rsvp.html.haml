@@ -1,6 +1,6 @@
 .centerer
   %p Respond to our letter by mail or phone, or enter your RSVP code here:
-  = form_for @invitation, :method => "put", :url => { :controller => "invitations", :action => "update" } do |f|
+  = form_for @invitation, :method => 'patch', :url => { :controller => "invitations", :action => "update" } do |f|
     = hidden_field_tag :updating_invitation, true
     = f.text_field :rsvp, :maxlength => 4
     = f.submit "RSVP"
