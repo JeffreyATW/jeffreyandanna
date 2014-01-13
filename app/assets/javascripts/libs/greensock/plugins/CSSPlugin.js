@@ -1,11 +1,10 @@
 /*!
- * VERSION: beta 1.9.3
- * DATE: 2013-04-04
- * JavaScript 
+ * VERSION: 1.11.3
+ * DATE: 2014-01-10
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
  * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
- * This work is subject to the terms in http://www.greensock.com/terms_of_use.html or for 
+ * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -20,6 +19,7 @@
 		var CSSPlugin = function() {
 				TweenPlugin.call(this, "css");
 				this._overwriteProps.length = 0;
+				this.setRatio = CSSPlugin.prototype.setRatio; //speed optimization (avoid prototype lookup on this "hot" method)
 			},
 			_hasPriority, //turns true whenever a CSSPropTween instance is created that has a priority other than 0. This helps us discern whether or not we should spend the time organizing the linked list or not after a CSSPlugin's _onInitTween() method is called.
 			_suffixMap, //we set this in _onInitTween() each time as a way to have a persistent variable we can use in other methods like _parse() without having to pass it around as a parameter and we keep _parse() decoupled from a particular CSSPlugin instance
@@ -29,17 +29,16 @@
 			p = CSSPlugin.prototype = new TweenPlugin("css");
 
 		p.constructor = CSSPlugin;
-		CSSPlugin.version = "1.9.3";
+		CSSPlugin.version = "1.11.3";
 		CSSPlugin.API = 2;
 		CSSPlugin.defaultTransformPerspective = 0;
 		p = "px"; //we'll reuse the "p" variable to keep file size down
-		CSSPlugin.suffixMap = {top:p, right:p, bottom:p, left:p, width:p, height:p, fontSize:p, padding:p, margin:p, perspective:p};
+		CSSPlugin.suffixMap = {top:p, right:p, bottom:p, left:p, width:p, height:p, fontSize:p, padding:p, margin:p, perspective:p, lineHeight:""};
 
 
 		var _numExp = /(?:\d|\-\d|\.\d|\-\.\d)+/g,
 			_relNumExp = /(?:\d|\-\d|\.\d|\-\.\d|\+=\d|\-=\d|\+=.\d|\-=\.\d)+/g,
 			_valuesExp = /(?:\+=|\-=|\-|\b)[\d\-\.]+[a-zA-Z0-9]*(?:%|\b)/gi, //finds all the values that begin with numbers or += or -= and then a number. Includes suffixes. We use this to split complex values apart like "1px 5px 20px rgb(255,102,51)"
-			//_clrNumExp = /(?:\b(?:(?:rgb|rgba)\(.+?\))|\B#.+?\b)/, //only finds rgb(), rgba(), and # (hexadecimal) values but NOT color names like red, blue, etc.
 			_NaNExp = /[^\d\-\.]/g,
 			_suffixExp = /(?:\d|\-|\+|=|#|\.)*/g,
 			_opacityExp = /opacity *= *([^)]*)/,
@@ -77,8 +76,9 @@
 				_isSafariLT6 = (_isSafari && (Number(_agent.substr(_agent.indexOf("Version/")+8, 1)) < 6));
 				_isFirefox = (_agent.indexOf("Firefox") !== -1);
 
-				(/MSIE ([0-9]{1,}[\.0-9]{0,})/).exec(_agent);
-				_ieVers = parseFloat( RegExp.$1 );
+				if ((/MSIE ([0-9]{1,}[\.0-9]{0,})/).exec(_agent)) {
+					_ieVers = parseFloat( RegExp.$1 );
+				}
 
 				d.innerHTML = "<a style='top:1px;opacity:.55;'>a</a>";
 				a = d.getElementsByTagName("a")[0];
@@ -139,8 +139,7 @@
 					t = cs.getPropertyValue(p.replace(_capsExp, "-$1").toLowerCase());
 					rv = (t || cs.length) ? t : cs[p]; //Opera behaves VERY strangely - length is usually 0 and cs[p] is the only way to get accurate results EXCEPT when checking for -o-transform which only works with cs.getPropertyValue()!
 				} else if (t.currentStyle) {
-					cs = t.currentStyle;
-					rv = cs[p];
+					rv = t.currentStyle[p];
 				}
 				return (dflt != null && (!rv || rv === "none" || rv === "auto" || rv === "auto auto")) ? dflt : rv;
 			},
@@ -154,7 +153,7 @@
 			 * @param {boolean=} recurse If true, the call is a recursive one. In some browsers (like IE7/8), occasionally the value isn't accurately reported initially, but if we run the function again it will take effect.
 			 * @return {number} value in pixels
 			 */
-				_convertToPixels = function(t, p, v, sfx, recurse) {
+			_convertToPixels = function(t, p, v, sfx, recurse) {
 				if (sfx === "px" || !sfx) { return v; }
 				if (sfx === "auto" || !v) { return 0; }
 				var horiz = _horizExp.test(p),
@@ -168,7 +167,7 @@
 				if (sfx === "%" && p.indexOf("border") !== -1) {
 					pix = (v / 100) * (horiz ? t.clientWidth : t.clientHeight);
 				} else {
-					style.cssText = "border-style:solid; border-width:0; position:absolute; line-height:0;";
+					style.cssText = "border:0 solid red;position:" + _getStyle(t, "position") + ";line-height:0;";
 					if (sfx === "%" || !node.appendChild) {
 						node = t.parentNode || _doc.body;
 						style[(horiz ? "width" : "height")] = v + sfx;
@@ -207,23 +206,25 @@
 					}
 				} else if ((cs = t.currentStyle || t.style)) {
 					for (i in cs) {
-						s[i.replace(_camelExp, _camelFunc)] = cs[i];
+						if (typeof(i) === "string" && s[i] !== undefined) {
+							s[i.replace(_camelExp, _camelFunc)] = cs[i];
+						}
 					}
 				}
 				if (!_supportsOpacity) {
 					s.opacity = _getIEOpacity(t);
 				}
 				tr = _getTransform(t, cs, false);
-				s.rotation = tr.rotation * _RAD2DEG;
-				s.skewX = tr.skewX * _RAD2DEG;
+				s.rotation = tr.rotation;
+				s.skewX = tr.skewX;
 				s.scaleX = tr.scaleX;
 				s.scaleY = tr.scaleY;
 				s.x = tr.x;
 				s.y = tr.y;
 				if (_supports3D) {
 					s.z = tr.z;
-					s.rotationX = tr.rotationX * _RAD2DEG;
-					s.rotationY = tr.rotationY * _RAD2DEG;
+					s.rotationX = tr.rotationX;
+					s.rotationY = tr.rotationY;
 					s.scaleZ = tr.scaleZ;
 				}
 				if (s.filters) {
@@ -289,7 +290,7 @@
 				} else if (y === "center") {
 					y = "50%";
 				}
-				if (x === "center" || isNaN(parseFloat(x))) { //remember, the user could flip-flop the values and say "bottom center" or "center bottom", etc. "center" is ambiguous because it could be used to describe horizontal or vertical, hence the isNaN().
+				if (x === "center" || (isNaN(parseFloat(x)) && (x + "").indexOf("=") === -1)) { //remember, the user could flip-flop the values and say "bottom center" or "center bottom", etc. "center" is ambiguous because it could be used to describe horizontal or vertical, hence the isNaN(). If there's an "=" sign in the value, it's relative.
 					x = "50%";
 				}
 				if (recObj) {
@@ -333,28 +334,30 @@
 			 */
 			_parseAngle = function(v, d, p, directionalEnd) {
 				var min = 0.000001,
-					cap, split, dif, type, result;
+					cap, split, dif, result;
 				if (v == null) {
 					result = d;
 				} else if (typeof(v) === "number") {
-					result = v * _DEG2RAD;
+					result = v;
 				} else {
-					cap = Math.PI * 2;
+					cap = 360;
 					split = v.split("_");
-					dif = Number(split[0].replace(_NaNExp, "")) * ((v.indexOf("rad") === -1) ? _DEG2RAD : 1) - ((v.charAt(1) === "=") ? 0 : d);
-					type = split[1];
-					if (type && directionalEnd) {
-						directionalEnd[p] = d + dif;
-					}
-					if (type === "short") {
-						dif = dif % cap;
-						if (dif !== dif % (cap / 2)) {
-							dif = (dif < 0) ? dif + cap : dif - cap;
+					dif = Number(split[0].replace(_NaNExp, "")) * ((v.indexOf("rad") === -1) ? 1 : _RAD2DEG) - ((v.charAt(1) === "=") ? 0 : d);
+					if (split.length) {
+						if (directionalEnd) {
+							directionalEnd[p] = d + dif;
 						}
-					} else if (type === "cw" && dif < 0) {
-						dif = ((dif + cap * 9999999999) % cap) - ((dif / cap) | 0) * cap;
-					} else if (type === "ccw" && dif > 0) {
-						dif = ((dif - cap * 9999999999) % cap) - ((dif / cap) | 0) * cap;
+						if (v.indexOf("short") !== -1) {
+							dif = dif % cap;
+							if (dif !== dif % (cap / 2)) {
+								dif = (dif < 0) ? dif + cap : dif - cap;
+							}
+						}
+						if (v.indexOf("_cw") !== -1 && dif < 0) {
+							dif = ((dif + cap * 9999999999) % cap) - ((dif / cap) | 0) * cap;
+						} else if (v.indexOf("ccw") !== -1 && dif > 0) {
+							dif = ((dif - cap * 9999999999) % cap) - ((dif / cap) | 0) * cap;
+						}
 					}
 					result = d + dif;
 				}
@@ -489,7 +492,7 @@
 						i = vals.length;
 						if (numVals > i--) {
 							while (++i < numVals) {
-								vals[i] = collapsible ? vals[(((i - 1) / 2) >> 0)] : dVals[i];
+								vals[i] = collapsible ? vals[(((i - 1) / 2) | 0)] : dVals[i];
 							}
 						}
 						return pfx + vals.join(delim) + delim + color + sfx + (v.indexOf("inset") !== -1 ? " inset" : "");
@@ -512,7 +515,7 @@
 					i = vals.length;
 					if (numVals > i--) {
 						while (++i < numVals) {
-							vals[i] = collapsible ? vals[(((i - 1) / 2) >> 0)] : dVals[i];
+							vals[i] = collapsible ? vals[(((i - 1) / 2) | 0)] : dVals[i];
 						}
 					}
 					return pfx + vals.join(delim) + sfx;
@@ -549,7 +552,7 @@
 				while (mpt) {
 					val = proxy[mpt.v];
 					if (mpt.r) {
-						val = (val > 0) ? (val + 0.5) >> 0 : (val - 0.5) >> 0;
+						val = (val > 0) ? (val + 0.5) | 0 : (val - 0.5) | 0;
 					} else if (val < min && val > -min) {
 						val = 0;
 					}
@@ -687,7 +690,7 @@
 				this.p = p; //property
 				this.s = s; //starting value
 				this.c = c; //change value
-				this.n = n || "css_" + p; //name that this CSSPropTween should be associated to (usually the same as p, but not always - n is what overwriting looks at)
+				this.n = n || p; //name that this CSSPropTween should be associated to (usually the same as p, but not always - n is what overwriting looks at)
 				if (!(t instanceof CSSPropTween)) {
 					_overwriteProps.push(this.n);
 				}
@@ -725,6 +728,7 @@
 			 */
 			_parseComplex = CSSPlugin.parseComplex = function(t, p, b, e, clrs, dflt, pt, pr, plugin, setRatio) {
 				//DEBUG: _log("parseComplex: "+p+", b: "+b+", e: "+e);
+				b = b || dflt || "";
 				pt = new CSSPropTween(t, p, 0, 0, pt, (setRatio ? 2 : 1), null, false, pr, b, e);
 				e += ""; //ensures it's a string
 				var ba = b.split(", ").join(",").split(" "), //beginning array
@@ -977,7 +981,7 @@
 		 * Accepts a target and end value and spits back a CSSPropTween that has been inserted into the CSSPlugin's linked list and conforms with all the conventions we use internally, like type:-1, 0, 1, or 2, setting up any extra property tweens, priority, etc. For example, if we have a boxShadow SpecialProp and call:
 		 * this._firstPT = sp.parse(element, "5px 10px 20px rgb(2550,102,51)", "boxShadow", this);
 		 * It should figure out the starting value of the element's boxShadow, compare it to the provided end value and create all the necessary CSSPropTweens of the appropriate types to tween the boxShadow. The CSSPropTween that gets spit back should already be inserted into the linked list (the 4th parameter is the current head, so prepend to that).
-		 * @param {!Object) t Target object whose property is being tweened
+		 * @param {!Object} t Target object whose property is being tweened
 		 * @param {Object} e End value as provided in the vars object (typically a string, but not always - like a throwProps would be an object).
 		 * @param {!string} p Property name
 		 * @param {!CSSPlugin} cssp The CSSPlugin instance that should be associated with this tween.
@@ -1024,8 +1028,8 @@
 				return rv;
 			}, priority:priority});
 		};
-		
-		
+
+
 
 
 
@@ -1044,15 +1048,19 @@
 			 * @param {!Object} t target element
 			 * @param {Object=} cs computed style object (optional)
 			 * @param {boolean=} rec if true, the transform values will be recorded to the target element's _gsTransform object, like target._gsTransform = {x:0, y:0, z:0, scaleX:1...}
+			 * @param {boolean=} parse if true, we'll ignore any _gsTransform values that already exist on the element, and force a reparsing of the css (calculated style)
 			 * @return {object} object containing all of the transform properties/values like {x:0, y:0, z:0, scaleX:1...}
 			 */
-			_getTransform = function(t, cs, rec) {
+			_getTransform = function(t, cs, rec, parse) {
+				if (t._gsTransform && rec && !parse) {
+					return t._gsTransform; //if the element already has a _gsTransform, use that. Note: some browsers don't accurately return the calculated style for the transform (particularly for SVG), so it's almost always safest to just use the values we've already applied rather than re-parsing things.
+				}
 				var tm = rec ? t._gsTransform || {skewY:0} : {skewY:0},
 					invX = (tm.scaleX < 0), //in order to interpret things properly, we need to know if the user applied a negative scaleX previously so that we can adjust the rotation and skewX accordingly. Otherwise, if we always interpret a flipped matrix as affecting scaleY and the user only wants to tween the scaleX on multiple sequential tweens, it would keep the negative scaleY without that being the user's intent.
 					min = 0.00002,
 					rnd = 100000,
-					minPI = -Math.PI + 0.0001,
-					maxPI = Math.PI - 0.0001,
+					minAngle = 179.99,
+					minPI = minAngle * _DEG2RAD,
 					zOrigin = _supports3D ? parseFloat(_getStyle(t, _transformOriginProp, cs, false, "0 0 0").split(" ")[2]) || tm.zOrigin  || 0 : 0,
 					s, m, i, n, dec, scaleX, scaleY, rotation, skewX, difX, difY, difR, difS;
 				if (_transformProp) {
@@ -1060,7 +1068,7 @@
 				} else if (t.currentStyle) {
 					//for older versions of IE, we need to interpret the filter portion that is in the format: progid:DXImageTransform.Microsoft.Matrix(M11=6.123233995736766e-17, M12=-1, M21=1, M22=6.123233995736766e-17, sizingMethod='auto expand') Notice that we need to swap b and c compared to a normal matrix.
 					s = t.currentStyle.filter.match(_ieGetMatrixExp);
-					s = (s && s.length === 4) ? s[0].substr(4) + "," + Number(s[2].substr(4)) + "," + Number(s[1].substr(4)) + "," + s[3].substr(4) + "," + (tm ? tm.x : 0) + "," + (tm ? tm.y : 0) : null;
+					s = (s && s.length === 4) ? [s[0].substr(4), Number(s[2].substr(4)), Number(s[1].substr(4)), s[3].substr(4), (tm.x || 0), (tm.y || 0)].join(",") : "";
 				}
 				//split the matrix values out into an array (m for matrix)
 				m = (s || "").match(/(?:\-|\b)[\d\-\.e]+\b/gi) || [];
@@ -1083,14 +1091,15 @@
 						a34 = a33*a34+tm.zOrigin-m[14];
 					}
 
-					//only parse from the matrix if we MUST because not only is it usually unnecessary due to the fact that we store the values in the _gsTransform object, but also because it's impossible to accurately interpret rotationX, rotationY, and rotationZ if all are applied, so it's much better to rely on what we store. However, we must parse the first time that an object is tweened. We also assume that if the position has changed, the user must have done some styling changes outside of CSSPlugin, thus we force a parse in that scenario.
-					if (!rec || a14 !== tm.x || a24 !== tm.y || a34 !== tm.z) {
+					//only parse from the matrix if we MUST because not only is it usually unnecessary due to the fact that we store the values in the _gsTransform object, but also because it's impossible to accurately interpret rotationX, rotationY, rotationZ, scaleX, and scaleY if all are applied, so it's much better to rely on what we store. However, we must parse the first time that an object is tweened. We also assume that if the position has changed, the user must have done some styling changes outside of CSSPlugin, thus we force a parse in that scenario.
+					if (!rec || parse || tm.rotationX == null) {
 						var a11 = m[0], a21 = m[1], a31 = m[2], a41 = m[3],
 							a12 = m[4], a22 = m[5], a32 = m[6], a42 = m[7],
 							a43 = m[11],
-							angle = tm.rotationX = Math.atan2(a32, a33),
-							xFlip = (angle < minPI || angle > maxPI),
-							t1, t2, t3, t4, cos, sin, yFlip, zFlip;
+							angle = Math.atan2(a32, a33),
+							xFlip = (angle < -minPI || angle > minPI),
+							t1, t2, t3, cos, sin, yFlip, zFlip;
+						tm.rotationX = angle * _RAD2DEG;
 						//rotationX
 						if (angle) {
 							cos = Math.cos(-angle);
@@ -1098,7 +1107,6 @@
 							t1 = a12*cos+a13*sin;
 							t2 = a22*cos+a23*sin;
 							t3 = a32*cos+a33*sin;
-							t4 = a42*cos+a43*sin;
 							a13 = a12*-sin+a13*cos;
 							a23 = a22*-sin+a23*cos;
 							a33 = a32*-sin+a33*cos;
@@ -1106,31 +1114,29 @@
 							a12 = t1;
 							a22 = t2;
 							a32 = t3;
-							//a42 = t4;
 						}
 						//rotationY
-						angle = tm.rotationY = Math.atan2(a13, a11);
+						angle = Math.atan2(a13, a11);
+						tm.rotationY = angle * _RAD2DEG;
 						if (angle) {
-							yFlip = (angle < minPI || angle > maxPI);
+							yFlip = (angle < -minPI || angle > minPI);
 							cos = Math.cos(-angle);
 							sin = Math.sin(-angle);
 							t1 = a11*cos-a13*sin;
 							t2 = a21*cos-a23*sin;
 							t3 = a31*cos-a33*sin;
-							t4 = a41*cos-a43*sin;
-							//a13 = a11*sin+a13*cos;
 							a23 = a21*sin+a23*cos;
 							a33 = a31*sin+a33*cos;
 							a43 = a41*sin+a43*cos;
 							a11 = t1;
 							a21 = t2;
 							a31 = t3;
-							//a41 = t4;
 						}
 						//rotationZ
-						angle = tm.rotation = Math.atan2(a21, a22);
+						angle = Math.atan2(a21, a22);
+						tm.rotation = angle * _RAD2DEG;
 						if (angle) {
-							zFlip = (angle < minPI || angle > maxPI);
+							zFlip = (angle < -minPI || angle > minPI);
 							cos = Math.cos(-angle);
 							sin = Math.sin(-angle);
 							a11 = a11*cos+a12*sin;
@@ -1148,9 +1154,9 @@
 							tm.rotationY = tm.rotationX = 0;
 						}
 
-						tm.scaleX = ((Math.sqrt(a11 * a11 + a21 * a21) * rnd + 0.5) >> 0) / rnd;
-						tm.scaleY = ((Math.sqrt(a22 * a22 + a23 * a23) * rnd + 0.5) >> 0) / rnd;
-						tm.scaleZ = ((Math.sqrt(a32 * a32 + a33 * a33) * rnd + 0.5) >> 0) / rnd;
+						tm.scaleX = ((Math.sqrt(a11 * a11 + a21 * a21) * rnd + 0.5) | 0) / rnd;
+						tm.scaleY = ((Math.sqrt(a22 * a22 + a23 * a23) * rnd + 0.5) | 0) / rnd;
+						tm.scaleZ = ((Math.sqrt(a32 * a32 + a33 * a33) * rnd + 0.5) | 0) / rnd;
 						tm.skewX = 0;
 						tm.perspective = a43 ? 1 / ((a43 < 0) ? -a43 : a43) : 0;
 						tm.x = a14;
@@ -1158,35 +1164,34 @@
 						tm.z = a34;
 					}
 
-				} else if ((!_supports3D || m.length === 0 || tm.x !== m[4] || tm.y !== m[5] || (!tm.rotationX && !tm.rotationY)) && !(tm.x !== undefined && _getStyle(t, "display", cs) === "none")) { //sometimes a 6-element matrix is returned even when we performed 3D transforms, like if rotationX and rotationY are 180. In cases like this, we still need to honor the 3D transforms. If we just rely on the 2D info, it could affect how the data is interpreted, like scaleY might get set to -1 or rotation could get offset by 180 degrees. For example, do a TweenLite.to(element, 1, {css:{rotationX:180, rotationY:180}}) and then later, TweenLite.to(element, 1, {css:{rotationX:0}}) and without this conditional logic in place, it'd jump to a state of being unrotated when the 2nd tween starts. Then again, we need to honor the fact that the user COULD alter the transforms outside of CSSPlugin, like by manually applying new css, so we try to sense that by looking at x and y because if those changed, we know the changes were made outside CSSPlugin and we force a reinterpretation of the matrix values. Also, in Webkit browsers, if the element's "display" is "none", its calculated style value will always return empty, so if we've already recorded the values in the _gsTransform object, we'll just rely on those.
+				} else if ((!_supports3D || parse || !m.length || tm.x !== m[4] || tm.y !== m[5] || (!tm.rotationX && !tm.rotationY)) && !(tm.x !== undefined && _getStyle(t, "display", cs) === "none")) { //sometimes a 6-element matrix is returned even when we performed 3D transforms, like if rotationX and rotationY are 180. In cases like this, we still need to honor the 3D transforms. If we just rely on the 2D info, it could affect how the data is interpreted, like scaleY might get set to -1 or rotation could get offset by 180 degrees. For example, do a TweenLite.to(element, 1, {css:{rotationX:180, rotationY:180}}) and then later, TweenLite.to(element, 1, {css:{rotationX:0}}) and without this conditional logic in place, it'd jump to a state of being unrotated when the 2nd tween starts. Then again, we need to honor the fact that the user COULD alter the transforms outside of CSSPlugin, like by manually applying new css, so we try to sense that by looking at x and y because if those changed, we know the changes were made outside CSSPlugin and we force a reinterpretation of the matrix values. Also, in Webkit browsers, if the element's "display" is "none", its calculated style value will always return empty, so if we've already recorded the values in the _gsTransform object, we'll just rely on those.
 					var k = (m.length >= 6),
 						a = k ? m[0] : 1,
 						b = m[1] || 0,
 						c = m[2] || 0,
 						d = k ? m[3] : 1;
-
 					tm.x = m[4] || 0;
 					tm.y = m[5] || 0;
 					scaleX = Math.sqrt(a * a + b * b);
 					scaleY = Math.sqrt(d * d + c * c);
-					rotation = (a || b) ? Math.atan2(b, a) : tm.rotation || 0; //note: if scaleX is 0, we cannot accurately measure rotation. Same for skewX with a scaleY of 0. Therefore, we default to the previously recorded value (or zero if that doesn't exist).
-					skewX = (c || d) ? Math.atan2(c, d) + rotation : tm.skewX || 0;
+					rotation = (a || b) ? Math.atan2(b, a) * _RAD2DEG : tm.rotation || 0; //note: if scaleX is 0, we cannot accurately measure rotation. Same for skewX with a scaleY of 0. Therefore, we default to the previously recorded value (or zero if that doesn't exist).
+					skewX = (c || d) ? Math.atan2(c, d) * _RAD2DEG + rotation : tm.skewX || 0;
 					difX = scaleX - Math.abs(tm.scaleX || 0);
 					difY = scaleY - Math.abs(tm.scaleY || 0);
-					if (Math.abs(skewX) > Math.PI / 2 && Math.abs(skewX) < Math.PI * 1.5) {
+					if (Math.abs(skewX) > 90 && Math.abs(skewX) < 270) {
 						if (invX) {
 							scaleX *= -1;
-							skewX += (rotation <= 0) ? Math.PI : -Math.PI;
-							rotation += (rotation <= 0) ? Math.PI : -Math.PI;
+							skewX += (rotation <= 0) ? 180 : -180;
+							rotation += (rotation <= 0) ? 180 : -180;
 						} else {
 							scaleY *= -1;
-							skewX += (skewX <= 0) ? Math.PI : -Math.PI;
+							skewX += (skewX <= 0) ? 180 : -180;
 						}
 					}
-					difR = (rotation - tm.rotation) % Math.PI; //note: matching ranges would be very small (+/-0.0001) or very close to Math.PI (+/-3.1415).
-					difS = (skewX - tm.skewX) % Math.PI;
+					difR = (rotation - tm.rotation) % 180; //note: matching ranges would be very small (+/-0.0001) or very close to 180.
+					difS = (skewX - tm.skewX) % 180;
 					//if there's already a recorded _gsTransform in place for the target, we should leave those values in place unless we know things changed for sure (beyond a super small amount). This gets around ambiguous interpretations, like if scaleX and scaleY are both -1, the matrix would be the same as if the rotation was 180 with normal scaleX/scaleY. If the user tweened to particular values, those must be prioritized to ensure animation is consistent.
-					if (tm.skewX === undefined || difX > min || difX < -min || difY > min || difY < -min || (difR > minPI && difR < maxPI && (difR * rnd) >> 0 !== 0) || (difS > minPI && difS < maxPI && (difS * rnd) >> 0 !== 0)) {
+					if (tm.skewX === undefined || difX > min || difX < -min || difY > min || difY < -min || (difR > -minAngle && difR < minAngle && (difR * rnd) | 0 !== 0) || (difS > -minAngle && difS < minAngle && (difS * rnd) | 0 !== 0)) {
 						tm.scaleX = scaleX;
 						tm.scaleY = scaleY;
 						tm.rotation = rotation;
@@ -1205,24 +1210,24 @@
 					if (tm[i] < min) if (tm[i] > -min) {
 						tm[i] = 0;
 					}
-					//alternate method rounds to 5 decimal places: tm[i] = ((tm[i] * rnd) >> 0) / rnd;
 				}
-				//DEBUG: _log("parsed rotation: "+(tm.rotationX*_RAD2DEG)+", "+(tm.rotationY*_RAD2DEG)+", "+(tm.rotation*_RAD2DEG)+", scale: "+tm.scaleX+", "+tm.scaleY+", "+tm.scaleZ+", position: "+tm.x+", "+tm.y+", "+tm.z+", perspective: "+tm.perspective);
+				//DEBUG: _log("parsed rotation: "+(tm.rotationX)+", "+(tm.rotationY)+", "+(tm.rotation)+", scale: "+tm.scaleX+", "+tm.scaleY+", "+tm.scaleZ+", position: "+tm.x+", "+tm.y+", "+tm.z+", perspective: "+tm.perspective);
 				if (rec) {
 					t._gsTransform = tm; //record to the object's _gsTransform which we use so that tweens can control individual properties independently (we need all the properties to accurately recompose the matrix in the setRatio() method)
 				}
 				return tm;
 			},
+
 			//for setting 2D transforms in IE6, IE7, and IE8 (must use a "filter" to emulate the behavior of modern day browser transforms)
 			_setIETransformRatio = function(v) {
 				var t = this.data, //refers to the element's _gsTransform object
-					ang = -t.rotation,
-					skew = ang + t.skewX,
+					ang = -t.rotation * _DEG2RAD,
+					skew = ang + t.skewX * _DEG2RAD,
 					rnd = 100000,
-					a = ((Math.cos(ang) * t.scaleX * rnd) >> 0) / rnd,
-					b = ((Math.sin(ang) * t.scaleX * rnd) >> 0) / rnd,
-					c = ((Math.sin(skew) * -t.scaleY * rnd) >> 0) / rnd,
-					d = ((Math.cos(skew) * t.scaleY * rnd) >> 0) / rnd,
+					a = ((Math.cos(ang) * t.scaleX * rnd) | 0) / rnd,
+					b = ((Math.sin(ang) * t.scaleX * rnd) | 0) / rnd,
+					c = ((Math.sin(skew) * -t.scaleY * rnd) | 0) / rnd,
+					d = ((Math.cos(skew) * t.scaleY * rnd) | 0) / rnd,
 					style = this.t.style,
 					cs = this.t.currentStyle,
 					filters, val;
@@ -1251,6 +1256,26 @@
 				}
 
 				if (!clip) {
+					m += ", sizingMethod='auto expand')";
+				} else {
+					dx = (w / 2);
+					dy = (h / 2);
+					//translate to ensure that transformations occur around the correct origin (default is center).
+					m += ", Dx=" + (dx - (dx * a + dy * b) + ox) + ", Dy=" + (dy - (dx * c + dy * d) + oy) + ")";
+				}
+				if (filters.indexOf("DXImageTransform.Microsoft.Matrix(") !== -1) {
+					style.filter = filters.replace(_ieSetMatrixExp, m);
+				} else {
+					style.filter = m + " " + filters; //we must always put the transform/matrix FIRST (before alpha(opacity=xx)) to avoid an IE bug that slices part of the object when rotation is applied with alpha.
+				}
+
+				//at the end or beginning of the tween, if the matrix is normal (1, 0, 0, 1) and opacity is 100 (or doesn't exist), remove the filter to improve browser performance.
+				if (v === 0 || v === 1) if (a === 1) if (b === 0) if (c === 0) if (d === 1) if (!clip || m.indexOf("Dx=0, Dy=0") !== -1) if (!_opacityExp.test(filters) || parseFloat(RegExp.$1) === 100) if (filters.indexOf("gradient(" && filters.indexOf("Alpha")) === -1) {
+					style.removeAttribute("filter");
+				}
+
+				//we must set the margins AFTER applying the filter in order to avoid some bugs in IE8 that could (in rare scenarios) cause them to be ignored intermittently (vibration).
+				if (!clip) {
 					var mult = (_ieVers < 8) ? 1 : -1, //in Internet Explorer 7 and before, the box model is broken, causing the browser to treat the width/height of the actual rotated filtered image as the width/height of the box itself, but Microsoft corrected that in IE8. We must use a negative offset in IE8 on the right/bottom
 						marg, prop, dif;
 					dx = t.ieOffsetX || 0;
@@ -1269,73 +1294,69 @@
 						}
 						style[prop] = (t[prop] = Math.round( val - dif * ((i === 0 || i === 2) ? 1 : mult) )) + "px";
 					}
-					m += ", sizingMethod='auto expand')";
-				} else {
-					dx = (w / 2);
-					dy = (h / 2);
-					//translate to ensure that transformations occur around the correct origin (default is center).
-					m += ", Dx=" + (dx - (dx * a + dy * b) + ox) + ", Dy=" + (dy - (dx * c + dy * d) + oy) + ")";
-				}
-				if (filters.indexOf("DXImageTransform.Microsoft.Matrix(") !== -1) {
-					style.filter = filters.replace(_ieSetMatrixExp, m);
-				} else {
-					style.filter = m + " " + filters; //we must always put the transform/matrix FIRST (before alpha(opacity=xx)) to avoid an IE bug that slices part of the object when rotation is applied with alpha.
-				}
-
-				//at the end or beginning of the tween, if the matrix is normal (1, 0, 0, 1) and opacity is 100 (or doesn't exist), remove the filter to improve browser performance.
-				if (v === 0 || v === 1) if (a === 1) if (b === 0) if (c === 0) if (d === 1) if (!clip || m.indexOf("Dx=0, Dy=0") !== -1) if (!_opacityExp.test(filters) || parseFloat(RegExp.$1) === 100) if (filters.indexOf("gradient(") === -1) {
-					style.removeAttribute("filter");
 				}
 			},
+
 			_set3DTransformRatio = function(v) {
 				var t = this.data, //refers to the element's _gsTransform object
 					style = this.t.style,
+					angle = t.rotation * _DEG2RAD,
+					sx = t.scaleX,
+					sy = t.scaleY,
+					sz = t.scaleZ,
 					perspective = t.perspective,
-					a11 = t.scaleX, a12 = 0, a13 = 0, a14 = 0,
-					a21 = 0, a22 = t.scaleY, a23 = 0, a24 = 0,
-					a31 = 0, a32 = 0, a33 = t.scaleZ, a34 = 0,
-					a41 = 0, a42 = 0, a43 = (perspective) ? -1 / perspective : 0,
-					angle = t.rotation,
-					zOrigin = t.zOrigin,
-					cma = ",",
-					rnd = 100000,
-					cos, sin, t1, t2, t3, t4, ffProp, n, sfx;
-				if (_isFirefox) { //Firefox has a bug that causes 3D elements to randomly disappear during animation unless a repaint is forced. One way to do this is change "top" or "bottom" by 0.05 which is imperceptible, so we go back and forth. Another way is to change the display to "none", read the clientTop, and then revert the display but that is much slower.
-					ffProp = style.top ? "top" : style.bottom ? "bottom" : parseFloat(_getStyle(this.t, "top", null, false)) ? "bottom" : "top";
-					t1 = _getStyle(this.t, ffProp, null, false);
-					n = parseFloat(t1) || 0;
-					sfx = t1.substr((n + "").length) || "px";
-					t._ffFix = !t._ffFix;
-					style[ffProp] = (t._ffFix ? n + 0.05 : n - 0.05) + sfx;
+					a11, a12, a13, a14,	a21, a22, a23, a24, a31, a32, a33, a34,	a41, a42, a43,
+					zOrigin, rnd, cos, sin, t1, t2, t3, t4;
+				if (_isFirefox) {
+					var n = 0.0001;
+					if (sx < n && sx > -n) { //Firefox has a bug (at least in v25) that causes it to render the transparent part of 32-bit PNG images as black when displayed inside an iframe and the 3D scale is very small and doesn't change sufficiently enough between renders (like if you use a Power4.easeInOut to scale from 0 to 1 where the beginning values only change a tiny amount to begin the tween before accelerating). In this case, we force the scale to be 0.00002 instead which is visually the same but works around the Firefox issue.
+						sx = sz = 0.00002;
+					}
+					if (sy < n && sy > -n) {
+						sy = sz = 0.00002;
+					}
+					if (perspective && !t.z && !t.rotationX && !t.rotationY) { //Firefox has a bug that causes elements to have an odd super-thin, broken/dotted black border on elements that have a perspective set but aren't utilizing 3D space (no rotationX, rotationY, or z).
+						perspective = 0;
+					}
 				}
-
 				if (angle || t.skewX) {
-					t1 = a11*Math.cos(angle);
-					t2 = a22*Math.sin(angle);
-					angle -= t.skewX;
-					a12 = a11*-Math.sin(angle);
-					a22 = a22*Math.cos(angle);
-					a11 = t1;
-					a21 = t2;
+					cos = Math.cos(angle);
+					sin = Math.sin(angle);
+					a11 = cos;
+					a21 = sin;
+					if (t.skewX) {
+						angle -= t.skewX * _DEG2RAD;
+						cos = Math.cos(angle);
+						sin = Math.sin(angle);
+					}
+					a12 = -sin;
+					a22 = cos;
+				} else if (!t.rotationY && !t.rotationX && sz === 1 && !perspective) { //if we're only translating and/or 2D scaling, this is faster...
+					style[_transformProp] = "translate3d(" + t.x + "px," + t.y + "px," + t.z +"px)" + ((sx !== 1 || sy !== 1) ? " scale(" + sx + "," + sy + ")" : "");
+					return;
+				} else {
+					a11 = a22 = 1;
+					a12 = a21 = 0;
 				}
-				angle = t.rotationY;
+				a33 = 1;
+				a13 = a14 = a23 = a24 = a31 = a32 = a34 = a41 = a42 = 0;
+				a43 = (perspective) ? -1 / perspective : 0;
+				zOrigin = t.zOrigin;
+				rnd = 100000;
+				angle = t.rotationY * _DEG2RAD;
 				if (angle) {
 					cos = Math.cos(angle);
 					sin = Math.sin(angle);
-					t1 = a11*cos;
-					t2 = a21*cos;
-					t3 = a33*-sin;
-					t4 = a43*-sin;
+					a31 = a33*-sin;
+					a41 = a43*-sin;
 					a13 = a11*sin;
 					a23 = a21*sin;
-					a33 = a33*cos;
+					a33 *= cos;
 					a43 *= cos;
-					a11 = t1;
-					a21 = t2;
-					a31 = t3;
-					a41 = t4;
+					a11 *= cos;
+					a21 *= cos;
 				}
-				angle = t.rotationX;
+				angle = t.rotationX * _DEG2RAD;
 				if (angle) {
 					cos = Math.cos(angle);
 					sin = Math.sin(angle);
@@ -1352,6 +1373,24 @@
 					a32 = t3;
 					a42 = t4;
 				}
+				if (sz !== 1) {
+					a13*=sz;
+					a23*=sz;
+					a33*=sz;
+					a43*=sz;
+				}
+				if (sy !== 1) {
+					a12*=sy;
+					a22*=sy;
+					a32*=sy;
+					a42*=sy;
+				}
+				if (sx !== 1) {
+					a11*=sx;
+					a21*=sx;
+					a31*=sx;
+					a41*=sx;
+				}
 				if (zOrigin) {
 					a34 -= zOrigin;
 					a14 = a13*a34;
@@ -1362,38 +1401,35 @@
 				a14 = (t1 = (a14 += t.x) - (a14 |= 0)) ? ((t1 * rnd + (t1 < 0 ? -0.5 : 0.5)) | 0) / rnd + a14 : a14;
 				a24 = (t1 = (a24 += t.y) - (a24 |= 0)) ? ((t1 * rnd + (t1 < 0 ? -0.5 : 0.5)) | 0) / rnd + a24 : a24;
 				a34 = (t1 = (a34 += t.z) - (a34 |= 0)) ? ((t1 * rnd + (t1 < 0 ? -0.5 : 0.5)) | 0) / rnd + a34 : a34;
-
-				style[_transformProp] = "matrix3d(" + (((a11 * rnd) >> 0) / rnd) + cma + (((a21 * rnd) >> 0) / rnd) + cma + (((a31 * rnd) >> 0) / rnd) + cma + (((a41 * rnd) >> 0) / rnd) + cma	+ (((a12 * rnd) >> 0) / rnd) + cma + (((a22 * rnd) >> 0) / rnd) + cma + (((a32 * rnd) >> 0) / rnd) + cma + (((a42 * rnd) >> 0) / rnd) + cma + (((a13 * rnd) >> 0) / rnd) + cma + (((a23 * rnd) >> 0) / rnd) + cma + (((a33 * rnd) >> 0) / rnd) + cma + (((a43 * rnd) >> 0) / rnd) + cma + a14 + cma + a24 + cma + a34 + cma + (perspective ? (1 + (-a34 / perspective)) : 1) + ")";
+				style[_transformProp] = "matrix3d(" + [ (((a11 * rnd) | 0) / rnd), (((a21 * rnd) | 0) / rnd), (((a31 * rnd) | 0) / rnd), (((a41 * rnd) | 0) / rnd), (((a12 * rnd) | 0) / rnd), (((a22 * rnd) | 0) / rnd), (((a32 * rnd) | 0) / rnd), (((a42 * rnd) | 0) / rnd), (((a13 * rnd) | 0) / rnd), (((a23 * rnd) | 0) / rnd), (((a33 * rnd) | 0) / rnd), (((a43 * rnd) | 0) / rnd), a14, a24, a34, (perspective ? (1 + (-a34 / perspective)) : 1) ].join(",") + ")";
 			},
+
 			_set2DTransformRatio = function(v) {
 				var t = this.data, //refers to the element's _gsTransform object
 					targ = this.t,
 					style = targ.style,
-					ffProp, t1, n, sfx, ang, skew, rnd, sx, sy;
-				if (_isFirefox) { //Firefox has a bug that causes elements to randomly disappear during animation unless a repaint is forced. One way to do this is change "top" or "bottom" by 0.05 which is imperceptible, so we go back and forth. Another way is to change the display to "none", read the clientTop, and then revert the display but that is much slower.
-					ffProp = style.top ? "top" : style.bottom ? "bottom" : parseFloat(_getStyle(targ, "top", null, false)) ? "bottom" : "top";
-					t1 = _getStyle(targ, ffProp, null, false);
-					n = parseFloat(t1) || 0;
-					sfx = t1.substr((n + "").length) || "px";
-					t._ffFix = !t._ffFix;
-					style[ffProp] = (t._ffFix ? n + 0.05 : n - 0.05) + sfx;
+					ang, skew, rnd, sx, sy;
+				if (t.rotationX || t.rotationY || t.z || t.force3D) { //if a 3D tween begins while a 2D one is running, we need to kick the rendering over to the 3D method. For example, imagine a yoyo-ing, infinitely repeating scale tween running, and then the object gets rotated in 3D space with a different tween.
+					this.setRatio = _set3DTransformRatio;
+					_set3DTransformRatio.call(this, v);
+					return;
 				}
 				if (!t.rotation && !t.skewX) {
 					style[_transformProp] = "matrix(" + t.scaleX + ",0,0," + t.scaleY + "," + t.x + "," + t.y + ")";
 				} else {
-					ang = t.rotation;
-					skew = ang - t.skewX;
+					ang = t.rotation * _DEG2RAD;
+					skew = ang - t.skewX * _DEG2RAD;
 					rnd = 100000;
 					sx = t.scaleX * rnd;
 					sy = t.scaleY * rnd;
 					//some browsers have a hard time with very small values like 2.4492935982947064e-16 (notice the "e-" towards the end) and would render the object slightly off. So we round to 5 decimal places.
-					style[_transformProp] = "matrix(" + (((Math.cos(ang) * sx) >> 0) / rnd) + "," + (((Math.sin(ang) * sx) >> 0) / rnd) + "," + (((Math.sin(skew) * -sy) >> 0) / rnd) + "," + (((Math.cos(skew) * sy) >> 0) / rnd) + "," + t.x + "," + t.y + ")";
+					style[_transformProp] = "matrix(" + (((Math.cos(ang) * sx) | 0) / rnd) + "," + (((Math.sin(ang) * sx) | 0) / rnd) + "," + (((Math.sin(skew) * -sy) | 0) / rnd) + "," + (((Math.cos(skew) * sy) | 0) / rnd) + "," + t.x + "," + t.y + ")";
 				}
 			};
 
-		_registerComplexSpecialProp("transform,scale,scaleX,scaleY,scaleZ,x,y,z,rotation,rotationX,rotationY,rotationZ,skewX,skewY,shortRotation,shortRotationX,shortRotationY,shortRotationZ,transformOrigin,transformPerspective,directionalRotation", {parser:function(t, e, p, cssp, pt, plugin, vars) {
+		_registerComplexSpecialProp("transform,scale,scaleX,scaleY,scaleZ,x,y,z,rotation,rotationX,rotationY,rotationZ,skewX,skewY,shortRotation,shortRotationX,shortRotationY,shortRotationZ,transformOrigin,transformPerspective,directionalRotation,parseTransform,force3D", {parser:function(t, e, p, cssp, pt, plugin, vars) {
 			if (cssp._transform) { return pt; } //only need to parse the transform once, and only if the browser supports it.
-			var m1 = cssp._transform = _getTransform(t, _cs, true),
+			var m1 = cssp._transform = _getTransform(t, _cs, true, vars.parseTransform),
 				style = t.style,
 				min = 0.000001,
 				i = _transformProps.length,
@@ -1410,7 +1446,7 @@
 			} else if (typeof(v) === "object") { //for values like scaleX, scaleY, rotation, x, y, skewX, and skewY or transform:{...} (object)
 				m2 = {scaleX:_parseVal((v.scaleX != null) ? v.scaleX : v.scale, m1.scaleX),
 					scaleY:_parseVal((v.scaleY != null) ? v.scaleY : v.scale, m1.scaleY),
-					scaleZ:_parseVal((v.scaleZ != null) ? v.scaleZ : v.scale, m1.scaleZ),
+					scaleZ:_parseVal(v.scaleZ, m1.scaleZ),
 					x:_parseVal(v.x, m1.x),
 					y:_parseVal(v.y, m1.y),
 					z:_parseVal(v.z, m1.z),
@@ -1425,10 +1461,10 @@
 						v.rotation = dr;
 					}
 				}
-				m2.rotation = _parseAngle(("rotation" in v) ? v.rotation : ("shortRotation" in v) ? v.shortRotation + "_short" : ("rotationZ" in v) ? v.rotationZ : (m1.rotation * _RAD2DEG), m1.rotation, "rotation", endRotations);
+				m2.rotation = _parseAngle(("rotation" in v) ? v.rotation : ("shortRotation" in v) ? v.shortRotation + "_short" : ("rotationZ" in v) ? v.rotationZ : m1.rotation, m1.rotation, "rotation", endRotations);
 				if (_supports3D) {
-					m2.rotationX = _parseAngle(("rotationX" in v) ? v.rotationX : ("shortRotationX" in v) ? v.shortRotationX + "_short" : (m1.rotationX * _RAD2DEG) || 0, m1.rotationX, "rotationX", endRotations);
-					m2.rotationY = _parseAngle(("rotationY" in v) ? v.rotationY : ("shortRotationY" in v) ? v.shortRotationY + "_short" : (m1.rotationY * _RAD2DEG) || 0, m1.rotationY, "rotationY", endRotations);
+					m2.rotationX = _parseAngle(("rotationX" in v) ? v.rotationX : ("shortRotationX" in v) ? v.shortRotationX + "_short" : m1.rotationX || 0, m1.rotationX, "rotationX", endRotations);
+					m2.rotationY = _parseAngle(("rotationY" in v) ? v.rotationY : ("shortRotationY" in v) ? v.shortRotationY + "_short" : m1.rotationY || 0, m1.rotationY, "rotationY", endRotations);
 				}
 				m2.skewX = (v.skewX == null) ? m1.skewX : _parseAngle(v.skewX, m1.skewX);
 
@@ -1440,7 +1476,12 @@
 				}
 			}
 
-			has3D = (m1.z || m1.rotationX || m1.rotationY || m2.z || m2.rotationX || m2.rotationY || m2.perspective);
+			if (v.force3D != null) {
+				m1.force3D = v.force3D;
+				hasChange = true;
+			}
+
+			has3D = (m1.force3D || m1.z || m1.rotationX || m1.rotationY || m2.z || m2.rotationX || m2.rotationY || m2.perspective);
 			if (!has3D && v.scale != null) {
 				m2.scaleZ = 1; //no need to tween scaleZ.
 			}
@@ -1464,15 +1505,15 @@
 			if (orig || (_supports3D && has3D && m1.zOrigin)) { //if anything 3D is happening and there's a transformOrigin with a z component that's non-zero, we must ensure that the transformOrigin's z-component is set to 0 so that we can manually do those calculations to get around Safari bugs. Even if the user didn't specifically define a "transformOrigin" in this particular tween (maybe they did it via css directly).
 				if (_transformProp) {
 					hasChange = true;
-					orig = (orig || _getStyle(t, p, _cs, false, "50% 50%")) + ""; //cast as string to avoid errors
 					p = _transformOriginProp;
-					pt = new CSSPropTween(style, p, 0, 0, pt, -1, "css_transformOrigin");
+					orig = (orig || _getStyle(t, p, _cs, false, "50% 50%")) + ""; //cast as string to avoid errors
+					pt = new CSSPropTween(style, p, 0, 0, pt, -1, "transformOrigin");
 					pt.b = style[p];
 					pt.plugin = plugin;
 					if (_supports3D) {
 						copy = m1.zOrigin;
 						orig = orig.split(" ");
-						m1.zOrigin = ((orig.length > 2) ? parseFloat(orig[2]) : copy) || 0; //Safari doesn't handle the z part of transformOrigin correctly, so we'll manually handle it in the _set3DTransformRatio() method.
+						m1.zOrigin = ((orig.length > 2 && !(copy !== 0 && orig[2] === "0px")) ? parseFloat(orig[2]) : copy) || 0; //Safari doesn't handle the z part of transformOrigin correctly, so we'll manually handle it in the _set3DTransformRatio() method.
 						pt.xs0 = pt.e = style[p] = orig[0] + " " + (orig[1] || "50%") + " 0px"; //we must define a z value of 0px specifically otherwise iOS 5 Safari will stick with the old one (if one was defined)!
 						pt = new CSSPropTween(m1, "zOrigin", 0, 0, pt, -1, pt.n); //we must create a CSSPropTween for the _gsTransform.zOrigin so that it gets reset properly at the beginning if the tween runs backward (as opposed to just setting m1.zOrigin here)
 						pt.b = copy;
@@ -1577,12 +1618,13 @@
 				}
 			}
 			return this.parseComplex(t.style, bs, es, pt, plugin);
-		}, formatter:_parsePosition}); //note: backgroundPosition doesn't support interpreting between px and % (start and end values should use the same units) because doing so would require determining the size of the image itself and that can't be done quickly.
+		}, formatter:_parsePosition});
 		_registerComplexSpecialProp("backgroundSize", {defaultValue:"0 0", formatter:_parsePosition});
 		_registerComplexSpecialProp("perspective", {defaultValue:"0px", prefix:true});
 		_registerComplexSpecialProp("perspectiveOrigin", {defaultValue:"50% 50%", prefix:true});
 		_registerComplexSpecialProp("transformStyle", {prefix:true});
 		_registerComplexSpecialProp("backfaceVisibility", {prefix:true});
+		_registerComplexSpecialProp("userSelect", {prefix:true});
 		_registerComplexSpecialProp("margin", {parser:_getEdgeParser("marginTop,marginRight,marginBottom,marginLeft")});
 		_registerComplexSpecialProp("padding", {parser:_getEdgeParser("paddingTop,paddingRight,paddingBottom,paddingLeft")});
 		_registerComplexSpecialProp("clip", {defaultValue:"rect(0px,0px,0px,0px)", parser:function(t, e, p, cssp, pt, plugin){
@@ -1615,11 +1657,11 @@
 		//opacity-related
 		var _setIEOpacityRatio = function(v) {
 				var t = this.t, //refers to the element's style property
-					filters = t.filter,
-					val = (this.s + this.c * v) >> 0,
+					filters = t.filter || _getStyle(this.data, "filter"),
+					val = (this.s + this.c * v) | 0,
 					skip;
 				if (val === 100) { //for older versions of IE that need to use a filter to apply opacity, we should remove the filter if opacity hits 1 in order to improve performance, but make sure there isn't a transform (matrix) or gradient in the filters.
-					if (filters.indexOf("atrix(") === -1 && filters.indexOf("radient(") === -1) {
+					if (filters.indexOf("atrix(") === -1 && filters.indexOf("radient(") === -1 && filters.indexOf("oader(") === -1) {
 						t.removeAttribute("filter");
 						skip = (!_getStyle(this.data, "filter")); //if a class is applied that has an alpha filter, it will take effect (we don't want that), so re-apply our alpha filter in that case. We must first remove it and then check.
 					} else {
@@ -1629,10 +1671,12 @@
 				}
 				if (!skip) {
 					if (this.xn1) {
-						t.filter = filters = filters || "alpha(opacity=100)"; //works around bug in IE7/8 that prevents changes to "visibility" from being applied properly if the filter is changed to a different alpha on the same frame.
+						t.filter = filters = filters || ("alpha(opacity=" + val + ")"); //works around bug in IE7/8 that prevents changes to "visibility" from being applied properly if the filter is changed to a different alpha on the same frame.
 					}
 					if (filters.indexOf("opacity") === -1) { //only used if browser doesn't support the standard opacity style property (IE 7 and 8)
-						t.filter += " alpha(opacity=" + val + ")"; //we round the value because otherwise, bugs in IE7/8 can prevent "visibility" changes from being applied properly.
+						if (val !== 0 || !this.xn1) { //bugs in IE7/8 won't render the filter properly if opacity is ADDED on the same frame/render as "visibility" changes (this.xn1 is 1 if this tween is an "autoAlpha" tween)
+							t.filter = filters + " alpha(opacity=" + val + ")"; //we round the value because otherwise, bugs in IE7/8 can prevent "visibility" changes from being applied properly.
+						}
 					} else {
 						t.filter = filters.replace(_opacityExp, "opacity=" + val);
 					}
@@ -1641,22 +1685,18 @@
 		_registerComplexSpecialProp("opacity,alpha,autoAlpha", {defaultValue:"1", parser:function(t, e, p, cssp, pt, plugin) {
 			var b = parseFloat(_getStyle(t, "opacity", _cs, false, "1")),
 				style = t.style,
-				vb;
-			e = parseFloat(e);
-			if (p === "autoAlpha") {
-				vb = _getStyle(t, "visibility", _cs);
-				if (b === 1 && vb === "hidden" && e !== 0) { //if visibility is initially set to "hidden", we should interpret that as intent to make opacity 0 (a convenience)
-					b = 0;
-				}
-				pt = new CSSPropTween(style, "visibility", 0, 0, pt, -1, null, false, 0, ((b !== 0) ? "visible" : "hidden"), ((e === 0) ? "hidden" : "visible"));
-				pt.xs0 = "visible";
-				cssp._overwriteProps.push(pt.n);
+				isAutoAlpha = (p === "autoAlpha");
+			if (typeof(e) === "string" && e.charAt(1) === "=") {
+				e = ((e.charAt(0) === "-") ? -1 : 1) * parseFloat(e.substr(2)) + b;
+			}
+			if (isAutoAlpha && b === 1 && _getStyle(t, "visibility", _cs) === "hidden" && e !== 0) { //if visibility is initially set to "hidden", we should interpret that as intent to make opacity 0 (a convenience)
+				b = 0;
 			}
 			if (_supportsOpacity) {
 				pt = new CSSPropTween(style, "opacity", b, e - b, pt);
 			} else {
 				pt = new CSSPropTween(style, "opacity", b * 100, (e - b) * 100, pt);
-				pt.xn1 = (p === "autoAlpha") ? 1 : 0; //we need to record whether or not this is an autoAlpha so that in the setRatio(), we know to duplicate the setting of the alpha in order to work around a bug in IE7 and IE8 that prevents changes to "visibility" from taking effect if the filter is changed to a different alpha(opacity) at the same time. Setting it to the SAME value first, then the new value works around the IE7/8 bug.
+				pt.xn1 = isAutoAlpha ? 1 : 0; //we need to record whether or not this is an autoAlpha so that in the setRatio(), we know to duplicate the setting of the alpha in order to work around a bug in IE7 and IE8 that prevents changes to "visibility" from taking effect if the filter is changed to a different alpha(opacity) at the same time. Setting it to the SAME value first, then the new value works around the IE7/8 bug.
 				style.zoom = 1; //helps correct an IE issue.
 				pt.type = 2;
 				pt.b = "alpha(opacity=" + pt.s + ")";
@@ -1664,6 +1704,12 @@
 				pt.data = t;
 				pt.plugin = plugin;
 				pt.setRatio = _setIEOpacityRatio;
+			}
+			if (isAutoAlpha) { //we have to create the "visibility" PropTween after the opacity one in the linked list so that they run in the order that works properly in IE8 and earlier
+				pt = new CSSPropTween(style, "visibility", 0, 0, pt, -1, null, false, 0, ((b !== 0) ? "inherit" : "hidden"), ((e === 0) ? "hidden" : "inherit"));
+				pt.xs0 = "inherit";
+				cssp._overwriteProps.push(pt.n);
+				cssp._overwriteProps.push(p);
 			}
 			return pt;
 		}});
@@ -1735,23 +1781,35 @@
 
 
 		var _setClearPropsRatio = function(v) {
-			if (v === 1 || v === 0) if (this.data._totalTime === this.data._totalDuration) { //this.data refers to the tween. Only clear at the END of the tween (remember, from() tweens make the ratio go from 1 to 0, so we can't just check that).
-				var all = (this.e === "all"),
-					s = this.t.style,
-					a = all ? s.cssText.split(";") : this.e.split(","),
-					i = a.length,
+			if (v === 1 || v === 0) if (this.data._totalTime === this.data._totalDuration && this.data.data !== "isFromStart") { //this.data refers to the tween. Only clear at the END of the tween (remember, from() tweens make the ratio go from 1 to 0, so we can't just check that and if the tween is the zero-duration one that's created internally to render the starting values in a from() tween, ignore that because otherwise, for example, from(...{height:100, clearProps:"height", delay:1}) would wipe the height at the beginning of the tween and after 1 second, it'd kick back in).
+				var s = this.t.style,
 					transformParse = _specialProps.transform.parse,
-					p;
-				while (--i > -1) {
-					p = a[i];
-					if (all) {
-						p = p.substr(0, p.indexOf(":")).split(" ").join("");
+					a, p, i, clearTransform;
+				if (this.e === "all") {
+					s.cssText = "";
+					clearTransform = true;
+				} else {
+					a = this.e.split(",");
+					i = a.length;
+					while (--i > -1) {
+						p = a[i];
+						if (_specialProps[p]) {
+							if (_specialProps[p].parse === transformParse) {
+								clearTransform = true;
+							} else {
+								p = (p === "transformOrigin") ? _transformOriginProp : _specialProps[p].p; //ensures that special properties use the proper browser-specific property name, like "scaleX" might be "-webkit-transform" or "boxShadow" might be "-moz-box-shadow"
+							}
+						}
+						_removeProp(s, p);
 					}
-					if (_specialProps[p]) {
-						p = (_specialProps[p].parse === transformParse) ? _transformProp : _specialProps[p].p; //ensures that special properties use the proper browser-specific property name, like "scaleX" might be "-webkit-transform" or "boxShadow" might be "-moz-box-shadow"
-					}
-					_removeProp(s, p);
 				}
+				if (clearTransform) {
+					_removeProp(s, _transformProp);
+					if (this.t._gsTransform) {
+						delete this.t._gsTransform;
+					}
+				}
+
 			}
 		};
 		_registerComplexSpecialProp("clearProps", {parser:function(t, e, p, cssp, pt) {
@@ -1779,8 +1837,8 @@
 
 		p = CSSPlugin.prototype;
 		p._firstPT = null;
-		
-		//gets called when the tween renders for the first time. This kicks everything off, recording start/end values, etc. 
+
+		//gets called when the tween renders for the first time. This kicks everything off, recording start/end values, etc.
 		p._onInitTween = function(target, vars, tween) {
 			if (!target.nodeType) { //css is only for dom elements
 				return false;
@@ -1795,7 +1853,6 @@
 			_overwriteProps = this._overwriteProps;
 			var style = target.style,
 				v, pt, pt2, first, last, next, zIndex, tpt, threeD;
-			
 			if (_reqSafariFix) if (style.zIndex === "") {
 				v = _getStyle(target, "zIndex", _cs);
 				if (v === "auto" || v === "") {
@@ -1803,7 +1860,7 @@
 					style.zIndex = 0;
 				}
 			}
-			
+
 			if (typeof(vars) === "string") {
 				first = style.cssText;
 				v = _getAllStyles(target, _cs);
@@ -1927,7 +1984,7 @@
 						}
 
 						if (esfx === "") {
-							esfx = _suffixMap[p] || bsfx; //populate the end suffix, prioritizing the map, then if none is found, use the beginning suffix.
+							esfx = (p in _suffixMap) ? _suffixMap[p] : bsfx; //populate the end suffix, prioritizing the map, then if none is found, use the beginning suffix.
 						}
 
 						es = (en || en === 0) ? (rel ? en + bn : en) + esfx : vars[p]; //ensures that any += or -= prefixes are taken care of. Record the end value before normalizing the suffix because we always want to end the tween on exactly what they intended even if it doesn't match the beginning value's suffix.
@@ -1937,9 +1994,6 @@
 							bn = _convertToPixels(target, p, bn, bsfx);
 							if (esfx === "%") {
 								bn /= _convertToPixels(target, p, 100, "%") / 100;
-								if (bn > 100) { //extremely rare
-									bn = 100;
-								}
 								if (vars.strictUnits !== true) { //some browsers report only "px" values instead of allowing "%" with getComputedStyle(), so we assume that if we're tweening to a %, we should start there too unless strictUnits:true is defined. This approach is particularly useful for responsive designs that use from() tweens.
 									bs = bn + "%";
 								}
@@ -1962,13 +2016,13 @@
 						}
 
 						if ((bn || bn === 0) && (en || en === 0)) { //faster than isNaN(). Also, previously we required en !== bn but that doesn't really gain much performance and it prevents _parseToProxy() from working properly if beginning and ending values match but need to get tweened by an external plugin anyway. For example, a bezier tween where the target starts at left:0 and has these points: [{left:50},{left:0}] wouldn't work properly because when parsing the last point, it'd match the first (current) one and a non-tweening CSSPropTween would be recorded when we actually need a normal tween (type:0) so that things get updated during the tween properly.
-							pt = new CSSPropTween(style, p, bn, en - bn, pt, 0, "css_" + p, (_autoRound !== false && (esfx === "px" || p === "zIndex")), 0, bs, es);
+							pt = new CSSPropTween(style, p, bn, en - bn, pt, 0, p, (_autoRound !== false && (esfx === "px" || p === "zIndex")), 0, bs, es);
 							pt.xs0 = esfx;
 							//DEBUG: _log("tween "+p+" from "+pt.b+" ("+bn+esfx+") to "+pt.e+" with suffix: "+pt.xs0);
-						} else if (!es && (es + "" === "NaN" || es == null)) {
+						} else if (style[p] === undefined || !es && (es + "" === "NaN" || es == null)) {
 							_log("invalid " + p + " tween value: " + vars[p]);
 						} else {
-							pt = new CSSPropTween(style, p, en || bn || 0, 0, pt, -1, "css_" + p, false, 0, bs, es);
+							pt = new CSSPropTween(style, p, en || bn || 0, 0, pt, -1, p, false, 0, bs, es);
 							pt.xs0 = (es === "none" && (p === "display" || p.indexOf("Style") !== -1)) ? bs : es; //intermediate value should typically be set immediately (end value) except for "display" or things like borderTopStyle, borderBottomStyle, etc. which should use the beginning value during the tween.
 							//DEBUG: _log("non-tweening value "+p+": "+pt.xs0);
 						}
@@ -1980,8 +2034,8 @@
 			}
 			return pt;
 		};
-		
-		
+
+
 		//gets called every time the tween updates, passing the new ratio (typically a value between 0 and 1, but not always (for example, if an Elastic.easeOut is used, the value can jump above 1 mid-tween). It will always start and 0 and end at 1.
 		p.setRatio = function(v) {
 			var pt = this._firstPT,
@@ -2003,7 +2057,7 @@
 				while (pt) {
 					val = pt.c * v + pt.s;
 					if (pt.r) {
-						val = (val > 0) ? (val + 0.5) >> 0 : (val - 0.5) >> 0;
+						val = (val > 0) ? (val + 0.5) | 0 : (val - 0.5) | 0;
 					} else if (val < min) if (val > -min) {
 						val = 0;
 					}
@@ -2062,6 +2116,7 @@
 		 */
 		p._enableTransforms = function(threeD) {
 			this._transformType = (threeD || this._transformType === 3) ? 3 : 2;
+			this._transform = this._transform || _getTransform(this._target, _cs, true); //ensures that the element has a _gsTransform property with the appropriate values.
 		};
 
 		/** @private **/
@@ -2073,37 +2128,38 @@
 				if (pt._next) {
 					pt._next._prev = pt._prev;
 				}
-				if (prev) {
-					prev._next = pt;
-				} else if (!remove && this._firstPT === null) {
-					this._firstPT = pt;
-				}
 				if (pt._prev) {
 					pt._prev._next = pt._next;
 				} else if (this._firstPT === pt) {
 					this._firstPT = pt._next;
+					remove = true; //just to prevent resetting this._firstPT 5 lines down in case pt._next is null. (optimized for speed)
+				}
+				if (prev) {
+					prev._next = pt;
+				} else if (!remove && this._firstPT === null) {
+					this._firstPT = pt;
 				}
 				pt._next = next;
 				pt._prev = prev;
 			}
 			return pt;
 		};
-		
+
 		//we need to make sure that if alpha or autoAlpha is killed, opacity is too. And autoAlpha affects the "visibility" property.
 		p._kill = function(lookup) {
 			var copy = lookup,
 				pt, p, xfirst;
-			if (lookup.css_autoAlpha || lookup.css_alpha) {
+			if (lookup.autoAlpha || lookup.alpha) {
 				copy = {};
 				for (p in lookup) { //copy the lookup so that we're not changing the original which may be passed elsewhere.
 					copy[p] = lookup[p];
 				}
-				copy.css_opacity = 1;
-				if (copy.css_autoAlpha) {
-					copy.css_visibility = 1;
+				copy.opacity = 1;
+				if (copy.autoAlpha) {
+					copy.visibility = 1;
 				}
 			}
-			if (lookup.css_className && (pt = this._classNamePT)) { //for className tweens, we need to kill any associated CSSPropTweens too; a linked list starts at the className's "xfirst".
+			if (lookup.className && (pt = this._classNamePT)) { //for className tweens, we need to kill any associated CSSPropTweens too; a linked list starts at the className's "xfirst".
 				xfirst = pt.xfirst;
 				if (xfirst && xfirst._prev) {
 					this._linkCSSP(xfirst._prev, pt._next, xfirst._prev._prev); //break off the prev
@@ -2117,7 +2173,6 @@
 			}
 			return TweenPlugin.prototype._kill.call(this, copy);
 		};
-
 
 
 
@@ -2196,10 +2251,9 @@
 			return results;
 		};
 
-		
 		TweenPlugin.activate([CSSPlugin]);
 		return CSSPlugin;
-		
+
 	}, true);
 	
 }); if (window._gsDefine) { window._gsQueue.pop()(); }

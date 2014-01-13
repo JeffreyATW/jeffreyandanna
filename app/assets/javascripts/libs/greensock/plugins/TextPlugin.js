@@ -1,11 +1,10 @@
 /*!
- * VERSION: 0.3.1
- * DATE: 2013-03-18
- * JavaScript 
+ * VERSION: 0.5.0
+ * DATE: 2013-07-10
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
  * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
- * This work is subject to the terms in http://www.greensock.com/terms_of_use.html or for 
+ * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -36,6 +35,7 @@
 
 				//called when the tween renders for the first time. This is where initial values should be recorded and any setup routines should run.
 				init: function(target, value, tween) {
+					var i, shrt;
 					if (!("innerHTML" in target)) {
 						return false;
 					}
@@ -43,9 +43,19 @@
 					if (typeof(value) !== "object") {
 						value = {value:value};
 					}
+					if (value.value === undefined) {
+						this._text = this._original = [""];
+						return true;
+					}
 					this._delimiter = value.delimiter || "";
 					this._original = _getText(target).replace(/\s+/g, " ").split(this._delimiter);
 					this._text = value.value.replace(/\s+/g, " ").split(this._delimiter);
+					this._runBackwards = (tween.vars.runBackwards === true);
+					if (this._runBackwards) {
+						i = this._original;
+						this._original = this._text;
+						this._text = i;
+					}
 					if (typeof(value.newClass) === "string") {
 						this._newClass = value.newClass;
 						this._hasClass = true;
@@ -54,9 +64,9 @@
 						this._oldClass = value.oldClass;
 						this._hasClass = true;
 					}
-					var i = this._original.length - this._text.length,
-						shrt = (i < 0) ? this._original : this._text;
-					this._fillChar = value.fillChar || (i > 0 && this._delimiter === "") ? "&nbsp;" : "";
+					i = this._original.length - this._text.length,
+					shrt = (i < 0) ? this._original : this._text;
+					this._fillChar = value.fillChar || (value.padSpace ? "&nbsp;" : "");
 					if (i < 0) {
 						i = -i;
 					}
@@ -73,8 +83,11 @@
 					} else if (ratio < 0) {
 						ratio = 0;
 					}
+					if (this._runBackwards) {
+						ratio = 1 - ratio;
+					}
 					var l = this._text.length,
-						i = (ratio * l + 0.5) >> 0,
+						i = (ratio * l + 0.5) | 0,
 						applyNew, applyOld, str;
 					if (this._hasClass) {
 						applyNew = (this._newClass && i !== 0);
@@ -89,6 +102,6 @@
 			}),
 			p = TextPlugin.prototype;
 		
-		p._newClass = p._oldClass = "";
+		p._newClass = p._oldClass = p._delimiter = "";
 
 }); if (window._gsDefine) { window._gsQueue.pop()(); }

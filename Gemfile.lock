@@ -99,7 +99,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
-    mysql2 (0.3.11)
+    mysql2 (0.3.14)
     nested_form (0.3.2)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)

@@ -1,11 +1,10 @@
 /*!
- * VERSION: 0.1.0
- * DATE: 2013-02-22
- * JavaScript 
+ * VERSION: 0.2.0
+ * DATE: 2013-07-10
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
  * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
- * This work is subject to the terms in http://www.greensock.com/terms_of_use.html or for 
+ * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -27,8 +26,9 @@
 			this._target = target;
 			this._proxy = {};
 			for (p in value) {
-				this._addTween(this._proxy, p, parseFloat(target.getAttribute(p)), value[p], p);
-				this._overwriteProps.push(p);
+				if ( this._addTween(this._proxy, p, parseFloat(target.getAttribute(p)), value[p], p) ) {
+					this._overwriteProps.push(p);
+				}
 			}
 			return true;
 		},

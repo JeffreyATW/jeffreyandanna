@@ -24,6 +24,10 @@ gem 'compass-rails', '2.0.alpha.0'
 
 gem 'uglifier', '>= 1.0.3'
 
+group :development, :production do
+  gem 'mysql2'
+end
+
 group :test, :development do
   gem 'sqlite3'
 end
@@ -34,7 +38,6 @@ group :staging do
 end
 
 group :production do
-  gem 'mysql2'
   gem 'therubyracer', :platforms => :ruby
 end
 

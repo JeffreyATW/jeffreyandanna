@@ -1,11 +1,10 @@
 /*!
- * VERSION: beta 0.5
- * DATE: 2012-12-20
- * JavaScript 
+ * VERSION: beta 0.6.0
+ * DATE: 2013-07-03
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
  * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
- * This work is subject to the terms in http://www.greensock.com/terms_of_use.html or for 
+ * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -48,7 +47,13 @@
 				a = [];
 			}
 			while (--i > -1) {
-				curSS = ss[i][ruleProp];
+				//Firefox may throw insecure operation errors when css is loaded from other domains, so try/catch.
+				try {
+					curSS = ss[i][ruleProp];
+				} catch (e) {
+					console.log(e);
+					continue;
+				}
 				j = curSS.length;
 				while (--j > -1) {
 					cs = curSS[j];
