@@ -7,7 +7,7 @@
   %meta{:charset => "utf-8"}
   %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
   %title Jeffrey and Anna
-  %meta{:content => "Jeffrey and Anna's Wedding Website!", :name => "description"}
+  %meta{:content => "Jeffrey and Anna's Website!", :name => "description"}
   %meta{:content => "width=device-width, initial-scale=1, user-scalable=no", :name => "viewport"}
   %meta{:content => '/objects/backup/standing-home.png', :property => 'og:image'}
   = csrf_meta_tags
@@ -57,16 +57,6 @@
           %span.jeffrey Jeffrey
           %span.and and
           %span.anna Anna
-        %h3 ...are getting married!
-        %h2 August 17, 2013
-        %h2 San Francisco, CA
-        - if @remaining > 0
-          %h3
-            - if @remaining == 0
-              Today's the big day!
-            - else
-              = @remaining
-              days to go!
       .object_container
         .window.object
         .projectorscreen.object
@@ -109,7 +99,7 @@
               %p
                 Jeffrey moved in with Anna in 2011. The rest of the year was filled with travels &mdash; to Austin for SxSW, New Jersey to see Anna's family, and New York to see Jeffrey's. After a year of new sights and sounds, they finished the year off on Treasure Island, surrounded by friends and a beautiful panorama of the city where they had started their life. As the New Year's fireworks shot into the sky, Jeffrey took out the engagement ring, promptly dropped it, fumbled around in the dark, and
                 presented it to Anna.
-              %p In early 2012, they moved into an apartment in Hayes Valley with a beautiful overlook of their city. They adopted Backup, an orange, noisy, lovable menace. They've been settling into their newly engaged life, but they can't wait until 2013, when they'll be married in their city among family and friends!
+              %p In early 2012, they moved into an apartment in Hayes Valley with a beautiful overlook of their city. They adopted Backup, an orange, noisy, lovable menace. Since 2013 they've been settling into their newly married life after having been married in their city among family and friends!
           %section#about_anna.item
             .container
               %h1 Anna
@@ -207,19 +197,18 @@
                 %a.active{:href => "#festivities"} Festivities
               %li
                 %a{:href => "#visitors_guide"} Visitor's Guide
-              %li
-                %a{:href => "#registry"} Registry
       .carousel.slide
         .carousel-inner
           %section#festivities.active.item
             .container
               %h1 Festivities
               %p
-                All festivities will take place at
+                All wedding-related festivities took place at
                 %b
                   = link_to "the Winery", "http://winery-sf.com/", :target => "_blank"
                   on Treasure Island in San Francisco, on Saturday, August 17,
                   2013.
+                Here's the deets of what happened, in glorious future tense:
               = link_to (image_tag 'winery.jpg', width: 760), 'http://winery-sf.com/', target: '_blank'
               %p
                 Shuttles will leave from both the Kensington and Marriott (details about the hotels are on the
@@ -246,9 +235,6 @@
               %p
                 Attire will be dressy, but not formal. Full gowns and
                 three-piece suits not required.
-              %p
-                Above times and specifics are still subject to change &mdash; we're
-                still a few months out!
           %section#visitors_guide.item
             %a#our_home
             .container
@@ -426,7 +412,7 @@
               %p
                 Cupcakes are especially hip. Try
                 <a href="https://maps.google.com/maps?cid=10156983768624437674&q=Kara's+Cupcakes" target="_blank">Kara's Cupcakes</a>,
-                in truck or storefront form. And if you can't wait for our
+                in truck or storefront form. And if you're jonesing for the ones from our
                 wedding, visit
                 <a href="https://maps.google.com/maps?cid=1160498047227722780&q=Sift+Cupcake+%2B+Dessert+Bar" target="_blank">Sift Cupcakes</a>
                 for some of the moistest ones we've ever had.
@@ -504,14 +490,7 @@
                 #{link_to "WikiTravel", "http://wikitravel.org/en/San_Francisco", :target => "_blank"}
                 for finding food, activities, or accommodations in the area. If
                 you have any questions, please don't hesitate to
-                #{mail_to "wedding@jeffreyandanna.us", "email"} or call us!
-          %section#registry.item
-            .container
-              %h1 Registry
-              .centerer
-                %a{:href => 'https://www.registrylove.com/registries/jeffreyandanna', :target => '_blank'}
-                  %p Our registry is available on RegistryLove! Click to continue to the registry.
-                  = image_tag 'registrylove.jpg', :alt => 'RegistryLove logo'
+                #{mail_to "us@jeffreyandanna.us", "email"} or call us!
       .object_container
         .mirrorball.object
         .djbooth.object
@@ -525,10 +504,8 @@
         .carousel-inner
           %section.active.item
             .container
-              - if @invitation.present? && @invitation.persisted?
-                = render :file => "invitations/edit"
-              - else
-                = render :partial => "invitations/rsvp"
+              .centerer
+                Thank you so much to all of our guests! RSVPs are closed, y'know, because of the whole "past" thing.
       .object_container
         .backcounter.object
         .sodastream.object
