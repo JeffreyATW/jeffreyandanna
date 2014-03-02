@@ -1,6 +1,3 @@
-group :staging do
-  ruby '2.0.0'
-end
 source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
