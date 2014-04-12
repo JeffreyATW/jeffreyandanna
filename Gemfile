@@ -23,7 +23,7 @@ gem 'compass-rails'
 
 gem 'uglifier', '>= 1.0.3'
 
-group :development, :production do
+group :development do
   gem 'mysql2'
 end
 
@@ -31,13 +31,9 @@ group :test, :development do
   gem 'sqlite3'
 end
 
-group :staging do
+group :production do
   gem 'rails_12factor'
   gem 'pg'
-end
-
-group :production do
-  gem 'therubyracer', :platforms => :ruby
 end
 
 gem 'jquery-rails'

@@ -45,7 +45,7 @@ Jeffreyandanna::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://assets.jeffreyandanna.us"
+  # config.action_controller.asset_host = "http://assets.jeffreyandanna.us"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( libs/modernizr-2.6.2.min.js )
@@ -64,7 +64,9 @@ Jeffreyandanna::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.default_url_options = { :host => 'jeffreyandanna.us' }
+  config.action_mailer.default_url_options = { :host => 'adalandlily.herokuapp.com' }
 
   config.assets.prefix = ''
+
+  config.logger = Logger.new(STDOUT)
 end
