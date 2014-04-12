@@ -53,6 +53,22 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new
   end
 
+  def create
+    @invitation = Invitation.new(params[:invitation].permit(:address, :email, :notes))
+    @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
+
+    respond_to do |format|
+      if @invitation.save
+        flash[:notice] = 'Your address was submitted. Thank you!'
+        format.html { render action: 'thanks' }
+      else
+        debugger
+        flash[:alert] = 'Something went wrong with your submission. Please contact Adal or Lily!'
+        format.html { render action: 'new' }
+      end
+    end
+  end
+
   private
   def find_rsvp
     if params[:invitation] && params[:invitation][:rsvp]

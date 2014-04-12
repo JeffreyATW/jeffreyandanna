@@ -9,6 +9,7 @@ Adalandlily::Application.routes.draw do
   get 'rsvp/export' => "invitations#index"
 
   get 'addresses' => 'invitations#new'
+  post 'addresses' => 'invitations#create', :as => 'invitations'
 
   resources :tables
 

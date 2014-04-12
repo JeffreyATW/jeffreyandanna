@@ -1,0 +1,15 @@
+= form_for @invitation do |f|
+  .form_row
+    = f.label :email
+    = f.email_field :email
+  .form_row
+    = f.label :address
+    = f.text_area :address, :rows => 4
+  .form_row
+    = f.label :notes
+    = f.text_area :notes, :rows => 4
+  .form_row
+    = f.submit
+    %p.flash
+      = flash[:notice]
+      = flash[:alert]

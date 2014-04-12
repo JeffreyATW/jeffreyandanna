@@ -25,6 +25,7 @@ gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'mysql2'
+  gem 'debugger'
 end
 
 group :test, :development do
