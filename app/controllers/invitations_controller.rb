@@ -49,6 +49,10 @@ class InvitationsController < ApplicationController
     end
   end
 
+  def new
+    @invitation = Invitation.new
+  end
+
   private
   def find_rsvp
     if params[:invitation] && params[:invitation][:rsvp]
