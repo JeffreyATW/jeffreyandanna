@@ -54,7 +54,7 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    @invitation = Invitation.new(params[:invitation].permit(:address, :email, :notes))
+    @invitation = Invitation.find_by_email(params[:invitation][:email]) || Invitation.new(params[:invitation].permit(:address, :email, :notes))
     @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
 
     respond_to do |format|
