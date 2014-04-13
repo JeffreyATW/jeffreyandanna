@@ -106,6 +106,7 @@ RailsAdmin.config do |config|
       field :responded
       field :going
       field :save_the_date_sent
+      field :no_paper_invite
       field :rsvp
     end
     show do
@@ -116,6 +117,7 @@ RailsAdmin.config do |config|
       field :invited
       field :responded
       field :going
+      field :no_paper_invite
       field :rsvp
       field :notes
     end
@@ -127,6 +129,7 @@ RailsAdmin.config do |config|
       field :invited
       field :responded
       field :going
+      field :no_paper_invite
       field :notes
     end
     #   export do; end
