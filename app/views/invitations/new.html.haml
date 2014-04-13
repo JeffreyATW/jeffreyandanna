@@ -14,7 +14,7 @@
     = f.check_box :no_paper_invite
     = f.label :no_paper_invite, 'Opt out of paper invite'
   .form-row.form-row--submit
-    = f.submit class: 'form-submit'
+    = f.submit 'Submit', class: 'form-submit'
     %p.flash
       = flash[:notice]
       = flash[:alert]
