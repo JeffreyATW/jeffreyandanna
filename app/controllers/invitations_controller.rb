@@ -55,13 +55,14 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    @invitation = Invitation.find_by_email(params[:invitation][:email]) || Invitation.new(params[:invitation].permit(:address, :email, :notes))
+    permitted_params = params[:invitation].permit(:address, :email, :notes)
+    @invitation = Invitation.first(conditions: ['lower(email) = ?', params[:invitation][:email].downcase]) || Invitation.new(permitted_params)
     unless @invitation.persisted?
       @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
     end
 
     respond_to do |format|
-      if @invitation.save
+      if (@invitation.persisted? && @invitation.update_attributes(permitted_params)) || (@invitation.new_record? && @invitation.save)
         flash[:notice] = 'Your address was submitted. Thank you!'
         format.html { render action: 'thanks', layout: 'addresses' }
       else
