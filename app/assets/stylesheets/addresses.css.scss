@@ -17,6 +17,9 @@ html, input[type=submit] {
 
 html {
   background: #eee;
+  background: linear-gradient(to bottom, #fff, #eee);
+  background-attachment: fixed;
+  height: 100%;
   color: $text-color;
 }
 
