@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
   before_filter :find_rsvp, :only => %w{edit update}
   before_filter :authenticate_user!, :only => 'index'
-  layout false
+  layout false, except: %w{new create}
 
   def index
     @invitations = Invitation.all
@@ -51,20 +51,23 @@ class InvitationsController < ApplicationController
 
   def new
     @invitation = Invitation.new
+    render layout: 'addresses'
   end
 
   def create
     @invitation = Invitation.find_by_email(params[:invitation][:email]) || Invitation.new(params[:invitation].permit(:address, :email, :notes))
-    @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
+    unless @invitation.persisted?
+      @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
+    end
 
     respond_to do |format|
       if @invitation.save
         flash[:notice] = 'Your address was submitted. Thank you!'
-        format.html { render action: 'thanks' }
+        format.html { render action: 'thanks', layout: 'addresses' }
       else
         debugger
         flash[:alert] = 'Something went wrong with your submission. Please contact Adal or Lily!'
-        format.html { render action: 'new' }
+        format.html { render action: 'new', layout: 'addresses' }
       end
     end
   end

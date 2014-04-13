@@ -52,6 +52,6 @@ module Adalandlily
 
     config.assets.initialize_on_precompile = false
 
-    config.assets.precompile += %w(tables.js tables.css)
+    config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css)
   end
 end

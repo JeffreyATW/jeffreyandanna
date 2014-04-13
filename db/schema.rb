@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130608235502) do
+ActiveRecord::Schema.define(version: 20140413050056) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20130608235502) do
     t.text     "notes"
     t.boolean  "save_the_date_sent"
     t.boolean  "invited"
+    t.boolean  "no_paper_invite"
   end
 
   create_table "rails_admin_histories", force: true do |t|

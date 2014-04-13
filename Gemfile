@@ -17,6 +17,7 @@ gem 'dotenv-rails', :groups => [:development, :test, :production]
 # in production environments by default.
 gem 'sass-rails'
 gem 'compass-rails'
+gem 'autoprefixer-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby

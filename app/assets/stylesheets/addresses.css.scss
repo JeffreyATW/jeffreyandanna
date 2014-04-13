@@ -1,0 +1,71 @@
+@import 'normalize';
+@import 'compass/css3/appearance';
+
+$text-color: #333;
+
+* {
+  box-sizing: border-box;
+}
+
+input, textarea {
+  font-family: serif;
+}
+
+html, input[type=submit] {
+  font-family: 'Cinzel', serif;
+}
+
+html {
+  background: #eee;
+  color: $text-color;
+}
+
+body {
+  border: 50px solid black;
+  border-image: image-url('elegant-border.svg') 200 186;
+  margin: 50px auto;
+  width: 800px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form-row {
+  margin: 1em 0;
+  label {
+    display: inline-block;
+    margin-right: 1em;
+    text-align: right;
+    width: 200px;
+  }
+}
+.form-row--checkbox, .form-row--submit {
+  text-align: center;
+}
+.form-row--checkbox {
+  label {
+    margin: 0 0 0 .5em;
+    width: auto;
+  }
+}
+
+.form-notes {
+  font-size: .75em;
+  margin: .5em 0 0 220px;
+  width: 300px;
+}
+
+.form-control {
+  border: 1px solid $text-color;
+  width: 300px;
+}
+
+input[type=submit] {
+  @include appearance(none);
+  outline: none;
+}
+
+.thanks {
+  text-align: center;
+}

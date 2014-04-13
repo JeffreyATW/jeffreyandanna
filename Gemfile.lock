@@ -26,6 +26,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
+    autoprefixer-rails (1.1.20140410)
+      execjs
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     capistrano (2.15.4)
@@ -196,6 +198,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   capistrano
   compass-rails
   debugger
