@@ -10,9 +10,4 @@
  *
  *= require_self
  *= require 'welcome'
- *= depend_on_asset "fontawesome-webfont.eot"
- *= depend_on_asset "fontawesome-webfont.woff"
- *= depend_on_asset "fontawesome-webfont.svg"
- *= depend_on_asset "fontawesome-webfont.ttf"
- *= depend_on_asset "fontawesome-webfont.woff"
  */
