@@ -52,6 +52,6 @@ module Adalandlily
 
     config.assets.initialize_on_precompile = false
 
-    config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css)
+    config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css rails_admin/rails_admin.css rails_admin/rails_admin.js)
   end
 end
