@@ -48,7 +48,7 @@ module Adalandlily
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '2.0'
 
     config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css rails_admin/rails_admin.css rails_admin/rails_admin.js)
   end
