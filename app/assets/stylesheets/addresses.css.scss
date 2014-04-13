@@ -24,7 +24,7 @@ body {
   border: 50px solid black;
   border-image: image-url('elegant-border.svg') 200 186;
   margin: 50px auto;
-  width: 800px;
+  max-width: 800px;
 }
 
 h1 {
@@ -68,4 +68,31 @@ input[type=submit] {
 
 .thanks {
   text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .form-row label, form-control {
+    width: auto;
+  }
+  .form-row {
+    &, label {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 0;
+    }
+  }
+  .form-row--checkbox {
+    label {
+      display: inline;
+    }
+  }
+  .form-control, .form-notes {
+    width: 200px;
+  }
+  .form-notes {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
