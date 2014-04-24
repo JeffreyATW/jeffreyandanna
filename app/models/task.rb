@@ -3,7 +3,7 @@ class Task < ActiveRecord::Base
   belongs_to :parent_task, class_name: 'Task', inverse_of: :child_tasks
   belongs_to :creator, class_name: 'User'
 
-  default_scope order(:parent_task_id, :id)
+  default_scope { order(:parent_task_id, :id) }
 
   validates_presence_of :title, :creator
 
