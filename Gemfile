@@ -12,6 +12,7 @@ gem 'feedzirra'
 gem 'rails_admin'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
+gem 'ckeditor'
 
 # Gems used only for assets and not required
 # in production environments by default.
