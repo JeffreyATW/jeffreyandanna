@@ -8,7 +8,7 @@ gem 'rails', '4.1.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'haml'
-gem 'feedjira'
+#gem 'feedjira'
 gem 'rails_admin'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
