@@ -7,12 +7,14 @@
   form.
 = form_for @invitation do |f|
   .form-row
-    = f.label :email
-    = f.email_field :email, class: 'form-control', required: true
+    = label_tag 'Name(s)'
+    = text_field_tag 'name', '', class: 'form-control', required: true
   .form-row
     = f.label :address
     = f.text_area :address, :rows => 4, class: 'form-control', required: true
-    .form-notes Please include your name as the first line of the address, and please hit "enter" after each line.
+  .form-row
+    = f.label :email
+    = f.email_field :email, class: 'form-control'
   .form-row
     = f.label :notes, 'Comments'
     = f.text_area :notes, :rows => 4, class: 'form-control'

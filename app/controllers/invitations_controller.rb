@@ -56,9 +56,15 @@ class InvitationsController < ApplicationController
 
   def create
     permitted_params = params[:invitation].permit(:address, :email, :notes)
-    @invitation = Invitation.where(['lower(email) = ?', params[:invitation][:email].downcase]).first || Invitation.new(permitted_params)
+    @invitation =
+        (params[:invitation][:email].present? ? Invitation.where(['lower(email) = ?', params[:invitation][:email].downcase]).first : nil) ||
+        Invitation.new(permitted_params)
     unless @invitation.persisted?
-      @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
+      guests = params[:name].split(/and|,|&/)
+      guests.map! do |guest|
+        Guest.new(:name => guest.strip)
+      end
+      @invitation.guests = guests
     end
 
     respond_to do |format|
@@ -66,8 +72,7 @@ class InvitationsController < ApplicationController
         flash[:notice] = 'Your address was submitted. Thank you!'
         format.html { render action: 'thanks', layout: 'addresses' }
       else
-        debugger
-        flash[:alert] = 'Something went wrong with your submission. Please contact Adal or Lily!'
+        flash[:alert] = 'Something went wrong with your submission. Please check for errors, or contact Adal or Lily!'
         format.html { render action: 'new', layout: 'addresses' }
       end
     end
