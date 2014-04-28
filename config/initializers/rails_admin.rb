@@ -161,7 +161,18 @@ RailsAdmin.config do |config|
   #     configure :created_at, :datetime
   #     configure :updated_at, :datetime   #   # Sections:
      list do
-       field :guests
+       field :guests do
+         filterable true
+         queryable true
+         searchable :name
+         sortable :name
+         pretty_value do
+           # reload object in case invitations were searched for guest names.
+           # without reloading, only the guests that match the search will be returned.
+           bindings[:object].guests(true)
+           pretty_value
+         end
+       end
        field :address
        field :email
        field :invited
@@ -276,6 +287,25 @@ RailsAdmin.config do |config|
       field :group
       field :body
       field :created_at
+    end
+  end
+end
+
+# Monkeypatch get_collection to include searching of has_many_associations.
+module RailsAdmin
+  MainController.class_eval do
+    def get_collection(model_config, scope, pagination)
+      associations = model_config.list.fields.select { |f|
+        f.type == :belongs_to_association || f.type == :has_many_association && !f.polymorphic?
+      }.collect { |f| f.association.name }
+      options = {}
+      options = options.merge(page: (params[Kaminari.config.param_name] || 1).to_i, per: (params[:per] || model_config.list.items_per_page)) if pagination
+      options = options.merge(include: associations) unless associations.blank?
+      options = options.merge(get_sort_hash(model_config))
+      options = options.merge(query: params[:query]) if params[:query].present?
+      options = options.merge(filters: params[:f]) if params[:f].present?
+      options = options.merge(bulk_ids: params[:bulk_ids]) if params[:bulk_ids]
+      model_config.abstract_model.all(options, scope)
     end
   end
 end

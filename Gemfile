@@ -23,6 +23,10 @@ gem 'compass-rails'
 
 gem 'uglifier', '>= 1.0.3'
 
+group :development do
+  gem 'debugger'
+end
+
 group :development, :production do
   gem 'mysql2'
 end
