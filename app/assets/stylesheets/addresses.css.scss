@@ -44,6 +44,10 @@ p {
   margin-top: 2em;
 }
 
+.field_with_errors {
+  display: inline;
+}
+
 .form-row {
   margin: 1em 0;
   label {
