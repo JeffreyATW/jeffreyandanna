@@ -172,7 +172,11 @@ RailsAdmin.config do |config|
      end
      show do
        field :guests
-       field :address
+       field :address do
+         pretty_value do
+           bindings[:view].simple_format value
+         end
+       end
        field :email
        field :save_the_date_sent
        field :invited
