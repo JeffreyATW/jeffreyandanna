@@ -88,39 +88,43 @@ RailsAdmin.config do |config|
   end
 
   config.model Invitation do
-    #   # Found associations:
-    #   # Found columns:
-    #     configure :id, :integer
-    #     configure :name, :string
-    #     configure :address, :text
-    #     configure :responded, :boolean
-    #     configure :going, :boolean
-    #     configure :rsvp, :string
-    #     configure :created_at, :datetime
-    #     configure :updated_at, :datetime   #   # Sections:
-    list do
-      field :guests
-      field :address
-      field :email
-      field :invited
-      field :responded
-      field :going
-      field :save_the_date_sent
-      field :no_paper_invite
-      field :rsvp
-    end
-    show do
-      field :guests
-      field :address
-      field :email
-      field :save_the_date_sent
-      field :invited
-      field :responded
-      field :going
-      field :no_paper_invite
-      field :rsvp
-      field :notes
-    end
+  #   # Found associations:
+  #   # Found columns:
+  #     configure :id, :integer
+  #     configure :name, :string
+  #     configure :address, :text
+  #     configure :responded, :boolean
+  #     configure :going, :boolean
+  #     configure :rsvp, :string
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime   #   # Sections:
+     list do
+       field :guests
+       field :address
+       field :email
+       field :invited
+       field :responded
+       field :going
+       field :save_the_date_sent
+       field :no_paper_invite
+       field :rsvp
+     end
+     show do
+       field :guests
+       field :address do
+         pretty_value do
+           bindings[:view].simple_format value
+         end
+       end
+       field :email
+       field :save_the_date_sent
+       field :invited
+       field :responded
+       field :going
+       field :no_paper_invite
+       field :rsvp
+       field :notes
+     end
     edit do
       field :guests
       field :address
