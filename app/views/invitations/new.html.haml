@@ -1,4 +1,10 @@
 %h1 Thank you for visiting
+%p
+  Lily Faden and Adal Hernandez are delighted to announce their
+  commitment to a marital union. The ceremony and reception will be held
+  on Saturday, May&nbsp;23,&nbsp;2015. You will receive a formal invitation by
+  mail. In the meantime, please submit your address by filling out this
+  form.
 = form_for @invitation do |f|
   .form-row
     = f.label :email
@@ -6,13 +12,13 @@
   .form-row
     = f.label :address
     = f.text_area :address, :rows => 4, class: 'form-control', required: true
-    .form-notes Please include your name as the first line of the address.
+    .form-notes Please include your name as the first line of the address, and please hit "enter" after each line.
   .form-row
     = f.label :notes, 'Comments'
     = f.text_area :notes, :rows => 4, class: 'form-control'
   .form-row.form-row--checkbox
     = f.check_box :no_paper_invite
-    = f.label :no_paper_invite, 'Opt out of paper invite'
+    = f.label :no_paper_invite, 'Opt out of paper invitation'
   .form-row.form-row--submit
     = f.submit 'Submit', class: 'form-submit'
     %p.flash
