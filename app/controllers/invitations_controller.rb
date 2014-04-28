@@ -56,7 +56,7 @@ class InvitationsController < ApplicationController
 
   def create
     permitted_params = params[:invitation].permit(:address, :email, :notes)
-    @invitation = Invitation.first(conditions: ['lower(email) = ?', params[:invitation][:email].downcase]) || Invitation.new(permitted_params)
+    @invitation = Invitation.where(['lower(email) = ?', params[:invitation][:email].downcase]).first || Invitation.new(permitted_params)
     unless @invitation.persisted?
       @invitation.guests = [Guest.new(:name => @invitation.address.match(/^.*[^(\r|\n)]/).to_s)]
     end
