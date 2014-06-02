@@ -1,4 +1,4 @@
-jeffreyandanna
+adalandlily
 ==============
 
-The joint website for Jeffrey and Anna!
+The wedding website for Adal and Lily!

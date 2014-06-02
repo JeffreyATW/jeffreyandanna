@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
   before_filter :find_rsvp, :only => %w{edit update}
   before_filter :authenticate_user!, :only => 'index'
-  layout false
+  layout false, except: %w{new create}
 
   def index
     @invitations = Invitation.all
@@ -46,6 +46,35 @@ class InvitationsController < ApplicationController
     else
       @invitation.errors.add(:base, "We can't find an invitation with that code. Try again!")
       render :partial => "invitations/rsvp"
+    end
+  end
+
+  def new
+    @invitation = Invitation.new
+    render layout: 'addresses'
+  end
+
+  def create
+    permitted_params = params[:invitation].permit(:address, :email, :notes)
+    @invitation =
+        (params[:invitation][:email].present? ? Invitation.where(['lower(email) = ?', params[:invitation][:email].downcase]).first : nil) ||
+        Invitation.new(permitted_params)
+    unless @invitation.persisted?
+      guests = params[:name].split(/and|,|&/)
+      guests.map! do |guest|
+        Guest.new(:name => guest.strip)
+      end
+      @invitation.guests = guests
+    end
+
+    respond_to do |format|
+      if (@invitation.persisted? && @invitation.update_attributes(permitted_params)) || (@invitation.new_record? && @invitation.save)
+        flash[:notice] = 'Your address was submitted. Thank you!'
+        format.html { render action: 'thanks', layout: 'addresses' }
+      else
+        flash[:alert] = 'Something went wrong with your submission. Please check for errors, or contact Adal or Lily!'
+        format.html { render action: 'new', layout: 'addresses' }
+      end
     end
   end
 
