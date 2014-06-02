@@ -30,17 +30,16 @@ body {
   max-width: $body-width;
   padding: 50px;
   position: relative;
-  > :first-child {
-    &:before {
-      background: image-url('border-ul.png');
-      top: 0;
-      content: '';
-      display: block;
-      height: image-height('border-ul.png');
-      left: 0;
-      position: absolute;
-      width: image-width('border-ul.png');
-    }
+  &:before {
+    background: image-url('border-ul.png');
+    top: 0;
+    content: '';
+    display: block;
+    height: image-height('border-ul.png');
+    left: 0;
+    position: absolute;
+    width: image-width('border-ul.png');
+    z-index: 1;
   }
 }
 
