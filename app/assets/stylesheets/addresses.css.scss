@@ -48,7 +48,6 @@ h1 {
 }
 
 p {
-  padding: 0 3em;
   text-align: center;
 }
 
@@ -56,6 +55,7 @@ p {
   font-family: 'Lobster Two', cursive;
   font-size: 1.5em;
   font-style: italic;
+  letter-spacing: 2px;
   line-height: 1.2;
   margin-bottom: 2em;
   .name {
@@ -80,6 +80,7 @@ p {
 
 .flash {
   font-size: .9em;
+  padding: 0 3em;
 }
 
 .new_invitation {
@@ -194,6 +195,7 @@ input[type=submit] {
   }
   .intro {
     font-size: 18px;
+    letter-spacing: 1px;
     margin-top: 0;
   }
   .form-control, .form-notes {
