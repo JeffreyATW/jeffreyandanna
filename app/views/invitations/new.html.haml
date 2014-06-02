@@ -1,10 +1,42 @@
-%h1 Thank you for visiting
-%p
-  Lily Faden and Adal Hernandez are delighted to announce their
-  commitment to a marital union. The ceremony and reception will be held
-  on Saturday, May&nbsp;23,&nbsp;2015. You will receive a formal invitation by
-  mail. In the meantime, please submit your address by filling out this
-  form.
+%p.intro
+  %span.name
+    %span.initial<> L
+    ily
+    = ' '
+    %span.initial<> F
+    aden
+  and
+  %br
+  %span.name
+    %span.initial<> A
+    dal
+    = ' '
+    %span.initial<> H
+    ernandez
+  %br
+  Announce Their Commitment to a
+  %br
+  %span.name
+    %span.initial<> M
+    arital
+    = ' '
+    %span.initial<> U
+    nion
+  %br
+  Ritual, Ceremony and Reception to be held
+  %br
+  In New York City on
+  %br
+  %span.date
+    %span.initial<> S
+    aturday,
+    = ' '
+    %span.initial<> M
+    ay 23, 2015
+  %br
+  %span.instructions Please submit your address and
+  %br
+  %span.instructions you will receive a formal invitation by mail
 = form_for @invitation do |f|
   .form-row
     = label_tag 'Name(s)'

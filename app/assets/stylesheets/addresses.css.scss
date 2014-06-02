@@ -13,6 +13,7 @@ input, textarea {
 
 html, input[type=submit] {
   font-family: 'Cinzel', serif;
+  font-size: 18px;
 }
 
 html {
@@ -24,10 +25,48 @@ html {
 }
 
 body {
-  border: 50px ridge lightgray;
-  border-image: image-url('elegant-border.png') 58 59;
   margin: 50px auto;
   max-width: 800px;
+  padding: 50px;
+  position: relative;
+  > :first-child, > :last-child {
+    display: block;
+    &:before, &:after {
+      content: '';
+      display: block;
+      height: image-height('border-ul.png');
+      position: absolute;
+      width: image-width('border-ul.png');
+    }
+    &:before {
+      left: 0;
+    }
+    &:after {
+      right: 0;
+    }
+  }
+  > :first-child {
+    &:before, &:after {
+      top: 0;
+    }
+    &:before {
+      background: image-url('border-ul.png');
+    }
+    &:after {
+      background: image-url('border-ur.png');
+    }
+  }
+  > :last-child {
+    &:before, &:after {
+      bottom: 0;
+    }
+    &:before {
+      background: image-url('border-dl.png');
+    }
+    &:after {
+      background: image-url('border-dr.png');
+    }
+  }
 }
 
 h1 {
@@ -35,9 +74,37 @@ h1 {
 }
 
 p {
-  font-size: .9em;
   padding: 0 4em;
   text-align: center;
+}
+
+.intro {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1.2;
+  .name {
+    font-size: 1.666em;
+    line-height: 1.1;
+    .initial {
+      font-size: 1.333em;
+    }
+  }
+  .date {
+    font-size: 1.222em;
+    line-height: 1.3;
+    .initial {
+      font-size: 1.181em;
+    }
+  }
+  .instructions {
+    font-size: .777em;
+    line-height: 1;
+  }
+}
+
+.flash {
+  font-size: .9em;
 }
 
 .new_invitation {
@@ -88,8 +155,14 @@ input[type=submit] {
 }
 
 @media screen and (max-width: 700px) {
+  html {
+    font-size: 16px;
+  }
   p {
     padding: 0;
+  }
+  .intro {
+    font-size: 18px;
   }
   .form-row label, form-control {
     width: auto;
