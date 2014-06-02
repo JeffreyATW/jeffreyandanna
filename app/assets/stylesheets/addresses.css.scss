@@ -13,7 +13,7 @@ input, textarea {
 
 html, input[type=submit] {
   font-family: 'Cinzel', serif;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 html {
@@ -24,7 +24,7 @@ html {
   color: $text-color;
 }
 
-$body-width: 960px;
+$body-width: 850px;
 body {
   margin: 50px auto;
   max-width: $body-width;
@@ -48,15 +48,16 @@ h1 {
 }
 
 p {
-  padding: 0 4em;
+  padding: 0 3em;
   text-align: center;
 }
 
 .intro {
-  font-family: 'Pinyon Script', cursive;
+  font-family: 'Lobster Two', cursive;
   font-size: 1.5em;
-  font-weight: bold;
+  font-style: italic;
   line-height: 1.2;
+  margin-bottom: 2em;
   .name {
     font-size: 1.666em;
     line-height: 1.1;
@@ -92,12 +93,12 @@ p {
 .form-row {
   display: table;
   margin: 1em auto;
-  padding-right: $body-width / 4;
+  padding-right: $body-width / 5;
   label {
     display: inline-block;
     margin-right: 1em;
     text-align: right;
-    width: $body-width / 4;
+    width: $body-width / 5;
   }
 }
 .form-row--checkbox, .form-row--submit {
