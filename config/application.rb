@@ -6,7 +6,7 @@ if defined?(Bundler)
   Bundler.require(:default, Rails.env)
 end
 
-module Adalandlily
+module Jeffreyandanna
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -48,8 +48,10 @@ module Adalandlily
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '3.0'
+    config.assets.version = '1.0'
 
-    config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css rails_admin/rails_admin.css rails_admin/rails_admin.js)
+    config.assets.initialize_on_precompile = false
+
+    config.assets.precompile += %w(tables.js tables.css)
   end
 end

@@ -5,4 +5,4 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 
-Adalandlily::Application.config.secret_token = ENV['SECRET_TOKEN']
+Jeffreyandanna::Application.config.secret_token = ENV['SECRET_TOKEN']

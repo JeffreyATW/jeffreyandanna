@@ -8,17 +8,15 @@ gem 'rails', '4.1.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'haml'
-#gem 'feedjira'
+gem 'feedjira'
 gem 'rails_admin'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
-gem 'ckeditor'
 
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails'
 gem 'compass-rails'
-gem 'autoprefixer-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
@@ -26,17 +24,24 @@ gem 'autoprefixer-rails'
 gem 'uglifier', '>= 1.0.3'
 
 group :development do
-  gem 'mysql2'
   gem 'debugger'
+end
+
+group :development, :production do
+  gem 'mysql2'
 end
 
 group :test, :development do
   gem 'sqlite3'
 end
 
-group :production do
+group :staging do
   gem 'rails_12factor'
   gem 'pg'
+end
+
+group :production do
+  gem 'therubyracer', :platforms => :ruby
 end
 
 gem 'jquery-rails'

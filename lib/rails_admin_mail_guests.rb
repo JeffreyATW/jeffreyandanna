@@ -44,10 +44,9 @@ EOF
                 end
                 Mandrill::API.new.messages.send({
                   subject: params[:mail][:subject],
-                  from_name: 'Adal and Lily',
-                  from_email: 'adalandlily@gmail.com',
-                  html: params[:mail][:body],
-                  auto_text: true,
+                  from_name: 'Jeffrey and Anna',
+                  from_email: 'wedding@jeffreyandanna.us',
+                  text: params[:mail][:body],
                   to: invitations.map{|invitation| {email: invitation.email}},
                   merge_vars: invitations.map{|invitation|
                     {rcpt: invitation.email, vars: [

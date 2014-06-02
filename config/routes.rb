@@ -1,5 +1,5 @@
-Adalandlily::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+Jeffreyandanna::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :users
 
@@ -7,9 +7,6 @@ Adalandlily::Application.routes.draw do
   get 'rsvp' => "invitations#edit", :as => "invitation"
 
   get 'rsvp/export' => "invitations#index"
-
-  get 'addresses' => 'invitations#new'
-  post 'addresses' => 'invitations#create', :as => 'invitations'
 
   resources :tables
 

@@ -3,13 +3,21 @@
 
 
 /* TEAM */
-  Programmer: Jeffrey Carl Faden
+  Programmer, Artist, Writer, Fiancé: Jeffrey Carl Faden
   Site: http://jeffreyatw.com
   Twitter: @jeffreyatw
   Location: San Francisco, CA
+
+  Editor, Fiancée: Anna Gazdowicz
+  Site: http://annagaz.com/
+  Twitter: @annagaz
+  Location: San Francisco, CA
+
+/* THANKS */
+  Lab Zero: http://www.labzero.com
 
 /* SITE */
   Standards: HTML5, CSS3
   Components: Modernizr, jQuery
   Software: Rails
-  Source: http://github.com/JeffreyATW/jeffreyandanna/tree/adalandlily
+  Source: http://github.com/JeffreyATW/jeffreyandanna

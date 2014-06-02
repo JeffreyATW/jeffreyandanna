@@ -2,11 +2,11 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-Adalandlily::Application.initialize!
+Jeffreyandanna::Application.initialize!
 
 ActionMailer::Base.smtp_settings = {
   :address => 'smtp.mandrillapp.com',
-  :domain => 'adalandlily.com',
+  :domain => 'jeffreyandanna.us',
   :authentication => :plain,
   :user_name => ENV['MANDRILL_USER_NAME'],
   :password => ENV['MANDRILL_APIKEY'],

@@ -11,7 +11,7 @@
     .control-group.text-type
       = label_tag 'mail[body]', 'Body', class: 'control-label'
       .controls
-        = cktext_area 'mail', 'body', :value => params[:mail].nil? ? '' : params[:mail][:body], :cols => 78, :rows => 15
+        = text_area_tag 'mail[body]', params[:mail].nil? ? '' : params[:mail][:body], 'data-richtext' => false, :cols => 78, :rows => 15
         %p.help-block You can use *|NAME|*, *|ADDRESS|*, *|RSVP|*, and *|EMAIL|*.
   %input{:type => :hidden, :name => 'return_to', :value => (params[:return_to].presence || request.referer)}
   .form-actions

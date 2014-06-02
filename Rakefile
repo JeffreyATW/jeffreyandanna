@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Adalandlily::Application.load_tasks
+Jeffreyandanna::Application.load_tasks
