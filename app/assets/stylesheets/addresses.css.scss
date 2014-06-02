@@ -13,7 +13,7 @@ input, textarea {
 
 html, input[type=submit] {
   font-family: 'Cinzel', serif;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 html {
@@ -24,47 +24,22 @@ html {
   color: $text-color;
 }
 
+$body-width: 960px;
 body {
   margin: 50px auto;
-  max-width: 800px;
+  max-width: $body-width;
   padding: 50px;
   position: relative;
-  > :first-child, > :last-child {
-    display: block;
-    &:before, &:after {
+  > :first-child {
+    &:before {
+      background: image-url('border-ul.png');
+      top: 0;
       content: '';
       display: block;
       height: image-height('border-ul.png');
+      left: 0;
       position: absolute;
       width: image-width('border-ul.png');
-    }
-    &:before {
-      left: 0;
-    }
-    &:after {
-      right: 0;
-    }
-  }
-  > :first-child {
-    &:before, &:after {
-      top: 0;
-    }
-    &:before {
-      background: image-url('border-ul.png');
-    }
-    &:after {
-      background: image-url('border-ur.png');
-    }
-  }
-  > :last-child {
-    &:before, &:after {
-      bottom: 0;
-    }
-    &:before {
-      background: image-url('border-dl.png');
-    }
-    &:after {
-      background: image-url('border-dr.png');
     }
   }
 }
@@ -80,7 +55,7 @@ p {
 
 .intro {
   font-family: 'Pinyon Script', cursive;
-  font-size: 26px;
+  font-size: 1.5em;
   font-weight: bold;
   line-height: 1.2;
   .name {
@@ -116,16 +91,19 @@ p {
 }
 
 .form-row {
-  margin: 1em 0;
+  display: table;
+  margin: 1em auto;
+  padding-right: $body-width / 4;
   label {
     display: inline-block;
     margin-right: 1em;
     text-align: right;
-    width: 200px;
+    width: $body-width / 4;
   }
 }
 .form-row--checkbox, .form-row--submit {
   text-align: center;
+  padding-right: 0;
 }
 .form-row--checkbox {
   label {
