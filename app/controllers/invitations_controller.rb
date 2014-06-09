@@ -60,7 +60,7 @@ class InvitationsController < ApplicationController
         (params[:invitation][:email].present? ? Invitation.where(['lower(email) = ?', params[:invitation][:email].downcase]).first : nil) ||
         Invitation.new(permitted_params)
     unless @invitation.persisted?
-      guests = params[:name].split(/and|,|&/)
+      guests = params[:name].split(/ and |,|&/)
       guests.map! do |guest|
         Guest.new(:name => guest.strip)
       end
