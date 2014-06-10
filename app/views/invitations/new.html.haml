@@ -1,0 +1,60 @@
+%p.intro
+  %span.name
+    %span.initial<> L
+    ily
+    = ' '
+    %span.initial<> F
+    aden
+  and
+  %br
+  %span.name
+    %span.initial<> A
+    dal
+    = ' '
+    %span.initial<> H
+    ernandez
+  %br
+  Announce Their Commitment to a
+  %br
+  %span.name
+    %span.initial<> M
+    arital
+    = ' '
+    %span.initial<> U
+    nion
+  %br
+  Ritual, Ceremony and Reception to be held
+  %br
+  In New York City on
+  %br
+  %span.date
+    %span.initial<> S
+    aturday,
+    = ' '
+    %span.initial<> M
+    ay 23, 2015
+  %br
+  %span.instructions Please submit your address and
+  %br
+  %span.instructions you will receive a formal invitation by mail
+= form_for @invitation do |f|
+  .form-row
+    = label_tag 'Name(s)'
+    = text_field_tag 'name', params[:name], class: 'form-control', required: true
+  .form-row
+    = f.label :address
+    = f.text_area :address, :rows => 4, class: 'form-control', required: true
+  .form-row
+    = f.label :email
+    = f.email_field :email, class: 'form-control'
+  .form-row
+    = f.label :notes, 'Comments'
+    = f.text_area :notes, :rows => 4, class: 'form-control'
+  .form-row.form-row--checkbox
+    = f.check_box :no_paper_invite
+    = f.label :no_paper_invite, 'Opt out of paper invitation'
+  .form-row.form-row--submit
+    = f.submit 'Submit', class: 'form-submit'
+    %p.flash
+      = flash[:notice]
+      = flash[:alert]
