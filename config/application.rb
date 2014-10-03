@@ -50,6 +50,6 @@ module Adalandlily
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '3.0'
 
-    config.assets.precompile += %w(tables.js tables.css addresses.js addresses.css rails_admin/rails_admin.css rails_admin/rails_admin.js)
+    config.assets.precompile += %w(welcome.css welcome.js tables.js tables.css addresses.js addresses.css rails_admin/rails_admin.css rails_admin/rails_admin.js)
   end
 end
