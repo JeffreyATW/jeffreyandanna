@@ -1,2 +1,2 @@
-//= require ckeditor/override
-//= require ckeditor/init
+//=# require ckeditor/override
+//=# require ckeditor/init
