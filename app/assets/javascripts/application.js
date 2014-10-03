@@ -20,4 +20,4 @@
 //= require libs/bootstrap-scrollspy
 //= require libs/bootstrap-carousel
 //= require jquery_nested_form
-//= require script
+//= require welcome

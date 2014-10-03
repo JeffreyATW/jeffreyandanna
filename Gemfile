@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
 
@@ -9,16 +10,19 @@ gem 'rails', '4.1.0'
 
 gem 'haml'
 #gem 'feedjira'
-gem 'rails_admin'
+gem 'rails_admin', git: 'git@github.com:sferik/rails_admin.git', ref: '54e7ccb2f3fb13c5c1a5c745701a0cb2167a9c27'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
 gem 'ckeditor'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails'
+gem 'sass-rails', '5.0.0.beta1'
 gem 'compass-rails'
 gem 'autoprefixer-rails'
+gem 'normalize-rails'
+gem 'jquery-rails'
+gem 'scut'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
@@ -38,8 +42,6 @@ group :production do
   gem 'rails_12factor'
   gem 'pg'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

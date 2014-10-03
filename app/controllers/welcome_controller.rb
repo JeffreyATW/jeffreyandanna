@@ -8,6 +8,10 @@ class WelcomeController < ApplicationController
       @invitation = Invitation.new
     end
 
-    render :layout => 'addresses'
+    render layout: false
+  end
+
+  def coming_soon
+    render layout: 'addresses'
   end
 end

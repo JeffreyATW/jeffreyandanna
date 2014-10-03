@@ -1,0 +1,95 @@
+/*
+ *= require jquery
+ *= require jquery.tubular.1.0
+ */
+
+!function () {
+  "use strict";
+
+    // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
+    var countGuests = function () {
+      var $this = $(this),
+        $visibleFieldsets = $this.find('fieldset:visible')
+      $visibleFieldsets.each(function (i, e) {
+        $(e).find('legend').text("Guest #" + (i + 1))
+      })
+      $this.find('.remove_nested_fields').toggle($visibleFieldsets.length > 1)
+      return $this
+    };
+
+    var assetLocation = <%= 'document.location.protocol + "//assets." + document.location.host + ' if Rails.env == 'production' %>"/objects/"
+    
+    $('[href^="#"]').each(function (i, link) {
+      $(link).click(function (event) {
+        // Go directly to section if mobile width.
+          var selector = $(this).attr('href'), $target = $(selector), $mainSection, $sectionLinks, $el
+          if ($target.hasClass('main_section')) {
+            scrollToSection(selector, $target)
+          } else if ($target.hasClass('item')) {
+            $mainSection = $target.closest('.main_section')
+            $sectionLinks = $mainSection.find('nav a')
+            $el = $sectionLinks.filter('[href=' + selector + ']')
+            scrollToSection('#' + $mainSection.attr('id'), $mainSection)
+            tabClicked({
+              data: {
+                section: $mainSection,
+                $sectionLinks: $sectionLinks,
+                $el: $el,
+                index: $sectionLinks.index($el)
+              }
+            })
+          }
+          event.preventDefault();
+      });
+    });
+
+    var $rsvp = $('#rsvp');
+    // Replace RSVP form with AJAX response.
+    $rsvp.on('submit', 'form', function () {
+      var $this = $(this),
+        guestFail = false
+      // Only look for visible guest names - deleted names still exist in the
+      // DOM
+      $this.find('.guest_name:visible').each(function () {
+        var val = $(this).val()
+        if (val === "Guest") {
+          // don't submit form if person says cancel - set guestFail to true
+          // which will return false down below
+          guestFail = !confirm('It looks like you have left some guests\' names as "Guest". Do you want to continue to RSVP and provide their names some time later?')
+          return false
+        } else if (val === "") {
+          alert('Please fill in all guest names, or remove guests who are not coming!')
+          guestFail = true
+          return false
+        }
+        return true
+      });
+      if (guestFail) {
+        return false
+      }
+      $.ajax($this.attr('action'), {
+        type: $this.attr('method'),
+        data: $this.serialize(),
+        dataType: 'html',
+        success: function (data) {
+          var $container = $this.closest('.container')
+          $container.empty().html(data)
+          countGuests.call($container)
+          $('.flash', $container).fadeOut(5000)
+        }
+      });
+      return false
+    });
+
+    // Show objects for requested section
+    if (window.location.hash) {
+      $('[href=' + window.location.hash + ']').click()
+    }
+
+    // Count guests if a form loads with the page, and when guests are added
+    // or removed.
+    countGuests.call($rsvp);
+    $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests);
+
+    $('body').tubular({videoId: 'iOA46XuRRI8', start: 31, ratio: 4/3});
+}();
