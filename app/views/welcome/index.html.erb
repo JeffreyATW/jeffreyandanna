@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Adal and Lily</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,26 +16,46 @@
     <%= stylesheet_link_tag 'welcome' %>
     <%# <script src="js/vendor/modernizr-2.6.2.min.js"></script> %>
 </head>
-<body>
+<body ng-app="AdalAndLily" ng-controller="MainController">
 
-<h1 class="title">Adal and Lily</h1>
+<h1 class="title">Adal and Lily {{hello}}</h1>
+
+<div class="view-container">
+    <div ng-view="" class="view">
+    </div>
+</div>
 
 <nav class="nav">
     <ul class="nav__list">
         <li>
-            <a href="#rsvp">RSVP</a>
+            <a href="#/rsvp">RSVP</a>
         </li>
         <li>
-            <a href="#information">Wedding & Travel Information</a>
+            <a href="#/information">Wedding & Travel Information</a>
         </li>
         <li>
-            <a href="#about">Meet Lily & Adal</a>
+            <a href="#/about">Meet Lily & Adal</a>
         </li>
         <li>
-            <a href="#manray">Honoring Man Ray & The Dada Movement</a>
+            <a href="#/manray">Honoring Man Ray & The Dada Movement</a>
         </li>
     </ul>
 </nav>
+
+<script type="text/ng-template" id="page.html">
+    <section class="section--rsvp" ng-show="page === 'rsvp'">
+        RSVP PAGE
+    </section>
+    <section class="section--information" ng-show="page === 'information'">
+        INFORMATION PAGE
+    </section>
+    <section class="section--about" ng-show="page === 'about'">
+        ABOUT PAGE
+    </section>
+    <section class="section--manray" ng-show="page === 'manray'">
+        MAN RAY PAGE
+    </section>
+</script>
 
 <%= javascript_include_tag 'welcome' %>
 

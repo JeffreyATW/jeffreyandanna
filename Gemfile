@@ -23,6 +23,11 @@ gem 'autoprefixer-rails'
 gem 'normalize-rails'
 gem 'jquery-rails'
 gem 'scut'
+gem 'autoprefixer-rails'
+
+gem 'rails-assets-angular'
+gem 'rails-assets-angular-route'
+gem 'rails-assets-angular-animate'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby

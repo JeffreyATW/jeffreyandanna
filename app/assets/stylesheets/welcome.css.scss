@@ -5,6 +5,10 @@
 
 @import 'scut';
 
+* {
+  box-sizing: border-box;
+}
+
 #tubular-shield {
   background: rgba(0,0,0,.5);
 }
@@ -56,3 +60,39 @@ $nav-height: 100px;
   }
 }
 
+.view-container {
+  @include scut-center-absolutely(image-width('card.png') image-height('card.png'));
+  perspective: 1000px;
+  position: absolute;
+  z-index: 5;
+}
+
+.view {
+  backface-visibility: hidden;
+  background: image-url('card.png');
+  height: image-height('card.png');
+  padding: 40px;
+  position: absolute;
+  width: image-width('card.png');
+  transition: transform 1s linear, filter .5s linear, -webkit-filter .5s linear;
+  transform-style: preserve-3d;
+}
+
+.view.ng-leave {
+  filter: brightness(1);
+  transform: rotateY(0);
+  &.ng-leave-active {
+    filter: brightness(0.5);
+    transform: rotateY(180deg);
+  }
+}
+
+.view.ng-enter {
+  filter: brightness(2);
+  transform: rotateY(-180deg);
+  z-index: 4;
+  &.ng-enter-active {
+    filter: brightness(1);
+    transform: rotateY(0);
+  }
+}

@@ -1,6 +1,9 @@
 /*
  *= require jquery
  *= require jquery.tubular.1.0
+ *= require angular
+ *= require angular-route
+ *= require angular-animate
  */
 
 !function () {
@@ -18,30 +21,6 @@
     };
 
     var assetLocation = <%= 'document.location.protocol + "//assets." + document.location.host + ' if Rails.env == 'production' %>"/objects/"
-    
-    $('[href^="#"]').each(function (i, link) {
-      $(link).click(function (event) {
-        // Go directly to section if mobile width.
-          var selector = $(this).attr('href'), $target = $(selector), $mainSection, $sectionLinks, $el
-          if ($target.hasClass('main_section')) {
-            scrollToSection(selector, $target)
-          } else if ($target.hasClass('item')) {
-            $mainSection = $target.closest('.main_section')
-            $sectionLinks = $mainSection.find('nav a')
-            $el = $sectionLinks.filter('[href=' + selector + ']')
-            scrollToSection('#' + $mainSection.attr('id'), $mainSection)
-            tabClicked({
-              data: {
-                section: $mainSection,
-                $sectionLinks: $sectionLinks,
-                $el: $el,
-                index: $sectionLinks.index($el)
-              }
-            })
-          }
-          event.preventDefault();
-      });
-    });
 
     var $rsvp = $('#rsvp');
     // Replace RSVP form with AJAX response.
@@ -81,15 +60,33 @@
       return false
     });
 
-    // Show objects for requested section
-    if (window.location.hash) {
-      $('[href=' + window.location.hash + ']').click()
-    }
-
     // Count guests if a form loads with the page, and when guests are added
     // or removed.
     countGuests.call($rsvp);
     $rsvp.on('nested:fieldAdded nested:fieldRemoved', 'form', countGuests);
 
     $('body').tubular({videoId: 'iOA46XuRRI8', start: 31, ratio: 4/3});
+
+    var angularApp = angular.module('AdalAndLily', ['ngRoute', 'ngAnimate']);
+    angularApp
+      .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+
+        $routeProvider
+          .when('/', {
+            controller: 'MainController',
+            template: ''
+          })
+          .when('/:page', {
+            controller: 'PageController',
+            templateUrl: 'page.html'
+          })
+          .otherwise({
+            redirectTo: '/'
+          });
+      }])
+      .controller('MainController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+      }])
+      .controller('PageController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+          $scope.page = $routeParams.page;
+      }])
 }();

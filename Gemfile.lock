@@ -159,6 +159,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.0)
       sprockets-rails (~> 2.0)
+    rails-assets-angular (1.2.26)
+    rails-assets-angular-animate (1.2.26)
+      rails-assets-angular (= 1.2.26)
+    rails-assets-angular-route (1.2.26)
+      rails-assets-angular (= 1.2.26)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -230,6 +235,9 @@ DEPENDENCIES
   pg
   rabl
   rails (= 4.1.0)
+  rails-assets-angular
+  rails-assets-angular-animate
+  rails-assets-angular-route
   rails_12factor
   rails_admin!
   sass-rails (= 5.0.0.beta1)
