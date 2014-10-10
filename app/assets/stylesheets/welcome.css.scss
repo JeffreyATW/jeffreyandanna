@@ -61,21 +61,45 @@ $nav-height: 100px;
 }
 
 .view-container {
-  @include scut-center-absolutely(image-width('card.png') image-height('card.png'));
-  perspective: 1000px;
+  height: 75%;
+  left: 12.5%;
+  perspective: 2000px;
   position: absolute;
+  top: 5%;
+  width: 75%;
   z-index: 5;
 }
 
 .view {
+  background: white;
   backface-visibility: hidden;
-  background: image-url('card.png');
-  height: image-height('card.png');
+  border: 40px solid black;
+  height: 100%;
   padding: 40px;
   position: absolute;
-  width: image-width('card.png');
+  width: 100%;
   transition: transform 1s linear, filter .5s linear, -webkit-filter .5s linear;
   transform-style: preserve-3d;
+  &:before, &:after {
+    border: 8px solid black;
+    content: '';
+    pointer-events: none;
+    position: absolute;
+  }
+  &:before {
+    top: 8px;
+    left: 8px;
+    bottom: 8px;
+    right: 8px;
+
+  }
+  &:after {
+    border-width: 4px;
+    top: 18px;
+    left: 18px;
+    bottom: 18px;
+    right: 18px;
+  }
 }
 
 .view.ng-leave {
