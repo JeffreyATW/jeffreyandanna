@@ -81,6 +81,7 @@ $nav-height: 100px;
 .view-container {
   height: 75%;
   left: 12.5%;
+  max-width: 800px;
   perspective: 2000px;
   position: absolute;
   top: 5%;
@@ -93,7 +94,7 @@ $nav-height: 100px;
   backface-visibility: hidden;
   border: 40px solid black;
   height: 100%;
-  padding: 40px;
+  padding: 22px;
   position: absolute;
   width: 100%;
   transition: transform 1s linear, filter .5s linear, -webkit-filter .5s linear;
@@ -140,6 +141,9 @@ $nav-height: 100px;
 }
 
 .section {
+  height: 100%;
+  overflow: auto;
+  padding: 18px;
   p {
     &:first-child {
       margin-top: 0;
@@ -148,4 +152,50 @@ $nav-height: 100px;
       margin-bottom: 0;
     }
   }
+  &--rsvp {
+    label {
+      display: inline-block;
+      vertical-align: top;
+      width: 140px;
+    }
+    input[type=text], input[type=email], textarea {
+      background: #eee;
+      border: none;
+      outline: none;
+      width: 200px;
+    }
+    input[type=text], input[type=email] {
+      border-bottom: 2px dashed black;
+    }
+  }
+}
+
+.rsvp {
+  &__instructions {
+    text-align: center;
+  }
+  &__row {
+    margin: 1em 0;
+  }
+  &__field, &__button {
+    outline: none;
+  }
+  &__field {
+    display: block;
+    font-size: 3em;
+    margin: 0 auto 10px;
+    text-align: center;
+    width: 200px;
+  }
+  &__button {
+    background: transparent;
+    border: 4px outset;
+    font-size: 1.5em;
+    &:active {
+      border-style: inset;
+    }
+  }
+}
+label.rsvp__going {
+  width: 100px;
 }

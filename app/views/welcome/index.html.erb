@@ -44,7 +44,11 @@
 
 <script type="text/ng-template" id="page.html">
     <section class="section section--rsvp" ng-show="page === 'rsvp'">
-        RSVP PAGE
+        <% if @invitation.present? && @invitation.persisted? %>
+        <%= render :file => "invitations/edit" %>
+        <% else %>
+        <%= render :partial => "invitations/rsvp" %>
+        <% end %>
     </section>
     <section class="section section--information" ng-show="page === 'information'">
         <p>Our wedding ceremony and reception will be held in Terrace on the Park, an iconic landmark built to be the heliport used during the 1960’s Worlds Fair in Queens, New York. Terrace on the Park is located at 52-11 111th Street, Flushing Meadows Park. <a href="https://www.google.com/maps/place/52-11+111th+St,+Corona,+NY+11368/@40.752004,-73.848982,14z/data=!4m2!3m1!1s0x89c25fd0f5c263e9:0xec468ba86d69aad7">Click here for directions.</a></p>

@@ -3,12 +3,12 @@
   -# Moves legend down
   %div
     %legend Guest
-  .form_row
+  .rsvp__row
     = f.label :name
     = f.text_field :name, :class => 'guest_name'
-  .form_row
+  .rsvp__row
     = f.label :special_needs
     = f.text_field :special_needs
-  .form_row
+  -#.rsvp__row
     = f.label :under_4
     = f.check_box :under_4

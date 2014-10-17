@@ -1,9 +1,9 @@
-.centerer
+.rsvp__instructions
   %p Respond to our letter by mail or phone, or enter your RSVP code here:
   = form_for @invitation, :method => 'patch', :url => { :controller => "invitations", :action => "update" } do |f|
     = hidden_field_tag :updating_invitation, true
-    = f.text_field :rsvp, :maxlength => 4
-    = f.submit "RSVP"
+    = f.text_field :rsvp, :maxlength => 4, :class => 'rsvp__field'
+    = f.submit "RSVP", :class => 'rsvp__button'
   - if @invitation.errors.present?
     %p= @invitation.errors[:base].first
   - else
