@@ -9,6 +9,18 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Goudy Bookletter 1911', serif;
+}
+
+a {
+  color: #999;
+  transition: color .5s ease;
+  &:hover {
+    color: #ccc;
+  }
+}
+
 #tubular-shield {
   background: rgba(0,0,0,.5);
 }
@@ -20,17 +32,23 @@ $nav-height: 100px;
 }
 
 .title {
-  bottom: $nav-height;
-  color: #fff; // temp
+  bottom: $nav-height + 10px;
+  height: 200px;
   margin: 0;
-  padding: 1em;
   position: absolute;
-  right: 0;
+  right: 10px;
+  width: 217px;
+  a {
+    @extend %scut-image-replace;
+    background: image-url('title.svg') no-repeat;
+    background-size: contain;
+    display: block;
+    height: 100%;
+  }
 }
 
 .nav {
   background: #666;
-  font-family: 'Goudy Bookletter 1911', serif;
   height: $nav-height;
   bottom: 0;
   text-transform: uppercase;
@@ -118,5 +136,16 @@ $nav-height: 100px;
   &.ng-enter-active {
     filter: brightness(1);
     transform: rotateY(0);
+  }
+}
+
+.section {
+  p {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
