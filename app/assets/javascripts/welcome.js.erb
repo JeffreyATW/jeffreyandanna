@@ -2,9 +2,6 @@
  *= require jquery
  *= require jquery.tubular.1.0
  *= require jquery_nested_form
- *= require angular
- *= require angular-route
- *= require angular-animate
  */
 
 !function () {
@@ -88,5 +85,8 @@
       .controller('PageController', ['$scope', '$routeParams', function ($scope, $routeParams) {
           $scope.page = $routeParams.page;
           countGuests();
+          setTimeout(function () {
+              $('html,body').animate({scrollTop: $('.view-container').offset().top});
+          }, 1000);
       }])
 }();

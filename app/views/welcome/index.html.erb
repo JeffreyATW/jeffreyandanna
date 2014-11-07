@@ -14,16 +14,11 @@
 
     <link href='//fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag 'welcome' %>
-    <%# <script src="js/vendor/modernizr-2.6.2.min.js"></script> %>
+    <%= javascript_include_tag 'head' %>
 </head>
 <body ng-app="AdalAndLily">
 
 <h1 class="title"><a href="#/">Adal and Lily</a></h1>
-
-<div class="view-container">
-    <div ng-view="" class="view" ng-show="page !== undefined">
-    </div>
-</div>
 
 <nav class="nav">
     <ul class="nav__list">
@@ -42,6 +37,11 @@
     </ul>
 </nav>
 
+<div class="view-container">
+    <div ng-view="" class="view" ng-show="page !== undefined">
+    </div>
+</div>
+
 <script type="text/ng-template" id="page.html">
     <section class="section section--rsvp" ng-show="page === 'rsvp'">
         <% if @invitation.present? && @invitation.persisted? %>
@@ -56,10 +56,10 @@
         <p>We have reserved a number of hotel rooms at <a href="http://coronahotelny.com/">The Corona Hotel</a> in Queens for a rate of $150 a night including tax. This hotel is a 15 minute walk or 5 minute cab ride from the wedding venue. The hotel is also just a few blocks from the “7” subway line, which takes you directly to several major tourist destinations in Manhattan, such as Grand Central Terminal, Bryant Park, and Times Square.</p>
     </section>
     <section class="section section--about" ng-show="page === 'about'">
-        ABOUT PAGE
+        Coming soon!
     </section>
     <section class="section section--manray" ng-show="page === 'manray'">
-        MAN RAY PAGE
+        Coming soon!
     </section>
 </script>
 

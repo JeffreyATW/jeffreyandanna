@@ -3,13 +3,17 @@
  *= require_self
  */
 
+@charset 'UTF-8';
 @import 'scut';
 
 * {
   box-sizing: border-box;
 }
 
+$text-color: #111;
 body {
+  background: #333;
+  color: $text-color;
   font-family: 'Goudy Bookletter 1911', serif;
 }
 
@@ -49,8 +53,9 @@ $nav-height: 100px;
 
 .nav {
   background: #666;
-  height: $nav-height;
   bottom: 0;
+  height: $nav-height;
+  overflow: hidden;
   text-transform: uppercase;
   width: 100%;
 
@@ -99,6 +104,7 @@ $nav-height: 100px;
   width: 100%;
   transition: transform 1s linear, filter .5s linear, -webkit-filter .5s linear;
   transform-style: preserve-3d;
+  transform: translateZ(0);
   &:before, &:after {
     border: 8px solid black;
     content: '';
@@ -123,24 +129,25 @@ $nav-height: 100px;
 
 .view.ng-leave {
   filter: brightness(1);
-  transform: rotateY(0);
+  transform: translateZ(0) rotateY(0);
   &.ng-leave-active {
     filter: brightness(0.5);
-    transform: rotateY(180deg);
+    transform: translateZ(0) rotateY(180deg);
   }
 }
 
 .view.ng-enter {
   filter: brightness(2);
-  transform: rotateY(-180deg);
+  transform: translateZ(0) rotateY(-180deg);
   z-index: 4;
   &.ng-enter-active {
     filter: brightness(1);
-    transform: rotateY(0);
+    transform: translateZ(0) rotateY(0);
   }
 }
 
 .section {
+  backface-visibility: hidden;
   height: 100%;
   overflow: auto;
   padding: 18px;
@@ -153,6 +160,9 @@ $nav-height: 100px;
     }
   }
   &--rsvp {
+    legend {
+      font-weight: bold;
+    }
     label {
       display: inline-block;
       vertical-align: top;
@@ -162,6 +172,7 @@ $nav-height: 100px;
       background: #eee;
       border: none;
       outline: none;
+      padding: 2px 4px;
       width: 200px;
     }
     input[type=text], input[type=email] {
@@ -198,4 +209,81 @@ $nav-height: 100px;
 }
 label.rsvp__going {
   width: 100px;
+}
+
+.fields {
+  margin: 1em 0;
+}
+
+.remove_nested_fields, .add_nested_fields {
+  &:before {
+    background: $text-color;
+    border-radius: 1em;
+    color: #fff;
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: bold;
+    height: 1em;
+    line-height: 1em;
+    margin-right: .25em;
+    text-align: center;
+    width: 1em;
+  }
+  color: $text-color;
+  vertical-align: middle;
+}
+
+.remove_nested_fields {
+  float: right;
+  &:before {
+    content: '–';
+  }
+}
+
+.add_nested_fields {
+  &:before {
+    content: '+';
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  #tubular-container, #tubular-shield {
+    display: none;
+  }
+
+  .title, .nav, .view-container {
+    position: static;
+  }
+
+  .title, .nav {
+    margin: 1em auto;
+  }
+
+  .nav, .view-container, .view, .section {
+    height: auto;
+  }
+
+  .nav {
+    ul, li {
+      display: block;
+    }
+
+    li {
+      width: auto;
+    }
+
+    a {
+      margin: .5em auto;
+      max-width: 100%;
+      padding: 0;
+    }
+  }
+
+  .view-container {
+    width: auto;
+  }
+
+  .view {
+    border: none;
+  }
 }
