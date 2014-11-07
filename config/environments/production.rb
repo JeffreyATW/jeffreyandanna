@@ -48,7 +48,7 @@ Adalandlily::Application.configure do
   # config.action_controller.asset_host = "http://adalandlily.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( libs/modernizr-2.6.2.min.js )
+  config.assets.precompile += %w( head.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
