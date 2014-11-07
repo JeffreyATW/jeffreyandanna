@@ -10,12 +10,5 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require resize
-//= require libs/jquery.mousewheel
-//= require libs/jquery.preloadCssImages
-//= require libs/bootstrap-transition
-//= require libs/bootstrap-scrollspy
-//= require libs/bootstrap-carousel
 //= require jquery_nested_form
 //= require welcome
