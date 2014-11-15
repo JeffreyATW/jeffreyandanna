@@ -10,11 +10,11 @@
     // Number guest fieldsets. Skip hidden (to-be-deleted) ones.
     var countGuests = function () {
       var $form = $('.section--rsvp form'),
-        $visibleFieldsets = $form.find('fieldset:visible')
+        $visibleFieldsets = $form.find('fieldset:visible');
       $visibleFieldsets.each(function (i, e) {
         $(e).find('legend').text("Guest #" + (i + 1))
       });
-      $form.find('.remove_nested_fields').toggle($visibleFieldsets.length > 1)
+      $form.find('.remove_nested_fields').toggle($visibleFieldsets.length > 1);
       return $form;
     };
 
@@ -23,7 +23,7 @@
     // Replace RSVP form with AJAX response.
     $(document).on('submit', '.section--rsvp form', function () {
       var $this = $(this),
-        guestFail = false
+        guestFail = false;
       // Only look for visible guest names - deleted names still exist in the
       // DOM
       $this.find('.guest_name:visible').each(function () {
@@ -35,7 +35,7 @@
           return false
         } else if (val === "") {
           alert('Please fill in all guest names, or remove guests who are not coming!');
-          guestFail = true
+          guestFail = true;
           return false
         }
         return true
@@ -55,6 +55,14 @@
         }
       });
       return false
+    }).on('click', '[data-href]', function (event) {
+      var $this = $(this);
+      event.preventDefault();
+
+      var $target = $('#' + $this.data('href'));
+      var targetTop = $target.position().top + ($target.outerHeight(true) - $target.height()) / 2;
+
+      $this.closest('section').animate({scrollTop: targetTop});
     });
 
     // Count guests if a form loads with the page, and when guests are added

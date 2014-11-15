@@ -151,7 +151,8 @@ $nav-height: 100px;
   height: 100%;
   overflow: auto;
   padding: 18px;
-  p {
+  position: relative;
+  h2, p {
     &:first-child {
       margin-top: 0;
     }
@@ -178,6 +179,23 @@ $nav-height: 100px;
     input[type=text], input[type=email] {
       border-bottom: 2px dashed black;
     }
+  }
+  &__scroll-contents {
+    position: relative;
+  }
+}
+
+.anchors {
+  @extend %scut-list-unstyled;
+  float: right;
+  position: relative;
+  z-index: 1;
+  li {
+    float: left;
+    margin-left: 3em;
+  }
+  a {
+    cursor: pointer;
   }
 }
 
