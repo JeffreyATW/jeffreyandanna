@@ -125,29 +125,34 @@ $nav-height: 100px;
     bottom: 18px;
     right: 18px;
   }
-}
 
-.view.ng-leave {
-  filter: brightness(1);
-  transform: translateZ(0) rotateY(0);
-  &.ng-leave-active {
-    filter: brightness(0.5);
-    transform: translateZ(0) rotateY(180deg);
+  &.ng-leave, &.ng-enter {
+    .section {
+      overflow: hidden; // fixes a chrome backface-visibility bug
+    }
   }
-}
 
-.view.ng-enter {
-  filter: brightness(2);
-  transform: translateZ(0) rotateY(-180deg);
-  z-index: 4;
-  &.ng-enter-active {
+  &.ng-leave {
     filter: brightness(1);
     transform: translateZ(0) rotateY(0);
+    &.ng-leave-active {
+      filter: brightness(0.5);
+      transform: translateZ(0) rotateY(180deg);
+    }
+  }
+
+  &.ng-enter {
+    filter: brightness(2);
+    transform: translateZ(0) rotateY(-180deg);
+    z-index: 4;
+    &.ng-enter-active {
+      filter: brightness(1);
+      transform: translateZ(0) rotateY(0);
+    }
   }
 }
 
 .section {
-  backface-visibility: hidden;
   height: 100%;
   overflow: auto;
   padding: 18px;
