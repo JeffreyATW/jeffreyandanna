@@ -63,6 +63,7 @@
       var targetTop = $target.position().top + ($target.outerHeight(true) - $target.height()) / 2;
 
       $this.closest('section').animate({scrollTop: targetTop});
+      $('html,body').animate({scrollTop: $target.offset().top}); // for mobile
     });
 
     // Count guests if a form loads with the page, and when guests are added
