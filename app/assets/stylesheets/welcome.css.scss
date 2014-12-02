@@ -25,6 +25,10 @@ a {
   }
 }
 
+#tubular-container, #tubular-shield {
+  pointer-events: none;
+}
+
 #tubular-shield {
   background: rgba(0,0,0,.5);
 }

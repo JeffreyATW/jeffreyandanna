@@ -69,7 +69,13 @@
     // or removed.
     $(document).on('nested:fieldAdded nested:fieldRemoved', '.section--rsvp form', countGuests);
 
-    $('body').tubular({videoId: 'UvAnGTJjG_0', start: 31, ratio: 4/3});
+    $('body')
+            .tubular({videoId: 'UvAnGTJjG_0', start: 31, ratio: 4/3})
+            .on('click', function (e) {
+                if (e.target === e.delegateTarget) {
+                    window.location.hash = '#/';
+                }
+            });
 
     var angularApp = angular.module('AdalAndLily', ['ngRoute', 'ngAnimate']);
     angularApp
@@ -96,5 +102,5 @@
           setTimeout(function () {
               $('html,body').animate({scrollTop: $('.view-container').offset().top});
           }, 1000);
-      }])
+      }]);
 }();
