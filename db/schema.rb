@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140413050056) do
+ActiveRecord::Schema.define(version: 20150128221117) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0
@@ -49,15 +49,15 @@ ActiveRecord::Schema.define(version: 20140413050056) do
 
   create_table "invitations", force: true do |t|
     t.text     "address"
-    t.boolean  "responded"
-    t.boolean  "going"
+    t.boolean  "responded",          default: false, null: false
+    t.boolean  "going",              default: false, null: false
     t.string   "rsvp"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
     t.text     "notes"
-    t.boolean  "save_the_date_sent"
-    t.boolean  "invited"
+    t.boolean  "save_the_date_sent", default: false, null: false
+    t.boolean  "invited",            default: false, null: false
     t.boolean  "no_paper_invite"
   end
 
