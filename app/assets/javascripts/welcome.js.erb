@@ -18,8 +18,6 @@
       return $form;
     };
 
-    var assetLocation = <%= 'document.location.protocol + "//assets." + document.location.host + ' if Rails.env == 'production' %>"/objects/"
-
     // Replace RSVP form with AJAX response.
     $(document).on('submit', '.section--rsvp form', function () {
       var $this = $(this),
@@ -78,6 +76,8 @@
                 }
             });
 
+    var hiddenPhotos = $('.hidden-photos').contents().clone();
+
     var angularApp = angular.module('AdalAndLily', ['ngRoute', 'ngAnimate']);
     angularApp
       .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
@@ -95,7 +95,16 @@
             redirectTo: '/'
           });
       }])
+      .directive('photos', function () {
+          return {
+            restrict: 'E',
+            link: function (scope, element) {
+              element.append(hiddenPhotos);
+            }
+          }
+      })
       .controller('MainController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+          $('.section--photos').append($('.hidden-photos').contents());
       }])
       .controller('PageController', ['$scope', '$routeParams', function ($scope, $routeParams) {
           $scope.page = $routeParams.page;

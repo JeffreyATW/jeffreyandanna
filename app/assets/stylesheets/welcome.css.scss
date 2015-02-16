@@ -74,7 +74,7 @@ $nav-height: 100px;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 25%;
+    width: 20%;
   }
 
   a {
@@ -85,6 +85,10 @@ $nav-height: 100px;
     padding: 2em 0;
     text-decoration: none;
   }
+}
+
+.hidden-photos {
+  display: none;
 }
 
 .view-container {
@@ -191,6 +195,16 @@ $nav-height: 100px;
   }
   &__scroll-contents {
     position: relative;
+  }
+  &--photos {
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    iframe {
+      width: 100%;
+    }
   }
 }
 

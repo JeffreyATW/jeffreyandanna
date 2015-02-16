@@ -36,12 +36,19 @@
         <li>
             <a href="#/manray">Honoring Man Ray & The Dada Movement</a>
         </li>
+        <li>
+            <a href="#/photos">Photo Gallery</a>
+        </li>
     </ul>
 </nav>
 
 <div class="view-container">
     <div ng-view="" class="view" ng-show="page !== undefined">
     </div>
+</div>
+
+<div class="hidden-photos">
+  <script src="http://adal-and-lily.tumblr.com/js"></script>
 </div>
 
 <script type="text/ng-template" id="page.html">
@@ -80,11 +87,15 @@
             <li><a data-href="lily">Meet Lily</a></li>
         </ul>
     </section>
-    <section class="section section--manray" ng-show="page === 'manray'">
-        <p>The Dada artist Man Ray, who is Lily’s great-granduncle, has served as a tremendous source of artistic inspiration for both Lily and Adal.</p>
-        <p>In June 2011, Lily decided she wanted to get a tattoo of Man Ray’s <i>Calla Lillies</i>, and she chose Adal as her tattoo artist after he was recommended by a mutual friend. Adal was no stranger to the works of Man Ray and the Dada and surrealist movements - he had even given his son the middle name “Dali.” From an early age, Adal had gravitated towards the disposition of the Dada manifestos and notions of anti-art inevitably creating art, drawing inspiration from Rayographs, and the glowing qualities of Man Ray’s “solarized” prints.</p>
-        <p>In honor of Man Ray, and in an effort to continue his legacy and chosen name through bloodline, the couple will assume the surname Ray through this marital union.</p>
-    </section>
+  <section class="section section--manray" ng-show="page === 'manray'">
+      <p>The Dada artist Man Ray, who is Lily’s great-granduncle, has served as a tremendous source of artistic inspiration for both Lily and Adal.</p>
+      <p>In June 2011, Lily decided she wanted to get a tattoo of Man Ray’s <i>Calla Lillies</i>, and she chose Adal as her tattoo artist after he was recommended by a mutual friend. Adal was no stranger to the works of Man Ray and the Dada and surrealist movements - he had even given his son the middle name “Dali.” From an early age, Adal had gravitated towards the disposition of the Dada manifestos and notions of anti-art inevitably creating art, drawing inspiration from Rayographs, and the glowing qualities of Man Ray’s “solarized” prints.</p>
+      <p>In honor of Man Ray, and in an effort to continue his legacy and chosen name through bloodline, the couple will assume the surname Ray through this marital union.</p>
+  </section>
+  <section class="section section--photos" ng-show="page === 'photos'">
+    <photos></photos>
+    <a href="http://adal-and-lily.tumblr.com">More...</a>
+  </section>
 </script>
 
 <%= javascript_include_tag 'welcome' %>
