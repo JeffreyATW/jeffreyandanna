@@ -52,7 +52,7 @@ class TablesController < ApplicationController
   # POST /tables
   # POST /tables.json
   def create
-    @table = Table.new(params[:table])
+    @table = Table.new(params[:table].permit(:name, :notes, :x, :y, :table_type, :guest_ids => []))
 
     respond_to do |format|
       if @table.save
