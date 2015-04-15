@@ -14,6 +14,8 @@
 
   var csrfToken = $('meta[name="csrf-token"]').attr('content'),
 
+    maxGuests = 10,
+
     colors = {},
 
     sortableOpts = {
@@ -64,8 +66,8 @@
             return "must have a name";
           }
           if (attrs.table_type !== 'dance_floor') {
-            if (attrs.guests.length > 8) {
-              return "can't have more than 8 guests";
+            if (attrs.guests.length > maxGuests) {
+              return "can't have more than " + maxGuests + " guests";
             }
           } else {
             if (attrs.guests.length > 0) {
@@ -118,7 +120,7 @@
               $('.table_guests').not($(this).parent()).each(function () {
                 var $this = $(this);
 
-                if ($this.find('li').length >= 8) {
+                if ($this.find('li').length >= maxGuests) {
                   $this.sortable('disable');
                 } else {
                   $this.sortable('enable');
