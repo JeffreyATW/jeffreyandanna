@@ -42,6 +42,10 @@ $guest-line-height: 12px;
   transition-property: box-shadow, background;
   transition-duration: .2s;
   transition-easing-function: linear;
+  .guest {
+    font-size: 10px;
+    line-height: 10px;
+  }
   &.round {
     border-radius: 75px;
     height: 150px;
