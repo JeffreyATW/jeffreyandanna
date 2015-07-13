@@ -2,7 +2,7 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-Jeffreyandanna::Application.initialize!
+Jamesandchristina::Application.initialize!
 
 ActionMailer::Base.smtp_settings = {
   :address => 'smtp.mandrillapp.com',

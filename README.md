@@ -1,4 +1,4 @@
-jeffreyandanna
+jamesandchristina
 ==============
 
-The joint website for Jeffrey and Anna!
+The wedding website for James and Christina!

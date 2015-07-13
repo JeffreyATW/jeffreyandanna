@@ -1,4 +1,4 @@
-Jeffreyandanna::Application.routes.draw do
+Jamesandchristina::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :users
