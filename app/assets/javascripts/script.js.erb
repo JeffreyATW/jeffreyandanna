@@ -122,7 +122,7 @@
   $(function () {
     // Check for media query support
     var $rsvp, $carousel, mq = Modernizr.mq('only all'), imgUrls = []
-      , assetLocation = <%= 'document.location.protocol + "//assets." + document.location.host + ' if Rails.env == 'production' %>"/objects/"
+      , assetLocation = <%= 'document.location.protocol + "//assets." + document.location.host + ' if Rails.env == 'production' %>"/assets/objects/"
     controller = $.superscrollorama()
     windowHeight = $(window).height()
     windowWidth = $(window).width()

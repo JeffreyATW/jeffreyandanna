@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -16,7 +16,8 @@ gem 'dotenv-rails', :groups => [:development, :test, :production]
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails'
-gem 'compass-rails'
+gem 'rails-sass-images'
+gem 'autoprefixer-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
@@ -24,7 +25,7 @@ gem 'compass-rails'
 gem 'uglifier', '>= 1.0.3'
 
 group :development do
-  gem 'debugger'
+  gem 'byebug'
 end
 
 group :development, :production do
