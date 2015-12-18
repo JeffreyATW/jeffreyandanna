@@ -1,7 +1,3 @@
-- if @invitation.going
-  %i.icon-ok-circle.badge
-- else
-  %i.icon-remove-circle.badge
 %p
   - if @invitation.going
     Thank you for sending your RSVP!
@@ -14,22 +10,22 @@
     If you can't come, or if you need to make any changes, you can do so
     below, then press "Update Invitation".
 = nested_form_for @invitation, :method => 'patch', :url => rsvp_path do |f|
-  .form_row
+  .rsvp__row
     = f.label :going, "Attending"
     = f.radio_button :going, "1", :checked => @invitation.going
-    = f.label :going, "Yes"
+    = f.label :going, "Yes", :class => 'rsvp__going'
     = f.radio_button :going, "0", :checked => !@invitation.going
-    = f.label :going, "No"
-  .form_row
+    = f.label :going, "No", :class => 'rsvp__going'
+  .rsvp__row
     = f.label :email
     = f.email_field :email
-  .form_row
+  .rsvp__row
     = f.label :address
     = f.text_area :address, :rows => 4
   = f.fields_for :guests
-  = f.link_to_add " Add a guest", :guests, :class => "icon-plus-sign"
-  .form_row
-    = f.submit
+  = f.link_to_add "Add a guest", :guests
+  .rsvp__row
+    = f.submit :class => 'rsvp__button'
     %p.flash
       = flash[:notice]
       = flash[:alert]

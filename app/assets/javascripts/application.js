@@ -11,13 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require resize
-//= require libs/greensock/TweenMax
-//= require libs/jquery.superscrollorama
-//= require libs/jquery.mousewheel
-//= require libs/jquery.preloadCssImages
-//= require libs/bootstrap-transition
-//= require libs/bootstrap-scrollspy
-//= require libs/bootstrap-carousel
 //= require jquery_nested_form
 //= require script

@@ -19,3 +19,4 @@ pickle-email-*.html
 .idea
 .env
 /public/assets/
+.byebug_history

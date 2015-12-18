@@ -8,7 +8,5 @@ class WelcomeController < ApplicationController
     else
       @invitation = Invitation.new
     end
-
-    render :layout => false
   end
 end
