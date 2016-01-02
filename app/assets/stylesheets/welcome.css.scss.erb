@@ -112,6 +112,17 @@ td { vertical-align: top; }
     padding: 0 $container-horiz-padding;
   }
 
+  .centerer {
+    box-sizing: border-box;
+    left: 25%;
+    margin-left: -$container-horiz-padding;
+    padding: 0 $container-horiz-padding;
+    position: absolute;
+    top: 25%;
+    text-align: center;
+    width: 50%;
+  }
+
   .form_row {
     margin: 1em 0;
   }
@@ -185,20 +196,6 @@ td { vertical-align: top; }
       font-size: 18px;
     }
   }
-
-  @media only screen and (min-width: $mobile-width) and (min-height: 600px) {
-    .centerer {
-      box-sizing: border-box;
-      left: 25%;
-      margin-left: -$container-horiz-padding;
-      padding: 0 $container-horiz-padding;
-      position: absolute;
-      top: 25%;
-      text-align: center;
-      width: 50%;
-    }
-  }
-
 
   .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
   .ir br { display: none; }
