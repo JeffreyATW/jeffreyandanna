@@ -142,11 +142,30 @@ td { vertical-align: top; }
       font-size: 3em;
       width: 190px;
       margin-right: .5em;
+      vertical-align: middle;
     }
   }
 
   input[type="submit"] {
-    font-size: 2.7em;
+    border: none;
+    border-radius: 300px;
+    transition: .1s opacity linear;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-style: normal;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    padding: 1em 2.5em;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+    color: #fff;
+    background-color: #a2bdbe;
+    font-size: 14px;
+    vertical-align: middle;
   }
 
   form.edit_invitation {
@@ -173,7 +192,7 @@ td { vertical-align: top; }
     }
   }
 
-  input[type="submit"], .remove_nested_fields, .add_nested_fields {
+  .remove_nested_fields, .add_nested_fields {
     border: none;
     padding: 5px 10px;
   }
@@ -188,6 +207,11 @@ td { vertical-align: top; }
 
   .remove_nested_fields {
     float: right;
+  }
+
+  .rsvp__row--actions {
+    margin-top: 1em;
+    text-align: center;
   }
 
   $mobile-width: 710px;

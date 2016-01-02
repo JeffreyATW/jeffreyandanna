@@ -24,7 +24,7 @@
     = f.text_area :address, :rows => 4
   = f.fields_for :guests
   = f.link_to_add "Add a guest", :guests
-  .rsvp__row
+  .rsvp__row.rsvp__row--actions
     = f.submit :class => 'rsvp__button'
     %p.flash
       = flash[:notice]
