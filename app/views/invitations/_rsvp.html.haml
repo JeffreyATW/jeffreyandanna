@@ -1,5 +1,5 @@
 .centerer
-  %p Respond to our letter by mail or phone, or enter your RSVP code here:
+  %p Enter your RSVP code here:
   = form_for @invitation, :method => 'patch', :url => { :controller => "invitations", :action => "update" } do |f|
     = hidden_field_tag :updating_invitation, true
     = f.text_field :rsvp, :maxlength => 4
@@ -10,3 +10,6 @@
     %p
       If you can't make it, please enter your code anyway, and in the next step
       you will be able to set "Attending" to "No" and click "Update Invitation."
+    %p
+      If you have any issues or would prefer to RSVP another way, please call or
+      email us.
