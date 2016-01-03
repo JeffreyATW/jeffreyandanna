@@ -205,6 +205,9 @@ RailsAdmin.config do |config|
       field :responded
       field :going
       field :notes
+      field :rsvp do
+        help 'Optional. Leave blank to generate a random code.'
+      end
     end
   #   export do; end
   #   show do; end

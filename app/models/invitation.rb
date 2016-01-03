@@ -3,7 +3,7 @@ class Invitation < ActiveRecord::Base
   accepts_nested_attributes_for :guests, :allow_destroy => true
 
   before_save :ensure_has_one_guest
-  before_create :generate_rsvp
+  before_save :generate_rsvp
   validates_associated :guests
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true
 
@@ -87,7 +87,7 @@ class Invitation < ActiveRecord::Base
   end
 
   def generate_rsvp
-    self.rsvp = ('A'..'Z').to_a.shuffle[0,4].join
+    self.rsvp = ('A'..'Z').to_a.shuffle[0,4].join if self.rsvp.blank?
   end
 
   def get_binding
