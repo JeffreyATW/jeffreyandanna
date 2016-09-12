@@ -1,4 +1,4 @@
-ruby '2.2.2'
+ruby '2.2.5'
 source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
