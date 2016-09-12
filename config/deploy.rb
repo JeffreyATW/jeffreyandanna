@@ -8,7 +8,7 @@ set :repo_url, 'git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/jeffreyatw/webapps/jeffreyandannawelcome'
+set :deploy_to, '/home/jeffreyatw/webapps/jeffreyandannarails'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -30,12 +30,12 @@ set :deploy_to, '/home/jeffreyatw/webapps/jeffreyandannawelcome'
 
 # Default value for default_env is {}
 set :default_env, {
-  PATH: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems/bin:$PATH",
-  GEM_PATH: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems",
-  GEM_HOME: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
+  PATH: "#{fetch(:deploy_to)}/gems/bin:$PATH",
+  GEM_PATH: "#{fetch(:deploy_to)}/gems",
+  GEM_HOME: "#{fetch(:deploy_to)}/gems"
 }
 
-set :tmp_dir, "/home/jeffreyatw/tmp"
+set :tmp_dir, "#{fetch(:deploy_to)}/tmp"
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
