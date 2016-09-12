@@ -25,10 +25,10 @@ set :dotenv_role, [:app, :web]
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('.env')
 
 # Default value for linked_dirs is []
-# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('log')
 
 # Default value for default_env is {}
 set :default_env, {
@@ -47,16 +47,7 @@ namespace :deploy do
   task :restart do
     run "#{fetch(:deploy_to)}/bin/restart"
   end
-
-  task :create_symlink do
-    on roles(:app) do
-        execute "cd #{fetch(:release_path)}; ln -s #{fetch(:deploy_to)}/shared/.env .env"
-        info "Created environment file"
-    end
-  end
 end
-
-before 'deploy:assets:precompile', "deploy:create_symlink"
 
 namespace :db do
 
