@@ -205,7 +205,7 @@
           } else if ($target.hasClass('item')) {
             $mainSection = $target.closest('.main_section')
             $sectionLinks = $mainSection.find('nav a')
-            $el = $sectionLinks.filter('[href=' + selector + ']')
+            $el = $sectionLinks.filter('[href="' + selector + '"]')
             scrollToSection('#' + $mainSection.attr('id'), $mainSection)
             tabClicked({
               data: {
