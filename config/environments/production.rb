@@ -33,7 +33,7 @@ Jeffreyandanna::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -45,7 +45,7 @@ Jeffreyandanna::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://assets.jeffreyandanna.us"
+  # config.action_controller.asset_host = "http://assets.jeffreyandanna.us"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( libs/modernizr-2.6.2.min.js )
