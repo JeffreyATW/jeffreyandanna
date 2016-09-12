@@ -48,6 +48,7 @@ namespace :deploy do
     run "#{fetch(:deploy_to)}/bin/restart"
   end
 end
+after :finishing, 'deploy:restart'
 
 namespace :db do
 
