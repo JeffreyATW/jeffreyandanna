@@ -1,48 +1,49 @@
-require "bundler/capistrano"
-require "dotenv/capistrano"
-# require "delayed/recipes"
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-# set :rails_env, 'production' #added for delayed job
 set :application, "jeffreyandanna"
-set :repository,  "git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git"
+set :repo_url, 'git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git'
 
-set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-set :deploy_to, "/home/jeffreyatw/webapps/jeffreyandannawelcome"
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, '/home/jeffreyatw/webapps/jeffreyandannawelcome'
 
-role :web, "web308.webfaction.com"                          # Your HTTP server, Apache/etc
-role :app, "web308.webfaction.com"                          # This may be the same as your `Web` server
-role :db,  "web308.webfaction.com", :primary => true # This is where Rails migrations will run
+# Default value for :scm is :git
+# set :scm, :git
 
-set :user, "jeffreyatw"
-set :use_sudo, false
-default_run_options[:pty] = true
+# Default value for :format is :pretty
+# set :format, :pretty
 
-default_environment['PATH'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems/bin:$PATH"
-default_environment['GEM_PATH'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
-default_environment['GEM_HOME'] = "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-# after "deploy:stop",    "delayed_job:stop"
-# after "deploy:start",   "delayed_job:start"
-# after "deploy:restart", "delayed_job:restart"
+# Default value for :pty is false
+# set :pty, true
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+# Default value for :linked_files is []
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+# Default value for linked_dirs is []
+# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for default_env is {}
+set :default_env, {
+  PATH: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems/bin:$PATH",
+  GEM_PATH: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems",
+  GEM_HOME: "/home/jeffreyatw/webapps/jeffreyandannawelcome/gems"
+}
+
+set :tmp_dir, "/home/jeffreyatw/tmp"
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
 namespace :deploy do
   desc "Restart nginx"
   task :restart do
-    run "#{deploy_to}/bin/restart"
+    run "#{fetch(:deploy_to)}/bin/restart"
   end
 end
 
@@ -51,7 +52,7 @@ namespace :db do
   desc "Populates the Production Database"
   task :seed do
     puts "\n\n=== Populating the Production Database! ===\n\n"
-    run "cd #{current_path}; rake db:seed RAILS_ENV=production"
+    run "cd #{fetch(:current_path)}; rake db:seed RAILS_ENV=production"
   end
 
 end

@@ -58,7 +58,8 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 gem 'devise'
 
