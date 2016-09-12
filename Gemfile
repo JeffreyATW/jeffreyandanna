@@ -60,6 +60,7 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
+gem 'capistrano-passenger'
 
 gem 'devise'
 

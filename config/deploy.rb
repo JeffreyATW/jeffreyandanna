@@ -10,6 +10,8 @@ set :repo_url, 'git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/home/jeffreyatw/webapps/jeffreyandannarails'
 
+set :dotenv_role, [:app, :web]
+
 # Default value for :scm is :git
 # set :scm, :git
 
@@ -45,7 +47,16 @@ namespace :deploy do
   task :restart do
     run "#{fetch(:deploy_to)}/bin/restart"
   end
+
+  task :create_symlink do
+    on roles(:app) do
+        execute "cd #{fetch(:release_path)}; ln -s #{fetch(:deploy_to)}/shared/.env .env"
+        info "Created environment file"
+    end
+  end
 end
+
+before 'deploy:assets:precompile', "deploy:create_symlink"
 
 namespace :db do
 
