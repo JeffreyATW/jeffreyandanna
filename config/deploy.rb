@@ -45,7 +45,9 @@ set :tmp_dir, "#{fetch(:deploy_to)}/tmp"
 namespace :deploy do
   desc "Restart nginx"
   task :restart do
-    execute "#{fetch(:deploy_to)}/bin/restart"
+    on roles(:app) do
+      execute "#{fetch(:deploy_to)}/bin/restart"
+    end
   end
 end
 after :deploy, 'deploy:restart'
@@ -54,8 +56,10 @@ namespace :db do
 
   desc "Populates the Production Database"
   task :seed do
-    puts "\n\n=== Populating the Production Database! ===\n\n"
-    execute "cd #{fetch(:current_path)}; rake db:seed RAILS_ENV=production"
+    on roles(:app) do
+      puts "\n\n=== Populating the Production Database! ===\n\n"
+      execute "cd #{fetch(:current_path)}; rake db:seed RAILS_ENV=production"
+    end
   end
 
 end
