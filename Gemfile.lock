@@ -157,7 +157,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-sass-images (0.5)
+    rails-sass-images (1.0.3)
       dimensions (> 0)
       mime-types (> 0)
       sass (> 0)
