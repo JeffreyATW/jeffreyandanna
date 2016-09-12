@@ -37,7 +37,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (4.0.2.2)
+    autoprefixer-rails (6.4.1.1)
       execjs
     bcrypt (3.1.10)
     builder (3.2.2)
@@ -76,7 +76,7 @@ GEM
       railties (~> 4.0)
     erubis (2.7.0)
     excon (0.45.3)
-    execjs (2.5.2)
+    execjs (2.7.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
@@ -247,3 +247,9 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier (>= 1.0.3)
+
+RUBY VERSION
+   ruby 2.2.5p319
+
+BUNDLED WITH
+   1.13.0
