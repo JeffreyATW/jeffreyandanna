@@ -55,8 +55,6 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-passenger (0.2.0)
-      capistrano (~> 3.0)
     capistrano-rails (1.1.7)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -235,9 +233,8 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   byebug
-  capistrano-bundler
-  capistrano-passenger
-  capistrano-rails
+  capistrano-bundler (~> 1.1)
+  capistrano-rails (~> 1.1)
   devise
   dotenv-rails
   feedjira
