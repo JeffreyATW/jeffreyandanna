@@ -58,9 +58,10 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano-rails'
-gem 'capistrano-bundler'
-gem 'capistrano-passenger'
+group :development do
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+end
 
 gem 'devise'
 
