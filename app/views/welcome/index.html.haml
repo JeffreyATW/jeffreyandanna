@@ -9,9 +9,13 @@
   %title Jeffrey and Anna
   %meta{:content => "Jeffrey and Anna's Website!", :name => "description"}
   %meta{:content => "width=device-width, initial-scale=1, user-scalable=no", :name => "viewport"}
-  %meta{:content => '/og-image.png', :property => 'og:image'}
+  %meta{:content => "#{request.protocol}#{request.host}#{request.port ? ":#{request.port}" : ''}/og-image.png", :property => 'og:image'}
   %meta{:content => '1200', :property => 'og:image:width'}
   %meta{:content => '630', :property => 'og:image:height'}
+  %meta{:content => 'website', :property => 'og:type'}
+  %meta{:content => 'summary_large_image', :name => 'twitter:card'}
+  %meta{:content => '@JeffreyATW', :name => 'twitter:site'}
+  %meta{:content => '@JeffreyATW', :name => 'twitter:creator'}
   = csrf_meta_tags
   %link{:rel => "alternate", :type => "application/rss+xml", :title => "Jeffrey and Anna &raquo; Feed", :href => "/blog/feed/"}
   = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Imprima|Carter+One"
