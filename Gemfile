@@ -57,8 +57,8 @@ gem 'jquery-rails'
 
 # Deploy with Capistrano
 group :development do
-  gem 'capistrano-rails',   '~> 1.1', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rails',   '~> 1.6.1', require: false
+  gem 'capistrano-bundler', '~> 1.6.0', require: false
 end
 
 gem 'devise'
