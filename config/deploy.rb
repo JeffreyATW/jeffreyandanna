@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.6.1'
+lock '3.14.1'
 
 set :application, "jeffreyandanna"
 set :repo_url, 'git@jeffreyandanna.github.com:JeffreyATW/jeffreyandanna.git'
