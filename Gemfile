@@ -1,9 +1,9 @@
-ruby '2.2.10'
+ruby '2.6.6'
 source 'https://rubygems.org'
 
 # Run `gem install mailcatcher` (do not add to Gemfile) to locally test mailers.
 
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 4.2.11.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,6 +13,8 @@ gem 'feedjira'
 gem 'rails_admin'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
+
+gem 'bigdecimal', '1.3.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,12 +27,8 @@ gem 'autoprefixer-rails'
 
 gem 'uglifier', '>= 1.0.3'
 
-group :development do
-  gem 'byebug'
-end
-
 group :development, :production do
-  gem 'mysql2'
+  gem 'mysql2', '>=0.5.3'
 end
 
 group :test, :development do
@@ -39,7 +37,7 @@ end
 
 group :staging do
   gem 'rails_12factor'
-  gem 'pg'
+  gem 'pg', '>=1.2.3'
 end
 
 group :production do
