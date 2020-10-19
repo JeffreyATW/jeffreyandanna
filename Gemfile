@@ -41,7 +41,7 @@ group :staging do
 end
 
 group :production do
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', '>=0.12.3', :platforms => :ruby
 end
 
 gem 'jquery-rails'

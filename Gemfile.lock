@@ -114,7 +114,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    libv8 (3.16.14.11)
+    libv8 (3.16.14.19)
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -226,8 +226,8 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
       ref
     thor (1.0.1)
     thread_safe (0.3.6)
@@ -263,7 +263,7 @@ DEPENDENCIES
   rails_admin
   sass-rails
   sqlite3
-  therubyracer
+  therubyracer (>= 0.12.3)
   uglifier (>= 1.0.3)
 
 RUBY VERSION
