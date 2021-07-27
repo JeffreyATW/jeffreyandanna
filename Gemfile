@@ -27,8 +27,8 @@ gem 'autoprefixer-rails'
 
 gem 'uglifier', '>= 1.0.3'
 
-group :development, :production do
-  gem 'mysql2', '>=0.5.3'
+group :development, :production, :staging do
+  gem 'pg', '~> 0.18.4'
 end
 
 group :test, :development do
@@ -37,7 +37,6 @@ end
 
 group :staging do
   gem 'rails_12factor'
-  gem 'pg', '>=1.2.3'
 end
 
 group :production do
