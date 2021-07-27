@@ -10,7 +10,7 @@ gem 'rails', '~> 4.2.11.3'
 
 gem 'haml'
 gem 'feedjira'
-gem 'rails_admin'
+gem 'rails_admin', '~> 1.4.3'
 gem 'rabl'
 gem 'dotenv-rails', :groups => [:development, :test, :production]
 
