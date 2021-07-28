@@ -1,4 +1,4 @@
-class Invitation < ActiveRecord::Base
+class Invitation < ApplicationRecord
   has_many :guests, :dependent => :destroy, :inverse_of => :invitation
   accepts_nested_attributes_for :guests, :allow_destroy => true
 

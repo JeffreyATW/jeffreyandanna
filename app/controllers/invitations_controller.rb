@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
-  before_filter :find_rsvp, :only => %w{edit update}
-  before_filter :authenticate_user!, :only => 'index'
+  before_action :find_rsvp, :only => %w{edit update}
+  before_action :authenticate_user!, :only => 'index'
   layout false
 
   def index

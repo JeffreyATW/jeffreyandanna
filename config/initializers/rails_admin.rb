@@ -169,7 +169,7 @@ RailsAdmin.config do |config|
          pretty_value do
            # reload object in case invitations were searched for guest names.
            # without reloading, only the guests that match the search will be returned.
-           bindings[:object].guests(true)
+           bindings[:object].guests.reload
            pretty_value
          end
        end

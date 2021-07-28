@@ -1,4 +1,4 @@
-class Guest < ActiveRecord::Base
+class Guest < ApplicationRecord
   belongs_to :invitation, :inverse_of => :guests
   belongs_to :table, :inverse_of => :guests
 

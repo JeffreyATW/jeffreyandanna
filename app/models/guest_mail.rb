@@ -1,2 +1,2 @@
-class GuestMail < ActiveRecord::Base
+class GuestMail < ApplicationRecord
 end

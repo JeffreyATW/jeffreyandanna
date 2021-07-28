@@ -1,6 +1,6 @@
 require 'rabl'
 class TablesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   Rabl.configure do |config|
     config.include_json_root = false
