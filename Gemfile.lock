@@ -152,7 +152,7 @@ GEM
     rabl (0.14.5)
       activesupport (>= 2.3.14)
     racc (1.6.1)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
